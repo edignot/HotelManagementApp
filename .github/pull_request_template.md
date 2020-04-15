@@ -27,8 +27,8 @@
 - [ ]  test/hotel-test.js
 - [ ]  test/room-test.js
 - [ ]  test/user-test.js
-- [ ]  test/booking-test-data.js
-- [ ]  test/room-test-data.js
-- [ ]  test/user-test-data.js
+- [ ]  test/bookings-test-data.js
+- [ ]  test/rooms-test-data.js
+- [ ]  test/users-test-data.js
 
 
