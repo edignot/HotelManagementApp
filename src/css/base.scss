@@ -1,6 +1,11 @@
-/* This is an example of using Sass, otherwise plain CSS works too*/
-$primary-background: pink;
+// @import '.css/_normalize.scss';
+@import './_variables';
+@import './_mixins';
 
-body {
-  background-color: $primary-background;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Lato, Arial, sans-serif;
+  font-weight: 200;
 }
