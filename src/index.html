@@ -2,14 +2,56 @@
 <html lang="en-US">
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Webpack Starter Kit</title>
     <link href="https://fonts.googleapis.com/css?family=Lato:100,200,300,400,700,900&display=swap" rel="stylesheet">
   </head>
   <body>
-    <h1>Webpack Starter Kit</h1>
+    <header>
+      <h1>Overlook</h1>
+      <p>Hotel Management Tool</p>
+    </header>
+    <main>
 
-    <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
+<!-- Main login -->
+      <section class="main-login">
+        <button>User Login</button>
+        <button>Admin Login</button>
+      </section>
+<!-- User login -->
+      <section class="main-user-login">
+        <section class="user-login-form">
+          <label for="user-login-input"><ion-icon name="person-outline"></ion-icon></label>
+          <input type="text" id="user-login-input" placeholder="username">
+          <label for="user-password-input"><ion-icon name="lock-closed-outline"></ion-icon></label>
+          <input type="password" id="user-password-input" placeholder="password">
+          <button>LOG IN</button>
+          <a href="#"><p><p>Forgot password?</p></p></a>
+        </section>
+      </section>
+<!-- Admin login -->
+      <section class="main-admin-login">
+        <section class="admin-login-form">
+          <label for="admin-login-input"><ion-icon name="person-outline"></ion-icon></label>
+          <input type="text" id="admin-login-input" placeholder="username">
+          <label for="admin-password-input"><ion-icon name="lock-closed-outline"></ion-icon></label>
+          <input type="password" id="admin-password-input" placeholder="password">
+          <button>LOG IN</button>
+          <a href="#"><p><p>Forgot password?</p></p></a>
+        </section>
+      </section>
 
-    <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
+    </main>
+
+    <footer>
+      <ion-icon name="mail"></ion-icon>
+      <ion-icon name="logo-instagram"></ion-icon>
+      <ion-icon name="logo-facebook"></ion-icon>
+      <ion-icon name="logo-twitter"></ion-icon>
+       <p class="footer">Copyright &copy 2020 Overlook. All rights reserved.</p>
+    </footer>
+
+
+    <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
   </body>
 </html>
