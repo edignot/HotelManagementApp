@@ -19,8 +19,27 @@
   font-weight: 300;
 }
 
-@mixin login() {
+@mixin login {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+@mixin button($font, $width, $padding) {
+  color: $accent-medium;
+  font-size: $font;
+  font-weight: 300;
+  background-color: transparent;
+  border: 1px solid $accent-medium;
+  width: $width;
+  margin-top: 30px;
+  padding: $padding;
+  border-radius: 7px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+}
+
+@mixin buttonHover {
+  transition: background-color 1s, color 1s;
+  background-color: $accent-medium;
+  color: $font-light;
 }

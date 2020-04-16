@@ -18,22 +18,15 @@
 .login {
   @include login();
 
+  .login-item {
+    width: 100%;
+  }
+
   button {
-    color: $accent-medium;
-    font-size: 2rem;
-    font-weight: 300;
-    background-color: transparent;
-    border: 1px solid $accent-medium;
-    width: 50%;
-    margin-top: 30px;
-    padding: 15px;
-    border-radius: 7px;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+    @include button(2rem, 50%, 15px);
 
     &:hover {
-      transition: background-color 1s, color 1s;
-      background-color: $accent-medium;
-      color: $font-light;
+      @include buttonHover();
     }
   }
 }

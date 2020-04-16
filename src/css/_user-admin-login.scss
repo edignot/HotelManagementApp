@@ -1,0 +1,60 @@
+.user-header,
+.admin-header {
+  @include header(40vh);
+  background-image: linear-gradient(rgba(2, 44, 116, 0.425), rgba(2, 44, 116, 0.9)), url(../images/hotel2.jpg);
+
+  .title-wrapper {
+    margin: auto;
+  }
+
+  h1 {
+    @include h1();
+  }
+
+  p {
+    @include headerP();
+  }
+}
+
+.user-login,
+.admin-login {
+  @include login();
+  margin-top: 30px;
+
+  .login-item {
+    display: flex;
+    padding: 15px;
+    width: 80%;
+
+    input {
+      width: 100%;
+      padding: 15px;
+      margin: 0;
+      border-radius: 0 7px 7px 0;
+      border: 1px solid $accent-medium;
+      font-size: 1.2rem;
+    }
+
+    label {
+      background-color: $accent-medium;
+      color: $font-light;
+      padding: 15px;
+      border-radius: 7px 0 0 7px;
+      border: 1px solid $accent-medium;
+    }
+  }
+
+  button {
+    @include button(1.6rem, 50%, 10px);
+    width: 40%;
+
+    &:hover {
+      @include buttonHover();
+    }
+  }
+
+  a {
+    color: inherit;
+    margin-top: 15px;
+  }
+}

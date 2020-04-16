@@ -16,6 +16,7 @@ const adminHeader = $('.admin-header');
 const login = $('.login');
 const userLogin = $('.user-login');
 const adminLogin = $('.admin-login');
+const adminPage = $('.admin');
 
 
 let data = {};
@@ -37,6 +38,8 @@ function displayLogin() {
   userLogin.hide();
   adminHeader.hide();
   adminLogin.hide();
+  adminHeader.hide();
+  adminPage.hide();
 }
 
 $('#user-login').click(function () {
@@ -54,6 +57,7 @@ function displayUserLogin() {
   userLogin.show();
   adminHeader.hide();
   adminLogin.hide();
+  adminPage.hide();
 }
 
 function displayAdminLogin() {
@@ -63,4 +67,5 @@ function displayAdminLogin() {
   userLogin.hide();
   adminHeader.show();
   adminLogin.show();
+  adminPage.hide();
 }
