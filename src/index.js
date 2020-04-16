@@ -11,20 +11,13 @@ import {
 import './images/hotel1.jpg'
 
 let data = {};
+let user = null;
 
 Promise.all([usersPromise, roomsPromise, bookingsPromise]).then(response => data = {
   users: response[0],
   rooms: response[1],
   bookings: response[2],
-}).then(() => startApp());
-
-function startApp() {
-  displayLogin();
-}
-
-function displayLogin() {
-  // do domething on a page load
-}
+})
 
 $('.title-wrapper').click(() => {
   window.location = './index.html';
@@ -43,7 +36,7 @@ $('#user-login-btn').click(() => {
   let password = $('#user-password-input');
   let customer = username.val().split('').splice(0, 8).join('');
   let customerId = Number(username.val().split('').splice(8).join(''));
-  let user = findUser(customerId);
+  user = findUser(customerId);
   if (user && password.val() === 'overlook2020' && customer === 'customer') {
     window.location = './user.html';
   }
@@ -54,13 +47,13 @@ $('#user-login-btn').click(() => {
     resetLoginError(password);
   }
 
-  if ((user || customer === 'customer') && password.val() !== 'overlook2020') {
+  if (user && customer === 'customer' && password.val() !== 'overlook2020') {
     password.val('');
-    displayLoginError(password);
     resetLoginError(username);
+    displayLoginError(password);
   }
 
-  if ((user || customer !== 'customer') && password.val() !== 'overlook2020') {
+  if ((!user || customer !== 'customer') && password.val() !== 'overlook2020') {
     username.val('');
     password.val('');
     displayLoginError(username);
