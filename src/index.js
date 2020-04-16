@@ -39,33 +39,63 @@ $('#admin-login').click(() => {
 });
 
 $('#user-login-btn').click(() => {
-  window.location = './user.html';
+  let username = $('#user-login-input');
+  let password = $('#user-password-input');
+  let customer = username.val().split('').splice(0, 8).join('');
+  let customerId = Number(username.val().split('').splice(8).join(''));
+  let user = findUser(customerId);
+  if (user && password.val() === 'overlook2020' && customer === 'customer') {
+    window.location = './user.html';
+  }
+
+  if ((!user || customer !== 'customer') && password.val() === 'overlook2020') {
+    username.val('');
+    displayLoginError(username);
+    resetLoginError(password);
+  }
+
+  if ((user || customer === 'customer') && password.val() !== 'overlook2020') {
+    password.val('');
+    displayLoginError(password);
+    resetLoginError(username);
+  }
+
+  if ((user || customer !== 'customer') && password.val() !== 'overlook2020') {
+    username.val('');
+    password.val('');
+    displayLoginError(username);
+    displayLoginError(password);
+  }
 });
 
+function findUser(customerId) {
+  return data.users.find(user => user.id === customerId)
+}
+
 $('#admin-login-btn').click(() => {
-  let loginInput = $('#admin-login-input');
-  let passwordInput = $('#admin-password-input');
-  if (loginInput.val() === 'manager' && passwordInput.val() === 'overlook2020') {
+  let username = $('#admin-login-input');
+  let password = $('#admin-password-input');
+  if (username.val() === 'manager' && password.val() === 'overlook2020') {
     window.location = './admin.html';
   }
 
-  if (loginInput.val() !== 'manager' && passwordInput.val() === 'overlook2020') {
-    loginInput.val('');
-    displayLoginError(loginInput);
-    resetLoginError(passwordInput);
+  if (username.val() !== 'manager' && password.val() === 'overlook2020') {
+    username.val('');
+    displayLoginError(username);
+    resetLoginError(password);
   }
 
-  if (loginInput.val() === 'manager' && passwordInput.val() !== 'overlook2020') {
-    passwordInput.val('');
-    displayLoginError(passwordInput);
-    resetLoginError(loginInput);
+  if (username.val() === 'manager' && password.val() !== 'overlook2020') {
+    password.val('');
+    displayLoginError(password);
+    resetLoginError(username);
   }
 
-  if (loginInput.val() !== 'manager' && passwordInput.val() !== 'overlook2020') {
-    loginInput.val('');
-    passwordInput.val('');
-    displayLoginError(loginInput);
-    displayLoginError(passwordInput);
+  if (username.val() !== 'manager' && password.val() !== 'overlook2020') {
+    username.val('');
+    password.val('');
+    displayLoginError(username);
+    displayLoginError(password);
   }
 });
 
