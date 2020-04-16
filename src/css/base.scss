@@ -9,3 +9,80 @@
   font-family: Lato, Arial, sans-serif;
   font-weight: 200;
 }
+
+.main-header {
+  display: flex;
+  width: 100vw;
+  color: $font-light;
+  text-align: center;
+  height: 55vh;
+  background-color: $background-medium;
+  background-image: linear-gradient(rgba(2, 44, 116, 0.425), rgba(2, 44, 116, 0.9)), url(../images/hotel1.jpg);
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+
+  .title-wrapper {
+    margin: auto;
+  }
+
+  h1 {
+    font-size: 7rem;
+  }
+
+  p {
+    font-size: 1.5rem;
+    font-weight: 300;
+  }
+}
+
+.main-login {
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  button {
+    color: $accent-medium;
+    font-size: 2rem;
+    font-weight: 300;
+    background-color: transparent;
+    border: 1px solid $accent-medium;
+    width: 50%;
+    margin-top: 30px;
+    padding: 15px;
+    border-radius: 7px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+
+    &:hover {
+      transition: background-color 1s, color 1s;
+      background-color: $accent-medium;
+      color: $font-light;
+    }
+  }
+}
+
+footer {
+  color: $font-light;
+  background: $background-dark;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  text-align: center;
+  margin-top: 300px;
+
+  .media-icons {
+    display: flex;
+    justify-content: center;
+
+    .media-icon {
+      font-size: 2rem;
+      filter: opacity(80%);
+      padding: 15px;
+    }
+  }
+
+  p {
+    padding-bottom: 15px;
+  }
+}

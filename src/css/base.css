@@ -6,4 +6,98 @@
   font-family: Lato, Arial, sans-serif;
   font-weight: 200;
 }
+
+.main-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100vw;
+  color: #fafafa;
+  text-align: center;
+  height: 55vh;
+  background-color: #b3b3b3;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(2, 44, 116, 0.425)), to(rgba(2, 44, 116, 0.9))), url(../images/hotel1.jpg);
+  background-image: linear-gradient(rgba(2, 44, 116, 0.425), rgba(2, 44, 116, 0.9)), url(../images/hotel1.jpg);
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
+
+.main-header .title-wrapper {
+  margin: auto;
+}
+
+.main-header h1 {
+  font-size: 7rem;
+}
+
+.main-header p {
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+
+.main-login {
+  border-radius: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.main-login button {
+  color: #132E88;
+  font-size: 2rem;
+  font-weight: 300;
+  background-color: transparent;
+  border: 1px solid #132E88;
+  width: 50%;
+  margin-top: 30px;
+  padding: 15px;
+  border-radius: 7px;
+  -webkit-box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+          box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+}
+
+.main-login button:hover {
+  -webkit-transition: background-color 1s, color 1s;
+  transition: background-color 1s, color 1s;
+  background-color: #132E88;
+  color: #fafafa;
+}
+
+footer {
+  color: #fafafa;
+  background: #222222;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  text-align: center;
+  margin-top: 300px;
+}
+
+footer .media-icons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+footer .media-icons .media-icon {
+  font-size: 2rem;
+  -webkit-filter: opacity(80%);
+          filter: opacity(80%);
+  padding: 15px;
+}
+
+footer p {
+  padding-bottom: 15px;
+}
 /*# sourceMappingURL=base.css.map */
