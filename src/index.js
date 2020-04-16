@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import './css/base.scss';
-import "./css/_media-queries.scss";
+import './css/_media-queries.scss';
 import Hotel from '../src/Hotel';
 import BookingData from '../src/BookingData';
 import {
@@ -9,15 +9,6 @@ import {
   bookingsPromise
 } from "./utils.js";
 import './images/hotel1.jpg'
-
-const header = $('.header');
-const userHeader = $('.user-header');
-const adminHeader = $('.admin-header');
-const login = $('.login');
-const userLogin = $('.user-login');
-const adminLogin = $('.admin-login');
-const adminPage = $('.admin');
-
 
 let data = {};
 
@@ -32,40 +23,25 @@ function startApp() {
 }
 
 function displayLogin() {
-  header.show();
-  login.show();
-  userHeader.hide();
-  userLogin.hide();
-  adminHeader.hide();
-  adminLogin.hide();
-  adminHeader.hide();
-  adminPage.hide();
+  // do domething on a page load
 }
 
-$('#user-login').click(function () {
-  displayUserLogin();
-})
+$('.title-wrapper').click(() => {
+  window.location = './index.html';
+});
 
-$('#admin-login').click(function () {
-  displayAdminLogin();
-})
+$('#user-login').click(() => {
+  window.location = './user-login.html';
+});
 
-function displayUserLogin() {
-  header.hide();
-  login.hide();
-  userHeader.show();
-  userLogin.show();
-  adminHeader.hide();
-  adminLogin.hide();
-  adminPage.hide();
-}
+$('#admin-login').click(() => {
+  window.location = './admin-login.html';
+});
 
-function displayAdminLogin() {
-  header.hide();
-  login.hide();
-  userHeader.hide();
-  userLogin.hide();
-  adminHeader.show();
-  adminLogin.show();
-  adminPage.hide();
-}
+$('#user-login-btn').click(() => {
+  window.location = './user.html';
+});
+
+$('#admin-login-btn').click(() => {
+  window.location = './admin.html';
+});

@@ -9,19 +9,30 @@
 </head>
 
 <body>
-  <header class="header">
+  <header class="login-header">
     <div class="title-wrapper">
       <h1>Overlook</h1>
       <p>Hotel Management Tool</p>
     </div>
   </header>
-  <main>
-    <section class="login">
-      <button id="user-login">User Login</button>
-      <button id="admin-login">Admin Login</button>
-    </section>
+  <main class="admin-login">
+    <div class="login-item">
+      <label for="admin-login-input">
+        <ion-icon name="person-outline"></ion-icon>
+      </label>
+      <input type="text" id="admin-login-input" placeholder="username">
+    </div>
+    <div class="login-item">
+      <label for="admin-password-input">
+        <ion-icon name="lock-closed-outline"></ion-icon>
+      </label>
+      <input type="password" id="admin-password-input" placeholder="password">
+    </div>
+    <button id="admin-login-btn">LOG IN</button>
+    <a href="#">
+      <p>Forgot password?</p>
+    </a>
   </main>
-
   <footer>
     <div class="media-icons">
       <a href="https://mail.google.com/" target="_blank">

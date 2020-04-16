@@ -66,7 +66,8 @@
 }
 
 .user-header,
-.admin-header {
+.admin-header,
+.login-header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -83,17 +84,20 @@
 }
 
 .user-header .title-wrapper,
-.admin-header .title-wrapper {
+.admin-header .title-wrapper,
+.login-header .title-wrapper {
   margin: auto;
 }
 
 .user-header h1,
-.admin-header h1 {
+.admin-header h1,
+.login-header h1 {
   font-size: 7rem;
 }
 
 .user-header p,
-.admin-header p {
+.admin-header p,
+.login-header p {
   font-size: 1.5rem;
   font-weight: 300;
 }
@@ -220,5 +224,9 @@ footer p {
           box-sizing: border-box;
   font-family: Lato, Arial, sans-serif;
   font-weight: 200;
+}
+
+.title-wrapper {
+  cursor: pointer;
 }
 /*# sourceMappingURL=base.css.map */

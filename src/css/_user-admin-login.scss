@@ -1,5 +1,6 @@
 .user-header,
-.admin-header {
+.admin-header,
+.login-header {
   @include header(40vh);
   background-image: linear-gradient(rgba(2, 44, 116, 0.425), rgba(2, 44, 116, 0.9)), url(../images/hotel2.jpg);
 
