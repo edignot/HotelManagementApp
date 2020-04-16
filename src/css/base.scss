@@ -1,6 +1,9 @@
 // @import '.css/_normalize.scss';
 @import './_variables';
 @import './_mixins';
+@import './_login';
+@import './_user-admin-login';
+@import './_footer';
 
 * {
   margin: 0;

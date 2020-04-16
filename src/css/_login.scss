@@ -1,0 +1,32 @@
+.header {
+  @include header(60vh);
+  background-image: linear-gradient(rgba(2, 44, 116, 0.425), rgba(2, 44, 116, 0.9)), url(../images/hotel1.jpg);
+
+  .title-wrapper {
+    margin: auto;
+  }
+
+  h1 {
+    @include h1();
+  }
+
+  p {
+    @include headerP();
+  }
+}
+
+.login {
+  @include login();
+
+  .login-item {
+    width: 100%;
+  }
+
+  button {
+    @include button(2rem, 50%, 15px);
+
+    &:hover {
+      @include buttonHover();
+    }
+  }
+}

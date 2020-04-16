@@ -1,0 +1,34 @@
+footer {
+  color: $font-light;
+  background: $background-dark;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  text-align: center;
+  margin-top: 300px;
+
+  p {
+    padding-bottom: 15px;
+    filter: opacity(50%);
+  }
+}
+
+.media-icons {
+  display: flex;
+  justify-content: center;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+    filter: opacity(80%);
+
+    &:hover {
+      filter: opacity(100%);
+    }
+  }
+
+  .media-icon {
+    font-size: 2rem;
+    padding: 15px;
+  }
+}

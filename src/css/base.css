@@ -1,3 +1,218 @@
+.header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100vw;
+  color: #fafafa;
+  text-align: center;
+  height: 60vh;
+  background-color: #b3b3b3;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(2, 44, 116, 0.425)), to(rgba(2, 44, 116, 0.9))), url(../images/hotel1.jpg);
+  background-image: linear-gradient(rgba(2, 44, 116, 0.425), rgba(2, 44, 116, 0.9)), url(../images/hotel1.jpg);
+}
+
+.header .title-wrapper {
+  margin: auto;
+}
+
+.header h1 {
+  font-size: 7rem;
+}
+
+.header p {
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+
+.login {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.login .login-item {
+  width: 100%;
+}
+
+.login button {
+  color: #132E88;
+  font-size: 2rem;
+  font-weight: 300;
+  background-color: transparent;
+  border: 1px solid #132E88;
+  width: 50%;
+  margin-top: 30px;
+  padding: 15px;
+  border-radius: 7px;
+  -webkit-box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+          box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+}
+
+.login button:hover {
+  -webkit-transition: background-color 1s, color 1s;
+  transition: background-color 1s, color 1s;
+  background-color: #132E88;
+  color: #fafafa;
+}
+
+.user-header,
+.admin-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100vw;
+  color: #fafafa;
+  text-align: center;
+  height: 40vh;
+  background-color: #b3b3b3;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(2, 44, 116, 0.425)), to(rgba(2, 44, 116, 0.9))), url(../images/hotel2.jpg);
+  background-image: linear-gradient(rgba(2, 44, 116, 0.425), rgba(2, 44, 116, 0.9)), url(../images/hotel2.jpg);
+}
+
+.user-header .title-wrapper,
+.admin-header .title-wrapper {
+  margin: auto;
+}
+
+.user-header h1,
+.admin-header h1 {
+  font-size: 7rem;
+}
+
+.user-header p,
+.admin-header p {
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+
+.user-login,
+.admin-login {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 30px;
+}
+
+.user-login .login-item,
+.admin-login .login-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 15px;
+  width: 80%;
+}
+
+.user-login .login-item input,
+.admin-login .login-item input {
+  width: 100%;
+  padding: 15px;
+  margin: 0;
+  border-radius: 0 7px 7px 0;
+  border: 1px solid #132E88;
+  font-size: 1.2rem;
+}
+
+.user-login .login-item label,
+.admin-login .login-item label {
+  background-color: #132E88;
+  color: #fafafa;
+  padding: 15px;
+  border-radius: 7px 0 0 7px;
+  border: 1px solid #132E88;
+}
+
+.user-login button,
+.admin-login button {
+  color: #132E88;
+  font-size: 1.6rem;
+  font-weight: 300;
+  background-color: transparent;
+  border: 1px solid #132E88;
+  width: 50%;
+  margin-top: 30px;
+  padding: 10px;
+  border-radius: 7px;
+  -webkit-box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+          box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+  width: 40%;
+}
+
+.user-login button:hover,
+.admin-login button:hover {
+  -webkit-transition: background-color 1s, color 1s;
+  transition: background-color 1s, color 1s;
+  background-color: #132E88;
+  color: #fafafa;
+}
+
+.user-login a,
+.admin-login a {
+  color: inherit;
+  margin-top: 15px;
+}
+
+footer {
+  color: #fafafa;
+  background: #222222;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  text-align: center;
+  margin-top: 300px;
+}
+
+footer p {
+  padding-bottom: 15px;
+  -webkit-filter: opacity(50%);
+          filter: opacity(50%);
+}
+
+.media-icons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.media-icons a {
+  text-decoration: none;
+  color: inherit;
+  -webkit-filter: opacity(80%);
+          filter: opacity(80%);
+}
+
+.media-icons a:hover {
+  -webkit-filter: opacity(100%);
+          filter: opacity(100%);
+}
+
+.media-icons .media-icon {
+  font-size: 2rem;
+  padding: 15px;
+}
+
 * {
   margin: 0;
   padding: 0;

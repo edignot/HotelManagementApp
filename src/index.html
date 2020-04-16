@@ -1,15 +1,123 @@
 <!DOCTYPE html>
 <html lang="en-US">
-  <head>
-    <meta charset="UTF-8">
-    <title>Webpack Starter Kit</title>
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,200,300,400,700,900&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <h1>Webpack Starter Kit</h1>
 
-    <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Webpack Starter Kit</title>
+  <link href="https://fonts.googleapis.com/css?family=Lato:100,200,300,400,700,900&display=swap" rel="stylesheet">
+</head>
 
-    <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
-  </body>
+<body>
+  <header>
+    <!-- Main header -->
+    <section class="header">
+      <div class="title-wrapper">
+        <h1>Overlook</h1>
+        <p>Hotel Management Tool</p>
+      </div>
+    </section>
+    <!-- User header -->
+    <section class="user-header">
+      <div class="title-wrapper">
+        <h1>Overlook</h1>
+        <p>Hotel Management Tool</p>
+      </div>
+    </section>
+    <!-- Admin header -->
+    <section class="admin-header">
+      <div class="title-wrapper">
+        <h1>Overlook</h1>
+        <p>Hotel Management Tool</p>
+      </div>
+    </section>
+  </header>
+  <main>
+
+    <!-- Main login -->
+    <section class="login">
+      <button id="user-login">User Login</button>
+      <button id="admin-login">Admin Login</button>
+    </section>
+    <!-- User login -->
+    <section class="user-login">
+      <div class="login-item">
+        <label for="user-login-input">
+          <ion-icon name="person-outline"></ion-icon>
+        </label>
+        <input type="text" id="user-login-input" placeholder="username">
+      </div>
+      <div class="login-item">
+        <label for="user-password-input">
+          <ion-icon name="lock-closed-outline"></ion-icon>
+        </label>
+        <input type="password" id="user-password-input" placeholder="password">
+      </div>
+      <button>LOG IN</button>
+      <a href="#">
+        <p>Forgot password?</p>
+      </a>
+    </section>
+    <!-- Admin login -->
+    <section class="admin-login">
+      <div class="login-item">
+        <label for="admin-login-input">
+          <ion-icon name="person-outline"></ion-icon>
+        </label>
+        <input type="text" id="admin-login-input" placeholder="username">
+      </div>
+      <div class="login-item">
+        <label for="admin-password-input">
+          <ion-icon name="lock-closed-outline"></ion-icon>
+        </label>
+        <input type="password" id="admin-password-input" placeholder="password">
+      </div>
+      <button>LOG IN</button>
+      <a href="#">
+        <p>Forgot password?</p>
+      </a>
+    </section>
+    <!-- Main user -->
+    <section class="user">
+
+    </section>
+    <!-- Main admin -->
+    <section class="admin">
+      <nav>
+        <ul class="nav">
+          <li>
+            <div class="search-wrapper">
+              <button type="submit" name="button" class="search-user-btn">
+                <ion-icon name="search-outline"></ion-icon>
+              </button>
+              <input type="search" name="search" class="search-user-input" placeholder="Search User by Name">
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </section>
+  </main>
+
+  <footer>
+    <div class="media-icons">
+      <a href="https://mail.google.com/" target="_blank">
+        <ion-icon class="media-icon" name="mail"></ion-icon>
+      </a>
+      <a href="https://www.instagram.com/" target="_blank">
+        <ion-icon class="media-icon" name="logo-instagram"></ion-icon>
+      </a>
+      <a href="https://www.facebook.com/" target="_blank">
+        <ion-icon class="media-icon" name="logo-facebook"></ion-icon>
+      </a>
+      <a href="https://twitter.com/" target="_blank">
+        <ion-icon class="media-icon" name="logo-twitter"></ion-icon>
+      </a>
+    </div>
+    <p class="footer">Copyright &copy 2020 Overlook. All rights reserved.</p>
+  </footer>
+
+
+  <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+</body>
+
 </html>
