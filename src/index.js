@@ -39,6 +39,7 @@ $('#user-login-btn').click(() => {
   user = findUser(customerId);
   if (user && password.val() === 'overlook2020' && customer === 'customer') {
     window.location = './user.html';
+    displayUser();
   }
 
   if ((!user || customer !== 'customer') && password.val() === 'overlook2020') {
@@ -98,4 +99,8 @@ function displayLoginError(input) {
 
 function resetLoginError(input) {
   input.css('border', '1px #132E88 solid');
+}
+
+function displayUser() {
+
 }

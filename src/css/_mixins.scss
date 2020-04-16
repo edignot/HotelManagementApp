@@ -10,8 +10,8 @@
   background-size: cover;
 }
 
-@mixin h1 {
-  font-size: 7rem;
+@mixin h1($rem) {
+  font-size: $rem;
 }
 
 @mixin headerP {

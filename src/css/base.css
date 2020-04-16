@@ -50,7 +50,7 @@
   font-weight: 300;
   background-color: transparent;
   border: 1px solid #132E88;
-  width: 50%;
+  width: 80%;
   margin-top: 30px;
   padding: 15px;
   border-radius: 7px;
@@ -152,13 +152,12 @@
   font-weight: 300;
   background-color: transparent;
   border: 1px solid #132E88;
-  width: 50%;
+  width: 40%;
   margin-top: 30px;
   padding: 10px;
   border-radius: 7px;
   -webkit-box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
           box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
-  width: 40%;
 }
 
 .user-login button:hover,
@@ -175,11 +174,55 @@
   margin-top: 15px;
 }
 
+.user-bookings {
+  font-size: 1.4rem;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 90%;
+  text-align: center;
+}
+
+.user-booking {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border: 1px solid #132E88;
+  border-left: 10px solid #132E88;
+  border-radius: 7px;
+  margin: 15px;
+  -webkit-box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+          box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+}
+
+.user-booking .left {
+  width: 50%;
+  padding: 15px;
+}
+
+.user-booking .right {
+  width: 50%;
+  padding: 15px;
+}
+
+.user-booking p {
+  font-weight: 300;
+}
+
 footer {
   color: #fafafa;
   background: #222222;
-  position: fixed;
-  bottom: 0;
   width: 100vw;
   text-align: center;
   margin-top: 300px;
