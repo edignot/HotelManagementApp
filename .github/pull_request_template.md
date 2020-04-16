@@ -13,6 +13,10 @@
 - 
 ### Files modified:
 - [ ]  index.html
+- [ ]  user-login.html
+- [ ]  admin-login.html
+- [ ]  user.html
+- [ ]  admin.html
 - [ ]  css/base.scss
 - [ ]  css/variables.scss
 - [ ]  css/mixins.scss
