@@ -43,5 +43,36 @@ $('#user-login-btn').click(() => {
 });
 
 $('#admin-login-btn').click(() => {
-  window.location = './admin.html';
+  let loginInput = $('#admin-login-input');
+  let passwordInput = $('#admin-password-input');
+  if (loginInput.val() === 'manager' && passwordInput.val() === 'overlook2020') {
+    window.location = './admin.html';
+  }
+
+  if (loginInput.val() !== 'manager' && passwordInput.val() === 'overlook2020') {
+    loginInput.val('');
+    displayLoginError(loginInput);
+    resetLoginError(passwordInput);
+  }
+
+  if (loginInput.val() === 'manager' && passwordInput.val() !== 'overlook2020') {
+    passwordInput.val('');
+    displayLoginError(passwordInput);
+    resetLoginError(loginInput);
+  }
+
+  if (loginInput.val() !== 'manager' && passwordInput.val() !== 'overlook2020') {
+    loginInput.val('');
+    passwordInput.val('');
+    displayLoginError(loginInput);
+    displayLoginError(passwordInput);
+  }
 });
+
+function displayLoginError(input) {
+  input.css('border', '1px #fc0015 solid');
+}
+
+function resetLoginError(input) {
+  input.css('border', '1px #132E88 solid');
+}
