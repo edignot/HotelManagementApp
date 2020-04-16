@@ -1,0 +1,39 @@
+.header {
+  @include header(60vh);
+  background-image: linear-gradient(rgba(2, 44, 116, 0.425), rgba(2, 44, 116, 0.9)), url(../images/hotel1.jpg);
+
+  .title-wrapper {
+    margin: auto;
+  }
+
+  h1 {
+    @include h1();
+  }
+
+  p {
+    @include headerP();
+  }
+}
+
+.login {
+  @include login();
+
+  button {
+    color: $accent-medium;
+    font-size: 2rem;
+    font-weight: 300;
+    background-color: transparent;
+    border: 1px solid $accent-medium;
+    width: 50%;
+    margin-top: 30px;
+    padding: 15px;
+    border-radius: 7px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+
+    &:hover {
+      transition: background-color 1s, color 1s;
+      background-color: $accent-medium;
+      color: $font-light;
+    }
+  }
+}
