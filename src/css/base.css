@@ -174,9 +174,48 @@
   margin-top: 15px;
 }
 
+.user-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  background-color: #f3f3f3;
+  text-align: center;
+  font-size: 1.4rem;
+  padding: 30px;
+}
+
+.user-info p {
+  font-weight: 300;
+}
+
+.user-info button {
+  color: #132E88;
+  font-size: 1.4rem;
+  font-weight: 300;
+  background-color: transparent;
+  border: 1px solid #132E88;
+  width: 10%;
+  margin-top: 30px;
+  padding: 5px;
+  border-radius: 7px;
+  -webkit-box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+          box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+  margin-top: 0;
+}
+
+.user-info button:hover {
+  -webkit-transition: background-color 1s, color 1s;
+  transition: background-color 1s, color 1s;
+  background-color: #132E88;
+  color: #fafafa;
+}
+
 .user-bookings {
   font-size: 1.4rem;
-  margin: 0 auto;
+  margin: 30px auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

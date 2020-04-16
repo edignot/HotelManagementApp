@@ -1,6 +1,30 @@
+.user-info {
+  display: flex;
+  justify-content: space-between;
+  background-color: $background-light;
+  text-align: center;
+  font-size: 1.4rem;
+  padding: 30px;
+
+  p {
+    font-weight: 300;
+  }
+
+  button {
+    @include button(1.4rem, 10%, 5px);
+
+    &:hover {
+      @include buttonHover();
+    }
+
+    margin-top: 0;
+
+  }
+}
+
 .user-bookings {
   font-size: 1.4rem;
-  margin: 0 auto;
+  margin: 30px auto;
   display: flex;
   flex-direction: column;
   justify-content: center;

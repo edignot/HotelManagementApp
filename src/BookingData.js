@@ -1,9 +1,10 @@
 class BookingData {
-  constructor(rooms, bookings) {
-   //view bookings 
-   //search bookings
-   
+  constructor(bookings) {
+    this.bookings = bookings;
+  }
 
+  findBookings(id) {
+    return this.bookings.filter(booking => booking.userID === id)
   }
 }
 
