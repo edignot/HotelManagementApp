@@ -232,9 +232,40 @@ function displayRoomsOccupied(today) {
 }
 
 $('.search-user-btn').click(() => {
-  searchUsers();
+  let input = $('.search-user-input').val().toLowerCase();
+  searchUsers(input);
 });
 
-function searchUsers() {
-  console.log(data.users)
+function searchUsers(input) {
+  let foundUsers = [];
+  data.users.forEach(user => {
+    let name = user.name.toLowerCase();
+    let splitName = name.split(' ');
+    if (name === input) {
+      foundUsers.push(user);
+    } else if (input.includes(splitName[0]) || input.includes(splitName[1])) {
+      foundUsers.push(user);
+    }
+  })
+  checkExactMatch(foundUsers, input);
+}
+
+function checkExactMatch(foundUsers, input) {
+  let foundUser;
+  foundUsers.forEach(user => {
+    (user.name.toLowerCase() === input) && (foundUser = user);
+  });
+  foundUser && displayUserInfo(foundUser);
+  !foundUser && checkMatch(foundUsers);
+}
+
+function checkMatch(foundUsers) {
+  (foundUsers.length === 0) && alert('No Users Found');
+  (foundUsers.length === 1) && displayUserInfo(foundUsers[0]);
+  (foundUsers.length > 1) && alert(foundUsers.length);
+}
+
+function displayUserInfo(user) {
+  let userBookings = bookingData.findBookings(user.id);
+  displayUserBookings(userBookings)
 }
