@@ -9,6 +9,7 @@ import {
   bookingsPromise
 } from "./utils.js";
 import './images/hotel1.jpg'
+const moment = require('moment');
 
 let data = {};
 let bookingData;
@@ -132,7 +133,7 @@ $('.user-amount').click(() => {
 
 function getUserData() {
   let user = getLocalStorage('user');
-  let userBookings = bookingData.findBookings(user.id)
+  let userBookings = bookingData.findBookings(user.id);
   displayUserData(user, userBookings);
   displayUserBookings(userBookings);
 }
@@ -148,23 +149,42 @@ function displayUserData(user, userBookings) {
 }
 
 function displayUserBookings(userBookings) {
-  userBookings.forEach(booking => displayBooking(booking));
+  userBookings.forEach(booking => {
+    hotel.rooms.forEach(room => {
+      (room.number === booking.roomNumber) && displayBooking(booking, room);
+    });
+  });
 }
 
-function displayBooking(booking) {
-  $('.user-bookings').append(`
-  <section class="user-booking">
+function displayBooking(booking, room) {
+  $('.user-bookings').prepend(`
+  <section class="user-booking ${checkStatus(booking.date).toLowerCase()}">
   <div class="left">
-    <p class="user-booking-status">Upcoming</p>
-    <p class="user-date">04/20/2020</p>
-    <p class="user-price">450$/night</p>
+    <p class="user-booking-status">${checkStatus(booking.date)}</p>
+    <p class="user-date">${booking.date}</p>
+    <p class="user-price">${room.costPerNight}</p>
   </div>
   <div class="right">
-    <p class="user-room">single room</p>
-    <p class="user-bed">King Bed</p>
-    <p class="user-bed-num">2</p>
+    <p class="user-room">${room.roomType}</p>
+    <p class="user-bed">${room.bedSize}</p>
+    <p class="user-bed-num">beds: ${room.numBeds}</p>
   </div>
 </section>
-
   `);
+}
+
+function checkStatus(date) {
+  let now = moment().format('YYYY/MM/DD');
+  console.log(now);
+  if (now < date) {
+    return 'Upcoming';
+  }
+
+  if (now === date) {
+    return 'Present';
+  }
+
+  if (now > date) {
+    return 'Past';
+  }
 }

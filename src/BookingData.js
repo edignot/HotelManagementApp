@@ -4,7 +4,7 @@ class BookingData {
   }
 
   findBookings(id) {
-    return this.bookings.filter(booking => booking.userID === id)
+    return this.bookings.filter(booking => booking.userID === id);
   }
 }
 

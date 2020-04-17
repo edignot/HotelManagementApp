@@ -43,3 +43,8 @@
   background-color: $accent-medium;
   color: $font-light;
 }
+
+@mixin borderStatus($color1) {
+  border: 1px solid $color1;
+  border-left: 10px solid $color1;
+}

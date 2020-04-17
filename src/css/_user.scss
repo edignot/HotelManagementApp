@@ -35,8 +35,8 @@
 .user-booking {
   display: flex;
   justify-content: space-between;
-  border: 1px solid $accent-medium;
-  border-left: 10px solid $accent-medium;
+  // border: 1px solid $accent-medium;
+  // border-left: 10px solid $accent-medium;
   border-radius: 7px;
   margin: 15px;
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
@@ -54,4 +54,16 @@
   p {
     font-weight: 300;
   }
+}
+
+.past {
+  @include borderStatus($accent-light);
+}
+
+.present {
+  @include borderStatus($alert-success);
+}
+
+.upcoming {
+  @include borderStatus($accent-medium);
 }

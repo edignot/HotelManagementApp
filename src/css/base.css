@@ -237,8 +237,6 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  border: 1px solid #132E88;
-  border-left: 10px solid #132E88;
   border-radius: 7px;
   margin: 15px;
   -webkit-box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
@@ -257,6 +255,21 @@
 
 .user-booking p {
   font-weight: 300;
+}
+
+.past {
+  border: 1px solid #8393C6;
+  border-left: 10px solid #8393C6;
+}
+
+.present {
+  border: 1px solid #00940c;
+  border-left: 10px solid #00940c;
+}
+
+.upcoming {
+  border: 1px solid #132E88;
+  border-left: 10px solid #132E88;
 }
 
 footer {
