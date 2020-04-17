@@ -22,7 +22,7 @@ Promise.all([usersPromise, roomsPromise, bookingsPromise]).then(response => data
   })
   .then(() => {
     bookingData = new BookingData(data.bookings);
-    hotel = new Hotel(data.rooms, bookingData);
+    hotel = new Hotel(data.rooms, data.bookings);
   })
   .catch(error => {
     console.log(error);
@@ -127,7 +127,7 @@ function displayUser() {
   $('.user-info').hide();
 }
 
-// DUMMY FUNCTION, ADDED EVERYTHING THAT IS SUPPOSED TO RUN ON USER PAGE LOAD
+// DUMMY FUNCTION, ADDED EVERYTHING THAT IS SUPPOSED TO RUN ON USER PAGE LOAD  // USERS PAGE //
 $('.user-amount').click(() => {
   getUserData();
 });
@@ -188,4 +188,53 @@ function checkStatus(date) {
   if (now > date) {
     return 'Past';
   }
+}
+
+// DUMMY FUNCTION, ADDED EVERYTHING THAT IS SUPPOSED TO RUN ON USER PAGE LOAD  // ADMIN PAGE //
+$('.admin-info').click(() => {
+  getAdminData();
+});
+
+function getAdminData() {
+  let today = moment().format('YYYY/MM/DD');
+  displayRevenue(today);
+  displayRoomsAvailable(today);
+  displayRoomsBooked(today);
+  displayRoomsOccupied(today);
+}
+
+function displayRevenue(today) {
+  let revenue = hotel.calcRevenue(today);
+  $('.admin-info').append(`
+  <p>Today's</br> Revenue:</br><span>$${revenue}</span></p>
+ `);
+}
+
+function displayRoomsAvailable(today) {
+  let available = hotel.calcRoomsAvailable(today);
+  $('.admin-info').append(`
+  <p>Today's</br>Rooms available:</br><span>${available}</span></p> 
+ `);
+}
+
+function displayRoomsBooked(today) {
+  let booked = hotel.calcRoomsBooked(today);
+  $('.admin-info').append(`
+  <p>Today's</br>Rooms booked:</br><span>${booked}</span></p>
+ `)
+}
+
+function displayRoomsOccupied(today) {
+  let occupied = hotel.calcRoomsOccupied(today);
+  $('.admin-info').append(`
+  <p>Today's</br> Rooms Occupied:</br><span>${occupied}%</span></p>
+ `)
+}
+
+$('.search-user-btn').click(() => {
+  searchUsers();
+});
+
+function searchUsers() {
+  console.log(data.users)
 }
