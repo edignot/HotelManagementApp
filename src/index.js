@@ -232,8 +232,10 @@ function displayRoomsOccupied(today) {
 }
 
 $('.search-user-btn').click(() => {
+  $('.info').empty();
   let input = $('.search-user-input').val().toLowerCase();
   searchUsers(input);
+  $('.search-user-input').val('');
 });
 
 function searchUsers(input) {
@@ -260,12 +262,33 @@ function checkExactMatch(foundUsers, input) {
 }
 
 function checkMatch(foundUsers) {
-  (foundUsers.length === 0) && alert('No Users Found');
+  (foundUsers.length === 0) && displayInfoMessage('No Users Found');
   (foundUsers.length === 1) && displayUserInfo(foundUsers[0]);
-  (foundUsers.length > 1) && alert(foundUsers.length);
+  (foundUsers.length > 1) && chooseUser(foundUsers);
 }
 
 function displayUserInfo(user) {
   let userBookings = bookingData.findBookings(user.id);
   displayUserBookings(userBookings)
 }
+
+function displayInfoMessage(message) {
+  $('.info').text(`${message}`);
+}
+
+function chooseUser(users) {
+  users.forEach(user => displayUserChoice(user))
+}
+
+function displayUserChoice(user) {
+  $('.info').append(`
+  <div class="user-choice" id="${user.id}">
+    <p>Name: ${user.name}</p>
+    <p>Id: ${user.id}</p>
+  </div>
+  `)
+}
+
+$('.info').delegate('.user-choice', 'click', () => {
+  alert('heeeeeeeeee')
+})

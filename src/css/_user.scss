@@ -1,10 +1,6 @@
 .user-info {
   @include adminUserInfo();
 
-  p {
-    font-weight: 300;
-  }
-
   button {
     @include button(1.4rem, 50%, 5px);
 
@@ -31,8 +27,6 @@
 .user-booking {
   display: flex;
   justify-content: space-between;
-  // border: 1px solid $accent-medium;
-  // border-left: 10px solid $accent-medium;
   border-radius: 7px;
   margin: 15px;
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
@@ -45,10 +39,6 @@
   .right {
     width: 50%;
     padding: 15px;
-  }
-
-  p {
-    font-weight: 300;
   }
 }
 
