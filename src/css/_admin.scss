@@ -57,7 +57,7 @@
   justify-content: center;
   font-size: 1.4rem;
 
-  div {
+  .user-choice {
     border: 1px solid $accent-medium;
     text-align: center;
     padding: 15px;
@@ -69,6 +69,16 @@
 
     &:hover {
       @include buttonHover();
+    }
+  }
+
+  .user-data {
+    padding: 30px;
+    margin-top: 50px;
+    text-align: center;
+
+    p {
+      font-weight: 400;
     }
   }
 }

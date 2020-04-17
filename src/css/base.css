@@ -385,7 +385,7 @@
   font-size: 1.4rem;
 }
 
-.info div {
+.info .user-choice {
   border: 1px solid #132E88;
   text-align: center;
   padding: 15px;
@@ -397,11 +397,21 @@
   cursor: pointer;
 }
 
-.info div:hover {
+.info .user-choice:hover {
   -webkit-transition: background-color .5s, color .5s;
   transition: background-color .5s, color .5s;
   background-color: #132E88;
   color: #fafafa;
+}
+
+.info .user-data {
+  padding: 30px;
+  margin-top: 50px;
+  text-align: center;
+}
+
+.info .user-data p {
+  font-weight: 400;
 }
 
 footer {

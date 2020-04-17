@@ -176,7 +176,6 @@ function displayBooking(booking, room) {
 
 function checkStatus(date) {
   let now = moment().format('YYYY/MM/DD');
-  console.log(now);
   if (now < date) {
     return 'Upcoming';
   }
@@ -257,19 +256,20 @@ function checkExactMatch(foundUsers, input) {
   foundUsers.forEach(user => {
     (user.name.toLowerCase() === input) && (foundUser = user);
   });
-  foundUser && displayUserInfo(foundUser);
+  foundUser && getUserInfo(foundUser);
   !foundUser && checkMatch(foundUsers);
 }
 
 function checkMatch(foundUsers) {
   (foundUsers.length === 0) && displayInfoMessage('No Users Found');
-  (foundUsers.length === 1) && displayUserInfo(foundUsers[0]);
+  (foundUsers.length === 1) && getUserInfo(foundUsers[0]);
   (foundUsers.length > 1) && chooseUser(foundUsers);
 }
 
-function displayUserInfo(user) {
+function getUserInfo(user) {
   let userBookings = bookingData.findBookings(user.id);
-  displayUserBookings(userBookings)
+  displayUserBookings(userBookings);
+  displayUserInfo(user, userBookings)
 }
 
 function displayInfoMessage(message) {
@@ -283,12 +283,25 @@ function chooseUser(users) {
 function displayUserChoice(user) {
   $('.info').append(`
   <div class="user-choice" id="${user.id}">
-    <p>Name: ${user.name}</p>
-    <p>Id: ${user.id}</p>
+    <p id="${user.id}">Name: ${user.name}</p>
+    <p id="${user.id}">Id: ${user.id}</p>
   </div>
   `)
 }
 
-$('.info').delegate('.user-choice', 'click', () => {
-  alert('heeeeeeeeee')
+$('.info').delegate('.user-choice', 'click', (e) => {
+  let id = Number($(e.target).attr('id'));
+  let user = findUser(id);
+  $('.info').empty();
+  getUserInfo(user);
 })
+
+function displayUserInfo(user, userBookings) {
+  let amount = hotel.getBookingsAmount(userBookings).toFixed(2);
+  $('.info').append(`
+  <div class="user-data">
+  <p>Customer: ${user.name}</p>
+  <p>Total Spending: $${amount}</p>
+  </div>
+  `)
+}
