@@ -22,7 +22,7 @@ Promise.all([usersPromise, roomsPromise, bookingsPromise]).then(response => data
   })
   .then(() => {
     bookingData = new BookingData(data.bookings);
-    hotel = new Hotel(data.rooms, bookingData);
+    hotel = new Hotel(data.rooms, data.bookings);
   })
   .catch(error => {
     console.log(error);
@@ -40,9 +40,10 @@ $('#admin-login').click(() => {
   window.location = './admin-login.html';
 });
 
-$('#logout').click(() => {
-  window.location = './index.html';
-});
+// UNCOMENT WHEN PAGE LOAD IS FIXED
+// $('#logout').click(() => {
+//   window.location = './index.html';
+// });
 
 $('#user-login-btn').click(() => {
   let username = $('#user-login-input');
@@ -127,15 +128,15 @@ function displayUser() {
   $('.user-info').hide();
 }
 
-// DUMMY FUNCTION, ADDED EVERYTHING THAT IS SUPPOSED TO RUN ON USER PAGE LOAD
-$('.user-amount').click(() => {
+// DUMMY FUNCTION, ADDED EVERYTHING THAT IS SUPPOSED TO RUN ON USER PAGE LOAD  // USERS PAGE //
+$('.user-logout').click(() => {
   getUserData();
 });
 
 function getUserData() {
   let user = getLocalStorage('user');
   let userBookings = bookingData.findBookings(user.id);
-  displayUserData(user, userBookings);
+  displayUserInfo(user, userBookings);
   displayUserBookings(userBookings);
 }
 
@@ -176,7 +177,6 @@ function displayBooking(booking, room) {
 
 function checkStatus(date) {
   let now = moment().format('YYYY/MM/DD');
-  console.log(now);
   if (now < date) {
     return 'Upcoming';
   }
@@ -188,4 +188,121 @@ function checkStatus(date) {
   if (now > date) {
     return 'Past';
   }
+}
+
+// DUMMY FUNCTION, ADDED EVERYTHING THAT IS SUPPOSED TO RUN ON USER PAGE LOAD  // ADMIN PAGE //
+$('.admin-logout').click(() => {
+  getAdminData();
+});
+
+function getAdminData() {
+  let today = moment().format('YYYY/MM/DD');
+  displayRevenue(today);
+  displayRoomsAvailable(today);
+  displayRoomsBooked(today);
+  displayRoomsOccupied(today);
+}
+
+function displayRevenue(today) {
+  let revenue = hotel.calcRevenue(today);
+  $('.admin-info').append(`
+  <p>Today's</br> Revenue:</br><span>$${revenue}</span></p>
+ `);
+}
+
+function displayRoomsAvailable(today) {
+  let available = hotel.calcRoomsAvailable(today);
+  $('.admin-info').append(`
+  <p>Today's</br>Rooms available:</br><span>${available}</span></p> 
+ `);
+}
+
+function displayRoomsBooked(today) {
+  let booked = hotel.calcRoomsBooked(today);
+  $('.admin-info').append(`
+  <p>Today's</br>Rooms booked:</br><span>${booked}</span></p>
+ `)
+}
+
+function displayRoomsOccupied(today) {
+  let occupied = hotel.calcRoomsOccupied(today);
+  $('.admin-info').append(`
+  <p>Today's</br> Rooms Occupied:</br><span>${occupied}%</span></p>
+ `)
+}
+
+$('.search-user-btn').click(() => {
+  $('.info').empty();
+  let input = $('.search-user-input').val().toLowerCase();
+  searchUsers(input);
+  $('.search-user-input').val('');
+});
+
+function searchUsers(input) {
+  let foundUsers = [];
+  data.users.forEach(user => {
+    let name = user.name.toLowerCase();
+    let splitName = name.split(' ');
+    if (name === input) {
+      foundUsers.push(user);
+    } else if (input.includes(splitName[0]) || input.includes(splitName[1])) {
+      foundUsers.push(user);
+    }
+  })
+  checkExactMatch(foundUsers, input);
+}
+
+function checkExactMatch(foundUsers, input) {
+  let foundUser;
+  foundUsers.forEach(user => {
+    (user.name.toLowerCase() === input) && (foundUser = user);
+  });
+  foundUser && getUserInfo(foundUser);
+  !foundUser && checkMatch(foundUsers);
+}
+
+function checkMatch(foundUsers) {
+  (foundUsers.length === 0) && displayInfoMessage('No Users Found');
+  (foundUsers.length === 1) && getUserInfo(foundUsers[0]);
+  (foundUsers.length > 1) && chooseUser(foundUsers);
+}
+
+function getUserInfo(user) {
+  let userBookings = bookingData.findBookings(user.id);
+  displayUserBookings(userBookings);
+  displayUserInfo(user, userBookings)
+}
+
+function displayInfoMessage(message) {
+  $('.info').text(`${message}`);
+}
+
+function chooseUser(users) {
+  users.forEach(user => displayUserChoice(user))
+}
+
+function displayUserChoice(user) {
+  $('.info').append(`
+  <div class="user-choice" id="${user.id}">
+    <p id="${user.id}">Name: ${user.name}</p>
+    <p id="${user.id}">Id: ${user.id}</p>
+  </div>
+  `)
+}
+
+$('.info').delegate('.user-choice', 'click', (e) => {
+  let id = Number($(e.target).attr('id'));
+  let user = findUser(id);
+  $('.info').empty();
+  getUserInfo(user);
+})
+
+function displayUserInfo(user, userBookings) {
+  let amount = hotel.getBookingsAmount(userBookings).toFixed(2);
+  $('.info').append(`
+  <div class="user-data">
+  <p>Customer: ${user.name}</p>
+  <p>Total Spending: $${amount}</p>
+  </div>
+ `)
 }

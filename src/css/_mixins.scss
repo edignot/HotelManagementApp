@@ -28,7 +28,6 @@
 @mixin button($font, $width, $padding) {
   color: $accent-medium;
   font-size: $font;
-  font-weight: 300;
   background-color: transparent;
   border: 1px solid $accent-medium;
   width: $width;
@@ -39,7 +38,7 @@
 }
 
 @mixin buttonHover {
-  transition: background-color 1s, color 1s;
+  transition: background-color .5s, color .5s;
   background-color: $accent-medium;
   color: $font-light;
 }

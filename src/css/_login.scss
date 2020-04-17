@@ -1,5 +1,5 @@
 .header {
-  @include header(60vh);
+  @include header(55vh);
   background-image: linear-gradient(rgba(2, 44, 116, 0.425), rgba(2, 44, 116, 0.9)), url(../images/hotel1.jpg);
 
   .title-wrapper {

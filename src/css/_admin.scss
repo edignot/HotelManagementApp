@@ -1,8 +1,8 @@
 .admin-info {
   @include adminUserInfo();
+  padding-bottom: 0;
 
   p {
-    font-weight: 300;
     padding: 20px 40px;
     border-radius: 7px;
     border: 1px solid $accent-light;
@@ -20,12 +20,12 @@
   display: flex;
   justify-content: space-between;
   list-style: none;
-  padding: 0 30px;
+  padding: 30px;
   background-color: $background-light;
 
   .search-wrapper {
     display: flex;
-    padding: 15px 0;
+    // padding: 15px 0;
     width: 70%;
 
     input {
@@ -42,12 +42,44 @@
     @include button(1.4rem, 20%, 5px);
     background-color: $accent-medium;
     color: $font-light;
-    margin: 15px 0px;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+    margin-top: 0;
 
     &:hover {
       filter: opacity(90%);
       transition: filter .5s;
+    }
+  }
+}
+
+.info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-size: 1.4rem;
+
+  .user-choice {
+    border: 1px solid $accent-medium;
+    text-align: center;
+    padding: 15px;
+    margin: 30px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 7px;
+    min-width: 280px;
+    cursor: pointer;
+
+    &:hover {
+      @include buttonHover();
+    }
+  }
+
+  .user-data {
+    padding: 30px;
+    margin-top: 50px;
+    text-align: center;
+
+    p {
+      font-weight: 400;
     }
   }
 }
