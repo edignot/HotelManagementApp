@@ -9,15 +9,24 @@ import {
   bookingsPromise
 } from "./utils.js";
 import './images/hotel1.jpg'
+const moment = require('moment');
 
 let data = {};
-let user = null;
+let bookingData;
+let hotel;
 
 Promise.all([usersPromise, roomsPromise, bookingsPromise]).then(response => data = {
-  users: response[0],
-  rooms: response[1],
-  bookings: response[2],
-})
+    users: response[0],
+    rooms: response[1],
+    bookings: response[2],
+  })
+  .then(() => {
+    bookingData = new BookingData(data.bookings);
+    hotel = new Hotel(data.rooms, bookingData);
+  })
+  .catch(error => {
+    console.log(error);
+  });
 
 $('.title-wrapper').click(() => {
   window.location = './index.html';
@@ -31,14 +40,21 @@ $('#admin-login').click(() => {
   window.location = './admin-login.html';
 });
 
+$('#logout').click(() => {
+  window.location = './index.html';
+});
+
 $('#user-login-btn').click(() => {
   let username = $('#user-login-input');
   let password = $('#user-password-input');
   let customer = username.val().split('').splice(0, 8).join('');
   let customerId = Number(username.val().split('').splice(8).join(''));
-  user = findUser(customerId);
+  let user = findUser(customerId);
+
   if (user && password.val() === 'overlook2020' && customer === 'customer') {
+    setLocalStorage(user, 'user');
     window.location = './user.html';
+    displayUser();
   }
 
   if ((!user || customer !== 'customer') && password.val() === 'overlook2020') {
@@ -63,6 +79,11 @@ $('#user-login-btn').click(() => {
 
 function findUser(customerId) {
   return data.users.find(user => user.id === customerId)
+}
+
+function setLocalStorage(item, key) {
+  let stringified = JSON.stringify(item);
+  localStorage.setItem(key, stringified);
 }
 
 $('#admin-login-btn').click(() => {
@@ -98,4 +119,73 @@ function displayLoginError(input) {
 
 function resetLoginError(input) {
   input.css('border', '1px #132E88 solid');
+}
+
+// .load() jquery
+function displayUser() {
+  // THIS ISN'T WORKING
+  $('.user-info').hide();
+}
+
+// DUMMY FUNCTION, ADDED EVERYTHING THAT IS SUPPOSED TO RUN ON USER PAGE LOAD
+$('.user-amount').click(() => {
+  getUserData();
+});
+
+function getUserData() {
+  let user = getLocalStorage('user');
+  let userBookings = bookingData.findBookings(user.id);
+  displayUserData(user, userBookings);
+  displayUserBookings(userBookings);
+}
+
+function getLocalStorage(key) {
+  return JSON.parse(localStorage.getItem(key));
+}
+
+function displayUserData(user, userBookings) {
+  $('.name').text(`Welcome back, ${user.name}`);
+  let amount = hotel.getBookingsAmount(userBookings).toFixed(2);
+  $('.user-amount').text(`Total: $${amount}`);
+}
+
+function displayUserBookings(userBookings) {
+  userBookings.forEach(booking => {
+    hotel.rooms.forEach(room => {
+      (room.number === booking.roomNumber) && displayBooking(booking, room);
+    });
+  });
+}
+
+function displayBooking(booking, room) {
+  $('.user-bookings').prepend(`
+  <section class="user-booking ${checkStatus(booking.date).toLowerCase()}">
+  <div class="left">
+    <p class="user-booking-status">${checkStatus(booking.date)}</p>
+    <p class="user-date">${booking.date}</p>
+    <p class="user-price">$${room.costPerNight}/night</p>
+  </div>
+  <div class="right">
+    <p class="user-room">${room.roomType}</p>
+    <p class="user-bed">${room.bedSize}</p>
+    <p class="user-bed-num">beds: ${room.numBeds}</p>
+  </div>
+</section>
+  `);
+}
+
+function checkStatus(date) {
+  let now = moment().format('YYYY/MM/DD');
+  console.log(now);
+  if (now < date) {
+    return 'Upcoming';
+  }
+
+  if (now === date) {
+    return 'Present';
+  }
+
+  if (now > date) {
+    return 'Past';
+  }
 }

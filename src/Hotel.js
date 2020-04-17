@@ -5,6 +5,15 @@ class Hotel {
     // all bookings from booking class, inheritance? 
     this.bookings = bookings;
   }
+
+  getBookingsAmount(bookings) {
+    return this.rooms.reduce((sum, room) => {
+      bookings.forEach(booking => {
+        (booking.roomNumber === room.number) && (sum += room.costPerNight);
+      })
+      return sum;
+    }, 0);
+  }
 }
 
 export default Hotel;

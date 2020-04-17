@@ -10,8 +10,8 @@
   background-size: cover;
 }
 
-@mixin h1 {
-  font-size: 7rem;
+@mixin h1($rem) {
+  font-size: $rem;
 }
 
 @mixin headerP {
@@ -42,4 +42,15 @@
   transition: background-color 1s, color 1s;
   background-color: $accent-medium;
   color: $font-light;
+}
+
+@mixin borderStatus($color) {
+  border: 1px solid $color;
+  border-left: 10px solid $color;
+}
+
+@mixin statusHover($color, $font-color) {
+  background-color: $color;
+  color: $font-color;
+  transition: background-color .5s;
 }

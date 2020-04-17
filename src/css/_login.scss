@@ -7,7 +7,7 @@
   }
 
   h1 {
-    @include h1();
+    @include h1(7rem);
   }
 
   p {
@@ -23,7 +23,7 @@
   }
 
   button {
-    @include button(2rem, 50%, 15px);
+    @include button(2rem, 80%, 15px);
 
     &:hover {
       @include buttonHover();

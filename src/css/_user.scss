@@ -1,0 +1,82 @@
+.user-info {
+  display: flex;
+  justify-content: space-between;
+  background-color: $background-light;
+  text-align: center;
+  font-size: 1.4rem;
+  padding: 30px;
+
+  p {
+    font-weight: 300;
+  }
+
+  button {
+    @include button(1.4rem, 10%, 5px);
+
+    &:hover {
+      @include buttonHover();
+    }
+
+    margin-top: 0;
+
+  }
+}
+
+.user-bookings {
+  font-size: 1.4rem;
+  margin: 30px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 90%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.user-booking {
+  display: flex;
+  justify-content: space-between;
+  // border: 1px solid $accent-medium;
+  // border-left: 10px solid $accent-medium;
+  border-radius: 7px;
+  margin: 15px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+
+  .left {
+    width: 50%;
+    padding: 15px;
+  }
+
+  .right {
+    width: 50%;
+    padding: 15px;
+  }
+
+  p {
+    font-weight: 300;
+  }
+}
+
+.past {
+  @include borderStatus($accent-light);
+
+  &:hover {
+    @include statusHover($accent-light, $font-light);
+  }
+}
+
+.present {
+  @include borderStatus($alert-success);
+
+  &:hover {
+    @include statusHover($alert-success, $font-light);
+  }
+}
+
+.upcoming {
+  @include borderStatus($accent-medium);
+
+  &:hover {
+    @include statusHover($accent-medium, $font-light);
+  }
+}
