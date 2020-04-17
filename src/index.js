@@ -48,11 +48,10 @@ $('#user-login-btn').click(() => {
   let password = $('#user-password-input');
   let customer = username.val().split('').splice(0, 8).join('');
   let customerId = Number(username.val().split('').splice(8).join(''));
-  debugger;
   let user = findUser(customerId);
 
   if (user && password.val() === 'overlook2020' && customer === 'customer') {
-    saveToLocalStorage(user);
+    setLocalStorage(user, 'user');
     window.location = './user.html';
     displayUser();
   }
@@ -81,9 +80,9 @@ function findUser(customerId) {
   return data.users.find(user => user.id === customerId)
 }
 
-function saveToLocalStorage(user) {
-  let stringified = JSON.stringify(user);
-  localStorage.setItem('user', stringified);
+function setLocalStorage(item, key) {
+  let stringified = JSON.stringify(item);
+  localStorage.setItem(key, stringified);
 }
 
 $('#admin-login-btn').click(() => {
@@ -128,8 +127,44 @@ function displayUser() {
 
 // DUMMY FUNCTION, ADDED EVERYTHING THAT IS SUPPOSED TO RUN ON USER PAGE LOAD
 $('.user-amount').click(() => {
-  console.log(user);
-  let userBookings = bookingData.findBookings(user.id)
-  console.log(userBookings)
-
+  getUserData();
 });
+
+function getUserData() {
+  let user = getLocalStorage('user');
+  let userBookings = bookingData.findBookings(user.id)
+  displayUserData(user, userBookings);
+  displayUserBookings(userBookings);
+}
+
+function getLocalStorage(key) {
+  return JSON.parse(localStorage.getItem(key));
+}
+
+function displayUserData(user, userBookings) {
+  $('.name').text(`Welcome back, ${user.name}`);
+  let amount = hotel.getBookingsAmount(userBookings).toFixed(2);
+  $('.user-amount').text(`Total: $${amount}`);
+}
+
+function displayUserBookings(userBookings) {
+  userBookings.forEach(booking => displayBooking(booking));
+}
+
+function displayBooking(booking) {
+  $('.user-bookings').append(`
+  <section class="user-booking">
+  <div class="left">
+    <p class="user-booking-status">Upcoming</p>
+    <p class="user-date">04/20/2020</p>
+    <p class="user-price">450$/night</p>
+  </div>
+  <div class="right">
+    <p class="user-room">single room</p>
+    <p class="user-bed">King Bed</p>
+    <p class="user-bed-num">2</p>
+  </div>
+</section>
+
+  `);
+}
