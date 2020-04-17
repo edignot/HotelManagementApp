@@ -1,3 +1,7 @@
+.user-header {
+  background-image: linear-gradient(rgba(2, 44, 116, 0.425), rgba(2, 44, 116, 0.9)), url(../images/hotel3.jpg);
+}
+
 .user-info {
   @include adminUserInfo();
 

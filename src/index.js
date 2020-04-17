@@ -201,6 +201,7 @@ function getAdminData() {
   displayRoomsAvailable(today);
   displayRoomsBooked(today);
   displayRoomsOccupied(today);
+  displayInfoMessage('Nothing to Display');
 }
 
 function displayRevenue(today) {
@@ -262,7 +263,7 @@ function checkExactMatch(foundUsers, input) {
 }
 
 function checkMatch(foundUsers) {
-  (foundUsers.length === 0) && displayInfoMessage('No Users Found');
+  (foundUsers.length === 0) && displayInfoMessage('User Not Found');
   (foundUsers.length === 1) && getUserInfo(foundUsers[0]);
   (foundUsers.length > 1) && chooseUser(foundUsers);
 }
@@ -274,7 +275,11 @@ function getUserInfo(user) {
 }
 
 function displayInfoMessage(message) {
-  $('.info').text(`${message}`);
+  $('.info').append(`
+  <div class="user-data">
+  <p class="message">${message}</p>
+  </div>
+  `)
 }
 
 function chooseUser(users) {

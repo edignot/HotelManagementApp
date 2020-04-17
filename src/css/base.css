@@ -172,6 +172,11 @@
   margin-top: 15px;
 }
 
+.user-header {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(2, 44, 116, 0.425)), to(rgba(2, 44, 116, 0.9))), url(../images/hotel3.jpg);
+  background-image: linear-gradient(rgba(2, 44, 116, 0.425), rgba(2, 44, 116, 0.9)), url(../images/hotel3.jpg);
+}
+
 .user-info {
   display: -ms-grid;
   display: grid;
@@ -473,7 +478,8 @@ html {
   height: 100%;
 }
 
-.title-wrapper {
-  cursor: pointer;
+.message {
+  font-size: 2.5rem;
+  color: #8393C6;
 }
 /*# sourceMappingURL=base.css.map */
