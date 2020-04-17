@@ -1,0 +1,53 @@
+.admin-info {
+  @include adminUserInfo();
+
+  p {
+    font-weight: 300;
+    padding: 20px 40px;
+    border-radius: 7px;
+    border: 1px solid $accent-light;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+    background-color: $background-white;
+  }
+
+  span {
+    font-weight: 400;
+    color: $accent-dark;
+  }
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  padding: 0 30px;
+  background-color: $background-light;
+
+  .search-wrapper {
+    display: flex;
+    padding: 15px 0;
+    width: 70%;
+
+    input {
+      @include input();
+      box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .search-user-btn {
+      @include inputLabel();
+    }
+  }
+
+  #logout {
+    @include button(1.4rem, 20%, 5px);
+    background-color: $accent-medium;
+    color: $font-light;
+    margin: 15px 0px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+
+    &:hover {
+      filter: opacity(90%);
+      transition: filter .5s;
+    }
+  }
+}

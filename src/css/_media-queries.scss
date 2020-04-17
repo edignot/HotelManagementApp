@@ -14,7 +14,7 @@ $break4: 1280px;
     }
   }
 
-  .admin-logn,
+  .admin-login,
   .user-login {
     .login-item {
       width: 70%;
@@ -38,7 +38,7 @@ $break4: 1280px;
     }
   }
 
-  .admin-logn,
+  .admin-login,
   .user-login {
     .login-item {
       width: 60%;
@@ -52,6 +52,10 @@ $break4: 1280px;
   .user-bookings {
     width: 70%;
   }
+
+  .admin-info {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 @media (min-width: 1024px) {
@@ -62,7 +66,7 @@ $break4: 1280px;
     }
   }
 
-  .admin-logn,
+  .admin-login,
   .user-login {
     .login-item {
       width: 50%;
@@ -86,7 +90,7 @@ $break4: 1280px;
     }
   }
 
-  .admin-logn,
+  .admin-login,
   .user-login {
     .login-item {
       width: 40%;

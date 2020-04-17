@@ -54,3 +54,30 @@
   color: $font-color;
   transition: background-color .5s;
 }
+
+@mixin adminUserInfo {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 15px;
+  background-color: $background-light;
+  text-align: center;
+  font-size: 1.4rem;
+  padding: 30px;
+}
+
+@mixin input {
+  width: 100%;
+  padding: 15px;
+  margin: 0;
+  border-radius: 0 7px 7px 0;
+  border: 1px solid $accent-medium;
+  font-size: 1.2rem;
+}
+
+@mixin inputLabel {
+  background-color: $accent-medium;
+  color: $font-light;
+  padding: 15px;
+  border-radius: 7px 0 0 7px;
+  border: 1px solid $accent-medium;
+}
