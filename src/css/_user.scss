@@ -30,6 +30,7 @@
   justify-content: center;
   width: 90%;
   text-align: center;
+  cursor: pointer;
 }
 
 .user-booking {
@@ -58,12 +59,24 @@
 
 .past {
   @include borderStatus($accent-light);
+
+  &:hover {
+    @include statusHover($accent-light, $font-light);
+  }
 }
 
 .present {
   @include borderStatus($alert-success);
+
+  &:hover {
+    @include statusHover($alert-success, $font-light);
+  }
 }
 
 .upcoming {
   @include borderStatus($accent-medium);
+
+  &:hover {
+    @include statusHover($accent-medium, $font-light);
+  }
 }

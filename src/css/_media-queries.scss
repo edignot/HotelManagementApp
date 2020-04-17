@@ -24,6 +24,10 @@ $break4: 1280px;
       @include button(1.6rem, 35%, 10px);
     }
   }
+
+  .user-bookings {
+    width: 80%;
+  }
 }
 
 @media (min-width: 768px) {
@@ -43,6 +47,10 @@ $break4: 1280px;
     button {
       @include button(1.6rem, 30%, 10px);
     }
+  }
+
+  .user-bookings {
+    width: 70%;
   }
 }
 
@@ -64,6 +72,10 @@ $break4: 1280px;
       @include button(1.6rem, 25%, 10px);
     }
   }
+
+  .user-bookings {
+    width: 60%;
+  }
 }
 
 @media (min-width: 1280px) {
@@ -83,5 +95,9 @@ $break4: 1280px;
     button {
       @include button(1.6rem, 20%, 10px);
     }
+  }
+
+  .user-bookings {
+    width: 50%;
   }
 }

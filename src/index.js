@@ -121,6 +121,7 @@ function resetLoginError(input) {
   input.css('border', '1px #132E88 solid');
 }
 
+// .load() jquery
 function displayUser() {
   // THIS ISN'T WORKING
   $('.user-info').hide();
@@ -162,7 +163,7 @@ function displayBooking(booking, room) {
   <div class="left">
     <p class="user-booking-status">${checkStatus(booking.date)}</p>
     <p class="user-date">${booking.date}</p>
-    <p class="user-price">${room.costPerNight}</p>
+    <p class="user-price">$${room.costPerNight}/night</p>
   </div>
   <div class="right">
     <p class="user-room">${room.roomType}</p>

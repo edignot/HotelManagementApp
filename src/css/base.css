@@ -228,6 +228,7 @@
           justify-content: center;
   width: 90%;
   text-align: center;
+  cursor: pointer;
 }
 
 .user-booking {
@@ -262,14 +263,35 @@
   border-left: 10px solid #8393C6;
 }
 
+.past:hover {
+  background-color: #8393C6;
+  color: #fafafa;
+  -webkit-transition: background-color .5s;
+  transition: background-color .5s;
+}
+
 .present {
   border: 1px solid #00940c;
   border-left: 10px solid #00940c;
 }
 
+.present:hover {
+  background-color: #00940c;
+  color: #fafafa;
+  -webkit-transition: background-color .5s;
+  transition: background-color .5s;
+}
+
 .upcoming {
   border: 1px solid #132E88;
   border-left: 10px solid #132E88;
+}
+
+.upcoming:hover {
+  background-color: #132E88;
+  color: #fafafa;
+  -webkit-transition: background-color .5s;
+  transition: background-color .5s;
 }
 
 footer {
