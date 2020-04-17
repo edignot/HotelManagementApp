@@ -40,9 +40,10 @@ $('#admin-login').click(() => {
   window.location = './admin-login.html';
 });
 
-$('#logout').click(() => {
-  window.location = './index.html';
-});
+// UNCOMENT WHEN PAGE LOAD IS FIXED
+// $('#logout').click(() => {
+//   window.location = './index.html';
+// });
 
 $('#user-login-btn').click(() => {
   let username = $('#user-login-input');
@@ -128,14 +129,14 @@ function displayUser() {
 }
 
 // DUMMY FUNCTION, ADDED EVERYTHING THAT IS SUPPOSED TO RUN ON USER PAGE LOAD  // USERS PAGE //
-$('.user-amount').click(() => {
+$('.user-logout').click(() => {
   getUserData();
 });
 
 function getUserData() {
   let user = getLocalStorage('user');
   let userBookings = bookingData.findBookings(user.id);
-  displayUserData(user, userBookings);
+  displayUserInfo(user, userBookings);
   displayUserBookings(userBookings);
 }
 
@@ -190,7 +191,7 @@ function checkStatus(date) {
 }
 
 // DUMMY FUNCTION, ADDED EVERYTHING THAT IS SUPPOSED TO RUN ON USER PAGE LOAD  // ADMIN PAGE //
-$('.admin-info').click(() => {
+$('.admin-logout').click(() => {
   getAdminData();
 });
 
@@ -303,5 +304,5 @@ function displayUserInfo(user, userBookings) {
   <p>Customer: ${user.name}</p>
   <p>Total Spending: $${amount}</p>
   </div>
-  `)
+ `)
 }

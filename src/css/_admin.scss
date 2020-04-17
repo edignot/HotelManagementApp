@@ -1,5 +1,6 @@
 .admin-info {
   @include adminUserInfo();
+  padding-bottom: 0;
 
   p {
     padding: 20px 40px;
@@ -19,12 +20,12 @@
   display: flex;
   justify-content: space-between;
   list-style: none;
-  padding: 0 30px;
+  padding: 30px;
   background-color: $background-light;
 
   .search-wrapper {
     display: flex;
-    padding: 15px 0;
+    // padding: 15px 0;
     width: 70%;
 
     input {
@@ -41,8 +42,8 @@
     @include button(1.4rem, 20%, 5px);
     background-color: $accent-medium;
     color: $font-light;
-    margin: 15px 0px;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+    margin-top: 0;
 
     &:hover {
       filter: opacity(90%);
