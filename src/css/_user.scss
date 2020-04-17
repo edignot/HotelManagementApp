@@ -1,17 +1,12 @@
 .user-info {
-  display: flex;
-  justify-content: space-between;
-  background-color: $background-light;
-  text-align: center;
-  font-size: 1.4rem;
-  padding: 30px;
+  @include adminUserInfo();
 
   p {
     font-weight: 300;
   }
 
   button {
-    @include button(1.4rem, 10%, 5px);
+    @include button(1.4rem, 50%, 5px);
 
     &:hover {
       @include buttonHover();
