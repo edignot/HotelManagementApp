@@ -80,3 +80,21 @@
   border-radius: 7px 0 0 7px;
   border: 1px solid $accent-medium;
 }
+
+@mixin rooms {
+  font-size: 1.4rem;
+  margin: 30px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 90%;
+  text-align: center;
+}
+
+@mixin room {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 7px;
+  margin: 15px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+}
