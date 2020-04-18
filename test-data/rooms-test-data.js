@@ -1,5 +1,4 @@
-const roomsTestData = [
-  {
+const roomsTestData = [{
     "number": 1,
     "roomType": "residential suite",
     "bidet": true,
@@ -24,12 +23,13 @@ const roomsTestData = [
     "costPerNight": 491.14
   },
   {
-    "number": 4,
+    "number": 7,
     "roomType": "single room",
     "bidet": false,
     "bedSize": "queen",
     "numBeds": 1,
     "costPerNight": 429.44
-  }];
+  }
+];
 
 export default roomsTestData;
