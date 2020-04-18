@@ -45,6 +45,12 @@ $('#admin-login').click(() => {
   window.location = './admin-login.html';
 });
 
+$('.booking-history').click(() => {
+  emptyContainers();
+  getUserData();
+  showTime();
+});
+
 $('.admin-title-wrapper').click(() => {
   emptyContainers();
   $('.admin-info').empty();
@@ -57,6 +63,11 @@ $('.user-title-wrapper').click(() => {
   getUserData();
   showTime();
 });
+
+$('.rooms').delegate('.book-btn', 'click', (e) => {
+  let roomId = Number($(e.target).attr('id'));
+  bookRoom(roomId);
+})
 
 function showTime() {
   $('.date').text(moment().format('L'));
@@ -267,6 +278,7 @@ function checkMatch(foundUsers) {
 }
 
 function getUserInfo(user) {
+  setLocalStorage(user, 'user');
   let userBookings = bookingHandler.findBookings(user.id);
   displayUserBookings(userBookings);
   displayUserInfo(user, userBookings)
@@ -297,6 +309,7 @@ function displayUserChoice(user) {
 $('.info').delegate('.user-choice', 'click', (e) => {
   let id = Number($(e.target).attr('id'));
   let user = findUser(id);
+  setLocalStorage(user, 'user');
   emptyContainers();
   getUserInfo(user);
 })
@@ -314,12 +327,21 @@ function displayUserInfo(user, userBookings) {
 $('.date-btn').click(() => {
   emptyContainers();
   let date = convertDate();
+  checkDate(date);
+});
+
+function checkDate(date) {
+  let now = moment().format('YYYY/MM/DD');
+  return (date >= now) ? getRoomsForDate(date) : displayInfoMessage('Select Upcoming Date');
+}
+
+function getRoomsForDate(date) {
   displayInfoMessage(`Rooms available: ${date}`)
   let rooms = hotel.getRoomsAvailable(date);
   (date === '') && displayInfoMessage('All Rooms / No Date Selected');
   !rooms && displayInfoMessage('No Rooms Available on Selected Date');
   rooms && displayRooms(rooms, date);
-});
+}
 
 function convertDate() {
   let date = $(".date-input").val().split('');
@@ -348,6 +370,7 @@ function displayRoom(room, date) {
     <p>beds: ${room.numBeds}</p>
     <p>bidet: ${room.bidet}</p>
   </div>
+  <button class="book-btn" id="${room.number}">BOOK</button>
 </section>
   `);
 }
@@ -405,3 +428,14 @@ $('.rooms-type').delegate('.type', 'click', (e) => {
   displayInfoMessage(message, key)
   displayRooms(rooms, date);
 })
+
+function bookRoom(roomId) {
+  let date = $('.rooms-type').attr('id')
+  let userId = getLocalStorage('user').id
+  let id = Date.now();
+  console.log('booking id', id);
+  console.log('booking date', date);
+  console.log('userId', userId);
+  console.log('roomId', roomId);
+
+}

@@ -7,12 +7,12 @@ class BookingHandler {
     return this.bookings.filter(booking => booking.userID === id);
   }
 
-  book(id, userId, date, num) {
+  book(id, userId, date, roomId) {
     let body = {
       id,
       "userID": userId,
       date,
-      "roomNumber": num,
+      "roomNumber": roomId,
       "roomServiceCharges": []
     }
     fetch(`https://fe-apps.herokuapp.com/api/v1/fitlit/1908/${url}`, {
