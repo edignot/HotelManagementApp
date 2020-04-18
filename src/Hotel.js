@@ -27,7 +27,6 @@ class Hotel {
 
   filterRoomsByType(date, type) {
     let available = this.getRoomsAvailable(date);
-    console.log('available', available)
     return available.filter(room => room.roomType === type);
   }
 

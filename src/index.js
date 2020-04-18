@@ -374,15 +374,22 @@ function emptyContainers() {
   $('.user-bookings').empty();
   $('.rooms').empty();
   $('.info').empty();
+  $('.rooms-type').empty();
 }
 
 function getRoomsType(date) {
-  let residential = hotel.filterRoomsByType(date, 'residential suite');
-  let suite = hotel.filterRoomsByType(date, 'suite');
-  let single = hotel.filterRoomsByType(date, 'single room');
-  let junior = hotel.filterRoomsByType(date, 'junior suite');
-  console.log('residential', residential)
-  console.log('suite', suite)
-  console.log('single', single)
-  console.log('junior', junior) // let roomsType = hotel.filterRoomsByType(date, 'single room'
+  setLocalStorage(hotel.filterRoomsByType(date, 'residential suite'), 'residential');
+  setLocalStorage(hotel.filterRoomsByType(date, 'suite'), 'suite');
+  setLocalStorage(hotel.filterRoomsByType(date, 'single room'), 'single');
+  setLocalStorage(hotel.filterRoomsByType(date, 'junior suite'), 'junior');
+  displayRoomType();
+}
+
+function displayRoomType() {
+  $('.rooms-type').append(`
+    <button id="residential">residential suite</button>
+    <button id="suite">suite</button>
+    <button id="single">single room</button>
+    <button id="junior">junior suite</button>
+  `)
 }

@@ -29,6 +29,10 @@ $break4: 1280px;
   .rooms {
     width: 80%;
   }
+
+  .rooms-type {
+    width: 70%;
+  }
 }
 
 @media (min-width: 768px) {
@@ -66,6 +70,10 @@ $break4: 1280px;
       width: 45%;
     }
   }
+
+  .rooms-type {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 @media (min-width: 1024px) {
@@ -91,6 +99,10 @@ $break4: 1280px;
   .rooms {
     width: 60%;
   }
+
+  .rooms-type {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 @media (min-width: 1280px) {
@@ -113,7 +125,12 @@ $break4: 1280px;
   }
 
   .user-bookings,
-  .rooms {
+  .rooms,
+  .rooms-type {
     width: 50%;
+  }
+
+  .rooms-type {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
