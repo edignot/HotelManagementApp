@@ -172,6 +172,11 @@
   margin-top: 15px;
 }
 
+.user-header {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(2, 44, 116, 0.425)), to(rgba(2, 44, 116, 0.9))), url(../images/hotel3.jpg);
+  background-image: linear-gradient(rgba(2, 44, 116, 0.425), rgba(2, 44, 116, 0.9)), url(../images/hotel3.jpg);
+}
+
 .user-info {
   display: -ms-grid;
   display: grid;
@@ -313,9 +318,10 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   list-style: none;
   padding: 30px;
   background-color: #f3f3f3;
@@ -325,7 +331,8 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  width: 70%;
+  width: 100%;
+  padding-top: 15px;
 }
 
 .nav .search-wrapper input {
@@ -339,38 +346,13 @@
           box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
 }
 
-.nav .search-wrapper .search-user-btn {
+.nav .search-wrapper .search-user-btn,
+.nav .search-wrapper .date-btn {
   background-color: #132E88;
   color: #fafafa;
   padding: 15px;
   border-radius: 7px 0 0 7px;
   border: 1px solid #132E88;
-}
-
-.nav #logout {
-  color: #132E88;
-  font-size: 1.4rem;
-  background-color: transparent;
-  border: 1px solid #132E88;
-  width: 20%;
-  margin-top: 30px;
-  padding: 5px;
-  border-radius: 7px;
-  -webkit-box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
-          box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
-  background-color: #132E88;
-  color: #fafafa;
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
-  margin-top: 0;
-}
-
-.nav #logout:hover {
-  -webkit-filter: opacity(90%);
-          filter: opacity(90%);
-  -webkit-transition: -webkit-filter .5s;
-  transition: -webkit-filter .5s;
-  transition: filter .5s;
-  transition: filter .5s, -webkit-filter .5s;
 }
 
 .info {
@@ -412,6 +394,35 @@
 
 .info .user-data p {
   font-weight: 400;
+}
+
+#logout {
+  color: #132E88;
+  font-size: 1.4rem;
+  background-color: transparent;
+  border: 1px solid #132E88;
+  width: 100px;
+  margin-top: 30px;
+  padding: 5px;
+  border-radius: 7px;
+  -webkit-box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+          box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  background-color: #132E88;
+  color: #fafafa;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+  margin-top: 0;
+}
+
+#logout:hover {
+  -webkit-filter: opacity(90%);
+          filter: opacity(90%);
+  -webkit-transition: -webkit-filter .5s;
+  transition: -webkit-filter .5s;
+  transition: filter .5s;
+  transition: filter .5s, -webkit-filter .5s;
 }
 
 footer {
@@ -473,7 +484,8 @@ html {
   height: 100%;
 }
 
-.title-wrapper {
-  cursor: pointer;
+.message {
+  font-size: 2.5rem;
+  color: #8393C6;
 }
 /*# sourceMappingURL=base.css.map */
