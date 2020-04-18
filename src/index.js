@@ -46,6 +46,11 @@ $('#admin-login').click(() => {
 //   window.location = './index.html';
 // });
 
+// CHECK IF INPUT IS EMPTY, THEN DON'T REMOVE ATTRIBUTE
+if ($('.date-input')) {
+  $('.date-btn').removeAttr("disabled");
+}
+
 $('#user-login-btn').click(() => {
   let username = $('#user-login-input');
   let password = $('#user-password-input');
@@ -314,3 +319,14 @@ function displayUserInfo(user, userBookings) {
   </div>
  `)
 }
+
+$('.date-btn').click(() => {
+  // let date = ('.date-input').val();
+  // console.log(date);
+  let rooms = hotel.getRoomsAvailable('2020/01/20');
+  !rooms && displayInfoMessage('No Rooms Available on Selected Date');
+  console.log('dom', rooms);
+
+  let roomsType = hotel.filterRoomsByType('2020/01/20', 'single room');
+  console.log('type', roomsType)
+});

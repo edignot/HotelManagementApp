@@ -13,6 +13,19 @@ class Hotel {
     }, 0);
   }
 
+  getRoomsAvailable(date) {
+    let booked = this.bookings.reduce((rooms, booking) => {
+      (booking.date === date) && rooms.push(booking.roomNumber)
+      return rooms;
+    }, [])
+    return this.rooms.filter(room => !booked.includes(room.number));
+  }
+
+  filterRoomsByType(date, type) {
+    let available = this.getRoomsAvailable(date);
+    return available.filter(room => room.roomType === type);
+  }
+
   calcRevenue(date) {
     let dateBookings = this.bookings.filter(booking => booking.date === date);
     let revenue = dateBookings.reduce((sum, booking) => {
