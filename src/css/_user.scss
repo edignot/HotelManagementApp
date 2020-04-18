@@ -131,3 +131,21 @@
     background-color: $alert-warning;
   }
 }
+
+.user-data {
+  #residential {
+    color: $accent-medium;
+  }
+
+  #single {
+    color: $alert-success;
+  }
+
+  #suite {
+    color: $accent-light;
+  }
+
+  #junior {
+    color: $alert-warning;
+  }
+}

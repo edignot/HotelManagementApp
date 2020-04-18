@@ -272,11 +272,11 @@ function getUserInfo(user) {
   displayUserInfo(user, userBookings)
 }
 
-function displayInfoMessage(message) {
+function displayInfoMessage(message, color) {
   emptyContainers();
   $('.info').append(`
   <div class="user-data">
-  <p class="message">${message}</p>
+  <p class="message" id="${color}">${message}</p>
   </div>
   `)
 }
@@ -382,14 +382,26 @@ function getRoomsType(date) {
   setLocalStorage(hotel.filterRoomsByType(date, 'suite'), 'suite');
   setLocalStorage(hotel.filterRoomsByType(date, 'single room'), 'single');
   setLocalStorage(hotel.filterRoomsByType(date, 'junior suite'), 'junior');
-  displayRoomType();
+  displayRoomType(date);
 }
 
-function displayRoomType() {
+function displayRoomType(date) {
+  $('.rooms-type').attr('id', date);
   $('.rooms-type').append(`
-    <button id="residential">residential suite</button>
-    <button id="suite">suite</button>
-    <button id="single">single room</button>
-    <button id="junior">junior suite</button>
+    <button class="type jdjdfjdj" id="residential">residential suite</button>
+    <button class="type" id="suite">suite</button>
+    <button class="type" id="single">single room</button>
+    <button class="type" id="junior">junior suite</button>
   `)
 }
+
+$('.rooms-type').delegate('.type', 'click', (e) => {
+  let key = $(e.target).attr('id');
+  let rooms = getLocalStorage(key);
+  let date = $('.rooms-type').attr('id');
+  let type = rooms[0].roomType.toUpperCase();
+  emptyContainers();
+  let message = `${type} Available ${date}`;
+  displayInfoMessage(message, key)
+  displayRooms(rooms, date);
+})
