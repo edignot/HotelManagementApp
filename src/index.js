@@ -47,13 +47,20 @@ $('#admin-login').click(() => {
 
 $('.admin-title-wrapper').click(() => {
   emptyContainers();
+  $('.admin-info').empty();
   getAdminData();
+  showTime();
 });
 
 $('.user-title-wrapper').click(() => {
   emptyContainers();
   getUserData();
+  showTime();
 });
+
+function showTime() {
+  $('.date').text(moment().format('L'));
+}
 
 $('#user-login-btn').click(() => {
   let username = $('#user-login-input');
@@ -65,7 +72,7 @@ $('#user-login-btn').click(() => {
   if (user && password.val() === 'overlook2020' && customer === 'customer') {
     setLocalStorage(user, 'user');
     window.location = './user.html';
-    displayUser();
+    getUserData();
   }
 
   if ((!user || customer !== 'customer') && password.val() === 'overlook2020') {
@@ -110,6 +117,7 @@ $('#admin-login-btn').click(() => {
   let password = $('#admin-password-input');
   if (username.val() === 'manager' && password.val() === 'overlook2020') {
     window.location = './admin.html';
+    // getAdminData();
   }
 
   if (username.val() !== 'manager' && password.val() === 'overlook2020') {
@@ -264,11 +272,11 @@ function getUserInfo(user) {
   displayUserInfo(user, userBookings)
 }
 
-function displayInfoMessage(message) {
+function displayInfoMessage(message, color) {
   emptyContainers();
   $('.info').append(`
   <div class="user-data">
-  <p class="message">${message}</p>
+  <p class="message" id="${color}">${message}</p>
   </div>
   `)
 }
@@ -323,6 +331,7 @@ function convertDate() {
 }
 
 function displayRooms(rooms, date) {
+  getRoomsType(date);
   rooms.forEach(room => displayRoom(room, date));
 }
 
@@ -365,8 +374,34 @@ function emptyContainers() {
   $('.user-bookings').empty();
   $('.rooms').empty();
   $('.info').empty();
+  $('.rooms-type').empty();
 }
 
+function getRoomsType(date) {
+  setLocalStorage(hotel.filterRoomsByType(date, 'residential suite'), 'residential');
+  setLocalStorage(hotel.filterRoomsByType(date, 'suite'), 'suite');
+  setLocalStorage(hotel.filterRoomsByType(date, 'single room'), 'single');
+  setLocalStorage(hotel.filterRoomsByType(date, 'junior suite'), 'junior');
+  displayRoomType(date);
+}
 
-// filter rooms by type
-// let roomsType = hotel.filterRoomsByType(date, 'single room');
+function displayRoomType(date) {
+  $('.rooms-type').attr('id', date);
+  $('.rooms-type').append(`
+    <button class="type jdjdfjdj" id="residential">residential suite</button>
+    <button class="type" id="suite">suite</button>
+    <button class="type" id="single">single room</button>
+    <button class="type" id="junior">junior suite</button>
+  `)
+}
+
+$('.rooms-type').delegate('.type', 'click', (e) => {
+  let key = $(e.target).attr('id');
+  let rooms = getLocalStorage(key);
+  let date = $('.rooms-type').attr('id');
+  let type = rooms[0].roomType.toUpperCase();
+  emptyContainers();
+  let message = `${type} Available ${date}`;
+  displayInfoMessage(message, key)
+  displayRooms(rooms, date);
+})
