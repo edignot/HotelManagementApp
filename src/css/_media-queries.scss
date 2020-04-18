@@ -56,6 +56,14 @@ $break4: 1280px;
   .admin-info {
     grid-template-columns: repeat(4, 1fr);
   }
+
+  .nav {
+    padding: 30px 0;
+
+    .search-wrapper {
+      width: 45%;
+    }
+  }
 }
 
 @media (min-width: 1024px) {

@@ -10,6 +10,7 @@ import {
 } from "./utils.js";
 import './images/hotel1.jpg'
 const moment = require('moment');
+import flatpickr from "flatpickr";
 
 let data = {};
 let bookingData;
@@ -28,9 +29,9 @@ Promise.all([usersPromise, roomsPromise, bookingsPromise]).then(response => data
     console.log(error);
   });
 
-$('.title-wrapper').click(() => {
-  window.location = './index.html';
-});
+// $('.title-wrapper').click(() => {
+//   window.location = './index.html';
+// });
 
 $('#user-login').click(() => {
   window.location = './user-login.html';
@@ -131,6 +132,7 @@ function displayUser() {
 // DUMMY FUNCTION, ADDED EVERYTHING THAT IS SUPPOSED TO RUN ON USER PAGE LOAD  // USERS PAGE //
 $('.user-logout').click(() => {
   getUserData();
+  flatpickr('.date-input');
 });
 
 function getUserData() {
@@ -202,6 +204,7 @@ function getAdminData() {
   displayRoomsBooked(today);
   displayRoomsOccupied(today);
   displayInfoMessage('Nothing to Display');
+  flatpickr(".date-input");
 }
 
 function displayRevenue(today) {

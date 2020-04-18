@@ -18,36 +18,25 @@
 
 .nav {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: space-around;
   list-style: none;
   padding: 30px;
   background-color: $background-light;
 
   .search-wrapper {
     display: flex;
-    // padding: 15px 0;
-    width: 70%;
+    width: 100%;
+    padding-top: 15px;
 
     input {
       @include input();
       box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
     }
 
-    .search-user-btn {
+    .search-user-btn,
+    .date-btn {
       @include inputLabel();
-    }
-  }
-
-  #logout {
-    @include button(1.4rem, 20%, 5px);
-    background-color: $accent-medium;
-    color: $font-light;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
-    margin-top: 0;
-
-    &:hover {
-      filter: opacity(90%);
-      transition: filter .5s;
     }
   }
 }
@@ -81,5 +70,21 @@
     p {
       font-weight: 400;
     }
+  }
+}
+
+#logout {
+  @include button(1.4rem, 100px, 5px);
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  background-color: $accent-medium;
+  color: $font-light;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+  margin-top: 0;
+
+  &:hover {
+    filter: opacity(90%);
+    transition: filter .5s;
   }
 }
