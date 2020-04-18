@@ -2,7 +2,7 @@ import $ from 'jquery';
 import './css/base.scss';
 import './css/_media-queries.scss';
 import Hotel from '../src/Hotel';
-import BookingData from '../src/BookingData';
+import BookingHandler from '../src/BookingHandler';
 import {
   usersPromise,
   roomsPromise,
@@ -13,7 +13,7 @@ const moment = require('moment');
 import flatpickr from "flatpickr";
 
 let data = {};
-let bookingData;
+let bookingHandler;
 let hotel;
 
 Promise.all([usersPromise, roomsPromise, bookingsPromise]).then(response => data = {
@@ -22,7 +22,7 @@ Promise.all([usersPromise, roomsPromise, bookingsPromise]).then(response => data
     bookings: response[2],
   })
   .then(() => {
-    bookingData = new BookingData(data.bookings);
+    bookingHandler = new BookingHandler(data.bookings);
     hotel = new Hotel(data.rooms, data.bookings);
   })
   .catch(error => {
@@ -142,7 +142,7 @@ $('.user-logout').click(() => {
 
 function getUserData() {
   let user = getLocalStorage('user');
-  let userBookings = bookingData.findBookings(user.id);
+  let userBookings = bookingHandler.findBookings(user.id);
   displayUserInfo(user, userBookings);
   displayUserBookings(userBookings);
 }
@@ -241,6 +241,7 @@ function displayRoomsOccupied(today) {
 }
 
 $('.search-user-btn').click(() => {
+  $('.user-bookings').empty();
   $('.info').empty();
   let input = $('.search-user-input').val().toLowerCase();
   searchUsers(input);
@@ -277,7 +278,7 @@ function checkMatch(foundUsers) {
 }
 
 function getUserInfo(user) {
-  let userBookings = bookingData.findBookings(user.id);
+  let userBookings = bookingHandler.findBookings(user.id);
   displayUserBookings(userBookings);
   displayUserInfo(user, userBookings)
 }
