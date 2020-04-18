@@ -169,14 +169,14 @@ function displayBooking(booking, room) {
   $('.user-bookings').prepend(`
   <section class="user-booking ${checkStatus(booking.date).toLowerCase()}">
   <div class="left">
-    <p class="user-booking-status">${checkStatus(booking.date)}</p>
-    <p class="user-date">${booking.date}</p>
-    <p class="user-price">$${room.costPerNight}/night</p>
+    <p>${checkStatus(booking.date)}</p>
+    <p>${booking.date}</p>
+    <p>$${room.costPerNight}/night</p>
   </div>
   <div class="right">
-    <p class="user-room">${room.roomType}</p>
-    <p class="user-bed">${room.bedSize}</p>
-    <p class="user-bed-num">beds: ${room.numBeds}</p>
+    <p>${room.roomType.toUpperCase()}</p>
+    <p>bed size: ${room.bedSize}</p>
+    <p>beds: ${room.numBeds}</p>
   </div>
 </section>
   `);
@@ -284,6 +284,7 @@ function getUserInfo(user) {
 }
 
 function displayInfoMessage(message) {
+  $('.info').empty();
   $('.info').append(`
   <div class="user-data">
   <p class="message">${message}</p>
@@ -322,12 +323,59 @@ function displayUserInfo(user, userBookings) {
 }
 
 $('.date-btn').click(() => {
-  // let date = ('.date-input').val();
-  // console.log(date);
-  let rooms = hotel.getRoomsAvailable('2020/01/20');
+  let date = convertDate();
+  let rooms = hotel.getRoomsAvailable(date);
   !rooms && displayInfoMessage('No Rooms Available on Selected Date');
-  console.log('dom', rooms);
+  rooms && displayRooms(rooms);
 
-  let roomsType = hotel.filterRoomsByType('2020/01/20', 'single room');
-  console.log('type', roomsType)
+  let roomsType = hotel.filterRoomsByType(date, 'single room');
+  // console.log('type', roomsType)
 });
+
+function convertDate() {
+  let date = $(".date-input").val().split('');
+  let converted = [];
+  date.forEach(num => {
+    (num === '-') ? converted.push('/'): converted.push(num);
+  })
+  return converted.join('');
+}
+
+function displayRooms(rooms) {
+  rooms.forEach(room => displayRoom(room));
+}
+
+function displayRoom(room) {
+  $('.rooms').append(`
+  <section class="room ${checkRoomType(room)}">
+  <div class="left">
+    <p>${room.roomType.toUpperCase()}</p>
+    <p>${room.number}</p>
+    <p>${room.costPerNight}$/night</p>
+  </div>
+  <div class="right">
+    <p>bed size: ${room.bedSize}</p>
+    <p>beds: ${room.numBeds}</p>
+    <p>bidet: ${room.bidet}</p>
+  </div>
+</section>
+  `);
+}
+
+function checkRoomType(room) {
+  if (room.roomType === 'residential suite') {
+    return 'residential';
+  }
+
+  if (room.roomType === 'suite') {
+    return 'suite';
+  }
+
+  if (room.roomType === 'single room') {
+    return 'single';
+  }
+
+  if (room.roomType === 'junior suite') {
+    return 'junior';
+  }
+}
