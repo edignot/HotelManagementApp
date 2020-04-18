@@ -1,17 +1,13 @@
 import chai from 'chai';
 const expect = chai.expect;
-import Hotel from '../src/hotel';
-import bookingsTestData from '../test-data/bookings-test-data.js';
-import roomsTestData from '../test-data/rooms-test-data.js';
+import Hotel from '../src/Hotel';
+import bookings from '../test-data/bookings-test-data.js';
+import rooms from '../test-data/rooms-test-data.js';
 
 describe('HOTEL', function () {
   let hotel;
   beforeEach(() => {
-    hotel = new Hotel(roomsTestData, bookingsTestData);
-  });
-
-  it('should return true', function () {
-    expect(true).to.equal(true);
+    hotel = new Hotel(rooms, bookings);
   });
 
   it('should store hotel room data', function () {
@@ -23,15 +19,15 @@ describe('HOTEL', function () {
   });
 
   it('should calculate total bookings amount', function () {
-    expect(hotel.getBookingsAmount(bookingsTestData)).to.equal(429.44);
+    expect(hotel.getBookingsAmount(bookings)).to.equal(429.44);
   });
 
   it('should return rooms available', function () {
-    expect(hotel.getRoomsAvailable('2020/02/16')).to.deep.equal([roomsTestData[0], roomsTestData[1], roomsTestData[2]]);
+    expect(hotel.getRoomsAvailable('2020/02/16')).to.deep.equal([rooms[0], rooms[1], rooms[2]]);
   });
 
   it('should filter rooms by type', function () {
-    expect(hotel.filterRoomsByType('2020/05/16', 'single room')).to.deep.equal([roomsTestData[2], roomsTestData[3]]);
+    expect(hotel.filterRoomsByType('2020/05/16', 'single room')).to.deep.equal([rooms[2], rooms[3]]);
   });
 
   it('should calculate revenue by date', function () {

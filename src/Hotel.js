@@ -4,6 +4,10 @@ class Hotel {
     this.bookings = bookings;
   }
 
+  getBookingsByDate(date) {
+    return this.bookings.filter(booking => booking.date === date);
+  }
+
   getBookingsAmount(bookings) {
     return this.rooms.reduce((sum, room) => {
       bookings.forEach(booking => {
@@ -27,8 +31,8 @@ class Hotel {
   }
 
   calcRevenue(date) {
-    let dateBookings = this.bookings.filter(booking => booking.date === date);
-    let revenue = dateBookings.reduce((sum, booking) => {
+    let bookings = this.getBookingsByDate(date);
+    let revenue = bookings.reduce((sum, booking) => {
       this.rooms.forEach(room => {
         (room.number === booking.roomNumber) && (sum += room.costPerNight);
       })
@@ -38,8 +42,8 @@ class Hotel {
   }
 
   calcRoomsAvailable(date) {
-    let dateBookings = this.bookings.filter(booking => booking.date === date);
-    return this.rooms.length - dateBookings.length;
+    let bookings = this.getBookingsByDate(date);
+    return this.rooms.length - bookings.length;
   }
 
   calcRoomsBooked(date) {
@@ -47,8 +51,8 @@ class Hotel {
   }
 
   calcRoomsOccupied(date) {
-    let dateBookings = this.bookings.filter(booking => booking.date === date);
-    return (dateBookings.length * 100) / this.rooms.length;
+    let bookings = this.getBookingsByDate(date);
+    return (bookings.length * 100) / this.rooms.length;
   }
 }
 
