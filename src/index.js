@@ -47,13 +47,20 @@ $('#admin-login').click(() => {
 
 $('.admin-title-wrapper').click(() => {
   emptyContainers();
+  $('.admin-info').empty();
   getAdminData();
+  showTime();
 });
 
 $('.user-title-wrapper').click(() => {
   emptyContainers();
   getUserData();
+  showTime();
 });
+
+function showTime() {
+  $('.date').text(moment().format('L'));
+}
 
 $('#user-login-btn').click(() => {
   let username = $('#user-login-input');
@@ -65,7 +72,7 @@ $('#user-login-btn').click(() => {
   if (user && password.val() === 'overlook2020' && customer === 'customer') {
     setLocalStorage(user, 'user');
     window.location = './user.html';
-    displayUser();
+    getUserData();
   }
 
   if ((!user || customer !== 'customer') && password.val() === 'overlook2020') {
@@ -110,6 +117,7 @@ $('#admin-login-btn').click(() => {
   let password = $('#admin-password-input');
   if (username.val() === 'manager' && password.val() === 'overlook2020') {
     window.location = './admin.html';
+    // getAdminData();
   }
 
   if (username.val() !== 'manager' && password.val() === 'overlook2020') {
@@ -323,6 +331,7 @@ function convertDate() {
 }
 
 function displayRooms(rooms, date) {
+  getRoomsType(date);
   rooms.forEach(room => displayRoom(room, date));
 }
 
@@ -367,6 +376,13 @@ function emptyContainers() {
   $('.info').empty();
 }
 
-
-// filter rooms by type
-// let roomsType = hotel.filterRoomsByType(date, 'single room');
+function getRoomsType(date) {
+  let residential = hotel.filterRoomsByType(date, 'residential suite');
+  let suite = hotel.filterRoomsByType(date, 'suite');
+  let single = hotel.filterRoomsByType(date, 'single room');
+  let junior = hotel.filterRoomsByType(date, 'junior suite');
+  console.log('residential', residential)
+  console.log('suite', suite)
+  console.log('single', single)
+  console.log('junior', junior) // let roomsType = hotel.filterRoomsByType(date, 'single room'
+}
