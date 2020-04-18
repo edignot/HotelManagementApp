@@ -2,12 +2,15 @@
   @include header(55vh);
   background-image: linear-gradient(rgba(2, 44, 116, 0.425), rgba(2, 44, 116, 0.9)), url(../images/hotel1.jpg);
 
+  .admin-title-wrapper,
+  .user-title-wrapper,
   .title-wrapper {
     margin: auto;
   }
 
   h1 {
     @include h1(7rem);
+    font-weight: 200;
   }
 
   p {

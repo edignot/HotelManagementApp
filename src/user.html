@@ -11,8 +11,8 @@
 
 <body>
   <header class="user-header">
-    <div class="title-wrapper">
-      <button id="logout" class="user-logout">Logout</button>
+    <button id="logout" class="user-logout">Logout</button>
+    <div class="user-title-wrapper">
       <h1>Overlook</h1>
       <p>User Page</p>
     </div>
@@ -20,13 +20,14 @@
   <main>
     <section class="nav">
       <div class="search-wrapper">
-        <button type="submit" name="button" class="date-btn" disabled>
+        <button type="submit" name="button" class="date-btn">
           <ion-icon name="search-outline"></ion-icon>
         </button>
         <input type="search" name="search" class="date-input" placeholder="Rooms Available / Select Date" />
       </div>
     </section>
     <section class="info"></section>
+    <section class="rooms"></section>
     <section class="user-bookings"></section>
   </main>
   <footer class="footer-user">

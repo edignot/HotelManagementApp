@@ -56,3 +56,35 @@
     @include statusHover($accent-medium, $font-light);
   }
 }
+
+.residential {
+  @include borderStatus($accent-medium);
+
+  &:hover {
+    @include statusHover($accent-medium, $font-light);
+  }
+}
+
+.suite {
+  @include borderStatus($accent-light);
+
+  &:hover {
+    @include statusHover($accent-light, $font-light);
+  }
+}
+
+.single {
+  @include borderStatus($alert-success);
+
+  &:hover {
+    @include statusHover($alert-success, $font-light);
+  }
+}
+
+.junior {
+  @include borderStatus($alert-warning);
+
+  &:hover {
+    @include statusHover($alert-warning, $font-light);
+  }
+}

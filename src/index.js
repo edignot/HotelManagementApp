@@ -29,9 +29,13 @@ Promise.all([usersPromise, roomsPromise, bookingsPromise]).then(response => data
     console.log(error);
   });
 
-// $('.title-wrapper').click(() => {
-//   window.location = './index.html';
-// });
+$('.title-wrapper').click(() => {
+  window.location = './index.html';
+});
+
+$('#logout').click(() => {
+  window.location = './index.html';
+});
 
 $('#user-login').click(() => {
   window.location = './user-login.html';
@@ -41,15 +45,15 @@ $('#admin-login').click(() => {
   window.location = './admin-login.html';
 });
 
-// UNCOMENT WHEN PAGE LOAD IS FIXED
-// $('#logout').click(() => {
-//   window.location = './index.html';
-// });
+$('.admin-title-wrapper').click(() => {
+  emptyContainers();
+  getAdminData();
+});
 
-// CHECK IF INPUT IS EMPTY, THEN DON'T REMOVE ATTRIBUTE
-if ($('.date-input')) {
-  $('.date-btn').removeAttr("disabled");
-}
+$('.user-title-wrapper').click(() => {
+  emptyContainers();
+  getUserData();
+});
 
 $('#user-login-btn').click(() => {
   let username = $('#user-login-input');
@@ -93,6 +97,14 @@ function setLocalStorage(item, key) {
   localStorage.setItem(key, stringified);
 }
 
+function displayLoginError(input) {
+  input.css('border', '1px #fc0015 solid');
+}
+
+function resetLoginError(input) {
+  input.css('border', '1px #132E88 solid');
+}
+
 $('#admin-login-btn').click(() => {
   let username = $('#admin-login-input');
   let password = $('#admin-password-input');
@@ -120,41 +132,16 @@ $('#admin-login-btn').click(() => {
   }
 });
 
-function displayLoginError(input) {
-  input.css('border', '1px #fc0015 solid');
-}
-
-function resetLoginError(input) {
-  input.css('border', '1px #132E88 solid');
-}
-
-// .load() jquery
-function displayUser() {
-  // THIS ISN'T WORKING
-  $('.user-info').hide();
-}
-
-// DUMMY FUNCTION, ADDED EVERYTHING THAT IS SUPPOSED TO RUN ON USER PAGE LOAD  // USERS PAGE //
-$('.user-logout').click(() => {
-  getUserData();
-  flatpickr('.date-input');
-});
-
 function getUserData() {
   let user = getLocalStorage('user');
   let userBookings = bookingHandler.findBookings(user.id);
   displayUserInfo(user, userBookings);
   displayUserBookings(userBookings);
+  flatpickr('.date-input');
 }
 
 function getLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));
-}
-
-function displayUserData(user, userBookings) {
-  $('.name').text(`Welcome back, ${user.name}`);
-  let amount = hotel.getBookingsAmount(userBookings).toFixed(2);
-  $('.user-amount').text(`Total: $${amount}`);
 }
 
 function displayUserBookings(userBookings) {
@@ -167,7 +154,7 @@ function displayUserBookings(userBookings) {
 
 function displayBooking(booking, room) {
   $('.user-bookings').prepend(`
-  <section class="user-booking ${checkStatus(booking.date).toLowerCase()}">
+  <section class="user-booking ${checkStatus(booking.date).toLowerCase()}" id="${booking.id}">
   <div class="left">
     <p>${checkStatus(booking.date)}</p>
     <p>${booking.date}</p>
@@ -196,11 +183,6 @@ function checkStatus(date) {
     return 'Past';
   }
 }
-
-// DUMMY FUNCTION, ADDED EVERYTHING THAT IS SUPPOSED TO RUN ON USER PAGE LOAD  // ADMIN PAGE //
-$('.admin-logout').click(() => {
-  getAdminData();
-});
 
 function getAdminData() {
   let today = moment().format('YYYY/MM/DD');
@@ -241,8 +223,7 @@ function displayRoomsOccupied(today) {
 }
 
 $('.search-user-btn').click(() => {
-  $('.user-bookings').empty();
-  $('.info').empty();
+  emptyContainers();
   let input = $('.search-user-input').val().toLowerCase();
   searchUsers(input);
   $('.search-user-input').val('');
@@ -284,7 +265,7 @@ function getUserInfo(user) {
 }
 
 function displayInfoMessage(message) {
-  $('.info').empty();
+  emptyContainers();
   $('.info').append(`
   <div class="user-data">
   <p class="message">${message}</p>
@@ -308,7 +289,7 @@ function displayUserChoice(user) {
 $('.info').delegate('.user-choice', 'click', (e) => {
   let id = Number($(e.target).attr('id'));
   let user = findUser(id);
-  $('.info').empty();
+  emptyContainers();
   getUserInfo(user);
 })
 
@@ -323,13 +304,13 @@ function displayUserInfo(user, userBookings) {
 }
 
 $('.date-btn').click(() => {
+  emptyContainers();
   let date = convertDate();
+  displayInfoMessage(`Rooms available: ${date}`)
   let rooms = hotel.getRoomsAvailable(date);
+  (date === '') && displayInfoMessage('All Rooms / No Date Selected');
   !rooms && displayInfoMessage('No Rooms Available on Selected Date');
-  rooms && displayRooms(rooms);
-
-  let roomsType = hotel.filterRoomsByType(date, 'single room');
-  // console.log('type', roomsType)
+  rooms && displayRooms(rooms, date);
 });
 
 function convertDate() {
@@ -341,13 +322,13 @@ function convertDate() {
   return converted.join('');
 }
 
-function displayRooms(rooms) {
-  rooms.forEach(room => displayRoom(room));
+function displayRooms(rooms, date) {
+  rooms.forEach(room => displayRoom(room, date));
 }
 
-function displayRoom(room) {
+function displayRoom(room, date) {
   $('.rooms').append(`
-  <section class="room ${checkRoomType(room)}">
+  <section class="room ${checkRoomType(room)} ${room.number}" id="${date}">
   <div class="left">
     <p>${room.roomType.toUpperCase()}</p>
     <p>${room.number}</p>
@@ -379,3 +360,13 @@ function checkRoomType(room) {
     return 'junior';
   }
 }
+
+function emptyContainers() {
+  $('.user-bookings').empty();
+  $('.rooms').empty();
+  $('.info').empty();
+}
+
+
+// filter rooms by type
+// let roomsType = hotel.filterRoomsByType(date, 'single room');
