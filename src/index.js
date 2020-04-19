@@ -330,9 +330,18 @@ function displayUserInfo(user, userBookings) {
   <div class="user-data">
   <p>Customer: ${user.name}</p>
   <p>Total Spending: $${amount}</p>
+  <button class="user-history">BOOKING HISTORY</button>
   </div>
  `)
 }
+
+$('.user').delegate('.user-history', 'click', (e) => {
+  $('.user').empty();
+  emptyContainers();
+  let user = getLocalStorage('user');
+  getUserInfo(user);
+})
+
 
 $('.date-btn').click(() => {
   emptyContainers();
