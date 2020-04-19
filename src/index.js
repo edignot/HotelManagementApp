@@ -198,7 +198,7 @@ function displayBooking(booking, room) {
 
 function checkCancelAbility(date) {
   let now = moment().format('YYYY/MM/DD');
-  return ($('.page').text() === 'Admin Page' && date > now) ? 'cancel' : 'hidden';
+  return ($('.admin-page').text().includes('Admin') && date > now) ? 'cancel' : 'hidden';
 }
 
 function checkStatus(date) {
@@ -488,10 +488,10 @@ function getBookingData(roomId) {
 function bookRoom(userId, day, roomId) {
   bookingHandler.book(userId, day, roomId);
   // confirmBooking()
-  location.reload()
+  // location.reload()
 }
 
 function cancelBooking(bookingId) {
   bookingHandler.cancel(bookingId);
-  location.reload()
+  // location.reload()
 }
