@@ -335,9 +335,13 @@ function displayUserInfo(user, userBookings) {
   <div class="user-data">
   <p>Customer: ${user.name}</p>
   <p>Total Spending: $${amount}</p>
-  <button class="user-history">user's booking history</button>
+  <button class="user-history ${checkAdmin()}">user's booking history</button>
   </div>
  `)
+}
+
+function checkAdmin() {
+  return ($('.page').text() === 'Admin Page') ? '' : 'hidden';
 }
 
 $('.user').delegate('.user-history', 'click', (e) => {
