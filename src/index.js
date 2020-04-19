@@ -13,6 +13,7 @@ const moment = require('moment');
 import flatpickr from "flatpickr";
 
 let data = {};
+console.log(data, Date.now());
 let bookingHandler;
 let hotel;
 
@@ -91,7 +92,6 @@ $('#user-login-btn').click(() => {
   if (user && password.val() === 'overlook2020' && customer === 'customer') {
     setLocalStorage(user, 'user');
     window.location = './user.html';
-    getUserData();
   }
 
   if ((!user || customer !== 'customer') && password.val() === 'overlook2020') {
@@ -136,7 +136,6 @@ $('#admin-login-btn').click(() => {
   let password = $('#admin-password-input');
   if (username.val() === 'manager' && password.val() === 'overlook2020') {
     window.location = './admin.html';
-    // getAdminData();
   }
 
   if (username.val() !== 'manager' && password.val() === 'overlook2020') {
@@ -330,6 +329,7 @@ $('.info').delegate('.user-choice', 'click', (e) => {
 })
 
 function displayUserInfo(user, userBookings) {
+  $('.page').html(`Welcome back, ${user.name} &#128153`)
   let amount = hotel.getBookingsAmount(userBookings).toFixed(2);
   $('.user').append(`
   <div class="user-data">
@@ -341,10 +341,10 @@ function displayUserInfo(user, userBookings) {
 }
 
 function checkAdmin() {
-  return ($('.page').text() === 'Admin Page') ? '' : 'hidden';
+  return ($('.admin-page').text().includes('Admin')) ? '' : 'hidden';
 }
 
-$('.user').delegate('.user-history', 'click', (e) => {
+$('.user').delegate('.user-history', 'click', () => {
   $('.user').empty();
   emptyContainers();
   let user = getLocalStorage('user');
@@ -488,9 +488,10 @@ function getBookingData(roomId) {
 function bookRoom(userId, day, roomId) {
   bookingHandler.book(userId, day, roomId);
   // confirmBooking()
+  location.reload()
 }
 
 function cancelBooking(bookingId) {
   bookingHandler.cancel(bookingId);
-  console.log(bookingId);
+  location.reload()
 }
