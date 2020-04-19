@@ -72,6 +72,11 @@ $('.rooms').delegate('.book-btn', 'click', (e) => {
   getBookingData(roomId);
 })
 
+$('.user-bookings').delegate('.cancel-btn', 'click', (e) => {
+  let bookingId = Number($(e.target).attr('id'));
+  cancelBooking(bookingId);
+})
+
 function showTime() {
   $('.date').text(moment().format('L'));
 }
@@ -467,13 +472,15 @@ function displayRoomsNotFound(date, key) {
 function getBookingData(roomId) {
   let day = $('.rooms-type').attr('id');
   let user = getLocalStorage('user');
-  // let bookingId = Date.now().toString();
-  user ? bookRoom(user.id, day, roomId) : alert('selectUser');
+  user ? bookRoom(user.id, day, roomId) : alert('Select User First');
 }
 
 function bookRoom(userId, day, roomId) {
-  console.log('booking day', day);
-  console.log('userId', userId);
-  console.log('roomId', roomId);
   bookingHandler.book(userId, day, roomId);
+  // confirmBooking()
+}
+
+function cancelBooking(bookingId) {
+  bookingHandler.cancel(bookingId);
+  console.log(bookingId);
 }

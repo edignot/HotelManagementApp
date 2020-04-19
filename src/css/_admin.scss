@@ -105,3 +105,8 @@
     color: $alert-error;
   }
 }
+
+.hidden-label {
+  position: absolute;
+  filter: opacity(0%);
+}
