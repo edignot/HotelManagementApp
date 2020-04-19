@@ -47,6 +47,7 @@ $('#admin-login').click(() => {
 });
 
 $('.booking-history').click(() => {
+  $('.user').empty();
   emptyContainers();
   getUserData();
   showTime();
@@ -60,6 +61,7 @@ $('.admin-title-wrapper').click(() => {
 });
 
 $('.user-title-wrapper').click(() => {
+  $('.user').empty();
   emptyContainers();
   getUserData();
   showTime();
@@ -67,7 +69,7 @@ $('.user-title-wrapper').click(() => {
 
 $('.rooms').delegate('.book-btn', 'click', (e) => {
   let roomId = Number($(e.target).attr('id'));
-  bookRoom(roomId);
+  getBookingData(roomId);
 })
 
 function showTime() {
@@ -185,8 +187,14 @@ function displayBooking(booking, room) {
     <p>bed size: ${room.bedSize}</p>
     <p>beds: ${room.numBeds}</p>
   </div>
+  <button class="book-btn ${checkCancelAbility(booking.date)}" id="${booking.id}">CANCEL</button>
 </section>
   `);
+}
+
+function checkCancelAbility(date) {
+  let now = moment().format('YYYY/MM/DD');
+  return ($('.page').text() === 'Admin Page' && date > now) ? 'cancel' : 'hidden';
 }
 
 function checkStatus(date) {
@@ -243,6 +251,7 @@ function displayRoomsOccupied(today) {
 }
 
 $('.search-user-btn').click(() => {
+  $('.user').empty();
   emptyContainers();
   let input = $('.search-user-input').val().toLowerCase();
   searchUsers(input);
@@ -317,7 +326,7 @@ $('.info').delegate('.user-choice', 'click', (e) => {
 
 function displayUserInfo(user, userBookings) {
   let amount = hotel.getBookingsAmount(userBookings).toFixed(2);
-  $('.info').append(`
+  $('.user').append(`
   <div class="user-data">
   <p>Customer: ${user.name}</p>
   <p>Total Spending: $${amount}</p>
@@ -445,12 +454,17 @@ function displayRoomsNotFound(date, key) {
   `)
 }
 
-function bookRoom(roomId) {
-  let date = $('.rooms-type').attr('id')
-  let userId = getLocalStorage('user').id
-  let id = Date.now();
-  console.log('booking id', id);
-  console.log('booking date', date);
+function getBookingData(roomId) {
+  let day = $('.rooms-type').attr('id');
+  let user = getLocalStorage('user');
+  let bookingId = Date.now().toString();
+  user ? bookRoom(bookingId, user.id, day, roomId) : alert('selectUser')
+}
+
+function bookRoom(bookingId, userId, day, roomId) {
+  console.log('booking id', bookingId);
+  console.log('booking day', day);
   console.log('userId', userId);
   console.log('roomId', roomId);
+  // bookingHandler.book(bookingId, userId, day, roomId);
 }
