@@ -89,3 +89,11 @@
     transition: filter .5s;
   }
 }
+
+.user-history {
+  @include button(1.4rem, 300px, 5px);
+
+  &:hover {
+    @include statusHover($accent-light, $font-light)
+  }
+}

@@ -330,7 +330,7 @@ function displayUserInfo(user, userBookings) {
   <div class="user-data">
   <p>Customer: ${user.name}</p>
   <p>Total Spending: $${amount}</p>
-  <button class="user-history">BOOKING HISTORY</button>
+  <button class="user-history">user's booking history</button>
   </div>
  `)
 }
