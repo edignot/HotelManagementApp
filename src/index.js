@@ -34,6 +34,7 @@ $('.title-wrapper').click(() => {
 });
 
 $('#logout').click(() => {
+  localStorage.clear();
   window.location = './index.html';
 });
 
@@ -45,6 +46,13 @@ $('#admin-login').click(() => {
   window.location = './admin-login.html';
 });
 
+$('.booking-history').click(() => {
+  $('.user').empty();
+  emptyContainers();
+  getUserData();
+  showTime();
+});
+
 $('.admin-title-wrapper').click(() => {
   emptyContainers();
   $('.admin-info').empty();
@@ -53,10 +61,16 @@ $('.admin-title-wrapper').click(() => {
 });
 
 $('.user-title-wrapper').click(() => {
+  $('.user').empty();
   emptyContainers();
   getUserData();
   showTime();
 });
+
+$('.rooms').delegate('.book-btn', 'click', (e) => {
+  let roomId = Number($(e.target).attr('id'));
+  getBookingData(roomId);
+})
 
 function showTime() {
   $('.date').text(moment().format('L'));
@@ -173,8 +187,14 @@ function displayBooking(booking, room) {
     <p>bed size: ${room.bedSize}</p>
     <p>beds: ${room.numBeds}</p>
   </div>
+  <button class="book-btn ${checkCancelAbility(booking.date)}" id="${booking.id}">CANCEL</button>
 </section>
   `);
+}
+
+function checkCancelAbility(date) {
+  let now = moment().format('YYYY/MM/DD');
+  return ($('.page').text() === 'Admin Page' && date > now) ? 'cancel' : 'hidden';
 }
 
 function checkStatus(date) {
@@ -231,6 +251,7 @@ function displayRoomsOccupied(today) {
 }
 
 $('.search-user-btn').click(() => {
+  $('.user').empty();
   emptyContainers();
   let input = $('.search-user-input').val().toLowerCase();
   searchUsers(input);
@@ -267,6 +288,7 @@ function checkMatch(foundUsers) {
 }
 
 function getUserInfo(user) {
+  setLocalStorage(user, 'user');
   let userBookings = bookingHandler.findBookings(user.id);
   displayUserBookings(userBookings);
   displayUserInfo(user, userBookings)
@@ -297,29 +319,49 @@ function displayUserChoice(user) {
 $('.info').delegate('.user-choice', 'click', (e) => {
   let id = Number($(e.target).attr('id'));
   let user = findUser(id);
+  setLocalStorage(user, 'user');
   emptyContainers();
   getUserInfo(user);
 })
 
 function displayUserInfo(user, userBookings) {
   let amount = hotel.getBookingsAmount(userBookings).toFixed(2);
-  $('.info').append(`
+  $('.user').append(`
   <div class="user-data">
   <p>Customer: ${user.name}</p>
   <p>Total Spending: $${amount}</p>
+  <button class="user-history">user's booking history</button>
   </div>
  `)
 }
 
+$('.user').delegate('.user-history', 'click', (e) => {
+  $('.user').empty();
+  emptyContainers();
+  let user = getLocalStorage('user');
+  getUserInfo(user);
+})
+
+
 $('.date-btn').click(() => {
   emptyContainers();
   let date = convertDate();
+  checkDate(date);
+  flatpickr('.date-input');
+});
+
+function checkDate(date) {
+  let now = moment().format('YYYY/MM/DD');
+  return (date >= now) ? getRoomsForDate(date) : displayInfoMessage('Select Upcoming Date');
+}
+
+function getRoomsForDate(date) {
   displayInfoMessage(`Rooms available: ${date}`)
   let rooms = hotel.getRoomsAvailable(date);
   (date === '') && displayInfoMessage('All Rooms / No Date Selected');
   !rooms && displayInfoMessage('No Rooms Available on Selected Date');
   rooms && displayRooms(rooms, date);
-});
+}
 
 function convertDate() {
   let date = $(".date-input").val().split('');
@@ -348,6 +390,7 @@ function displayRoom(room, date) {
     <p>beds: ${room.numBeds}</p>
     <p>bidet: ${room.bidet}</p>
   </div>
+  <button class="book-btn" id="${room.number}">BOOK</button>
 </section>
   `);
 }
@@ -388,7 +431,7 @@ function getRoomsType(date) {
 function displayRoomType(date) {
   $('.rooms-type').attr('id', date);
   $('.rooms-type').append(`
-    <button class="type jdjdfjdj" id="residential">residential suite</button>
+    <button class="type" id="residential">residential suite</button>
     <button class="type" id="suite">suite</button>
     <button class="type" id="single">single room</button>
     <button class="type" id="junior">junior suite</button>
@@ -396,12 +439,41 @@ function displayRoomType(date) {
 }
 
 $('.rooms-type').delegate('.type', 'click', (e) => {
+  let date = $('.rooms-type').attr('id');
   let key = $(e.target).attr('id');
   let rooms = getLocalStorage(key);
-  let date = $('.rooms-type').attr('id');
+  (rooms.length >= 1) ? getRoomTypeInfo(rooms, key, date): displayRoomsNotFound(date, key);
+})
+
+function getRoomTypeInfo(rooms, key, date) {
   let type = rooms[0].roomType.toUpperCase();
   emptyContainers();
   let message = `${type} Available ${date}`;
   displayInfoMessage(message, key)
   displayRooms(rooms, date);
-})
+}
+
+function displayRoomsNotFound(date, key) {
+  $('.rooms').empty();
+  $('.info').empty()
+  $('.info').append(`
+  <div class="user-data">
+  <p class="message" id="${key}">Selected Room Type Not Available ${date}</p>
+  </div>
+  `)
+}
+
+function getBookingData(roomId) {
+  let day = $('.rooms-type').attr('id');
+  let user = getLocalStorage('user');
+  let bookingId = Date.now().toString();
+  user ? bookRoom(bookingId, user.id, day, roomId) : alert('selectUser')
+}
+
+function bookRoom(bookingId, userId, day, roomId) {
+  console.log('booking id', bookingId);
+  console.log('booking day', day);
+  console.log('userId', userId);
+  console.log('roomId', roomId);
+  // bookingHandler.book(bookingId, userId, day, roomId);
+}

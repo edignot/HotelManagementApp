@@ -7,22 +7,23 @@ class BookingHandler {
     return this.bookings.filter(booking => booking.userID === id);
   }
 
-  book(id, userId, date, num) {
+  book(bookingId, userId, day, roomId) {
     let body = {
-      id,
-      "userID": userId,
-      date,
-      "roomNumber": num,
-      "roomServiceCharges": []
+      'id': bookingId,
+      'userID': userId,
+      'date': day,
+      'roomNumber': roomId,
+      roomServiceCharges: []
     }
-    fetch(`https://fe-apps.herokuapp.com/api/v1/fitlit/1908/${url}`, {
-        method: "POST",
+    fetch(`https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings`, {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(body)
       })
-      .catch(err => {
+      .then(response => response.json())
+      .catch(error => {
         alert(error);
       });
   }
