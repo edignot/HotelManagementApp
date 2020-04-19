@@ -467,14 +467,13 @@ function displayRoomsNotFound(date, key) {
 function getBookingData(roomId) {
   let day = $('.rooms-type').attr('id');
   let user = getLocalStorage('user');
-  let bookingId = Date.now().toString();
-  user ? bookRoom(bookingId, user.id, day, roomId) : alert('selectUser')
+  // let bookingId = Date.now().toString();
+  user ? bookRoom(user.id, day, roomId) : alert('selectUser');
 }
 
-function bookRoom(bookingId, userId, day, roomId) {
-  console.log('booking id', bookingId);
+function bookRoom(userId, day, roomId) {
   console.log('booking day', day);
   console.log('userId', userId);
   console.log('roomId', roomId);
-  // bookingHandler.book(bookingId, userId, day, roomId);
+  bookingHandler.book(userId, day, roomId);
 }

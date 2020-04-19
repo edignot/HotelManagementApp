@@ -7,13 +7,11 @@ class BookingHandler {
     return this.bookings.filter(booking => booking.userID === id);
   }
 
-  book(bookingId, userId, day, roomId) {
+  book(userId, day, roomId) {
     let body = {
-      'id': bookingId,
       'userID': userId,
       'date': day,
       'roomNumber': roomId,
-      roomServiceCharges: []
     }
     fetch(`https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings`, {
         method: 'POST',
@@ -23,6 +21,7 @@ class BookingHandler {
         body: JSON.stringify(body)
       })
       .then(response => response.json())
+      .then(data => console.log(data))
       .catch(error => {
         alert(error);
       });
