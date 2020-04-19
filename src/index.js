@@ -34,6 +34,7 @@ $('.title-wrapper').click(() => {
 });
 
 $('#logout').click(() => {
+  localStorage.clear();
   window.location = './index.html';
 });
 
@@ -328,6 +329,7 @@ $('.date-btn').click(() => {
   emptyContainers();
   let date = convertDate();
   checkDate(date);
+  flatpickr('.date-input');
 });
 
 function checkDate(date) {
@@ -411,7 +413,7 @@ function getRoomsType(date) {
 function displayRoomType(date) {
   $('.rooms-type').attr('id', date);
   $('.rooms-type').append(`
-    <button class="type jdjdfjdj" id="residential">residential suite</button>
+    <button class="type" id="residential">residential suite</button>
     <button class="type" id="suite">suite</button>
     <button class="type" id="single">single room</button>
     <button class="type" id="junior">junior suite</button>
@@ -419,15 +421,24 @@ function displayRoomType(date) {
 }
 
 $('.rooms-type').delegate('.type', 'click', (e) => {
+  let date = $('.rooms-type').attr('id');
   let key = $(e.target).attr('id');
   let rooms = getLocalStorage(key);
-  let date = $('.rooms-type').attr('id');
+  (rooms.length >= 1) ? getRoomTypeInfo(rooms, key, date): displayRoomsNotFound(rooms, date, key);
+})
+
+function getRoomTypeInfo(rooms, key, date) {
   let type = rooms[0].roomType.toUpperCase();
   emptyContainers();
   let message = `${type} Available ${date}`;
   displayInfoMessage(message, key)
   displayRooms(rooms, date);
-})
+}
+
+function displayRoomsNotFound(rooms, date, key) {
+  displayRooms(rooms, date);
+  displayInfoMessage('No Rooms Available / Select Other Category', key)
+}
 
 function bookRoom(roomId) {
   let date = $('.rooms-type').attr('id')
@@ -437,5 +448,4 @@ function bookRoom(roomId) {
   console.log('booking date', date);
   console.log('userId', userId);
   console.log('roomId', roomId);
-
 }
