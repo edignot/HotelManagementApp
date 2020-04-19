@@ -13,6 +13,7 @@ const moment = require('moment');
 import flatpickr from "flatpickr";
 
 let data = {};
+console.log(data, Date.now());
 let bookingHandler;
 let hotel;
 
@@ -72,6 +73,11 @@ $('.rooms').delegate('.book-btn', 'click', (e) => {
   getBookingData(roomId);
 })
 
+$('.user-bookings').delegate('.cancel-btn', 'click', (e) => {
+  let bookingId = Number($(e.target).attr('id'));
+  cancelBooking(bookingId);
+})
+
 function showTime() {
   $('.date').text(moment().format('L'));
 }
@@ -86,7 +92,6 @@ $('#user-login-btn').click(() => {
   if (user && password.val() === 'overlook2020' && customer === 'customer') {
     setLocalStorage(user, 'user');
     window.location = './user.html';
-    getUserData();
   }
 
   if ((!user || customer !== 'customer') && password.val() === 'overlook2020') {
@@ -131,7 +136,6 @@ $('#admin-login-btn').click(() => {
   let password = $('#admin-password-input');
   if (username.val() === 'manager' && password.val() === 'overlook2020') {
     window.location = './admin.html';
-    // getAdminData();
   }
 
   if (username.val() !== 'manager' && password.val() === 'overlook2020') {
@@ -187,14 +191,14 @@ function displayBooking(booking, room) {
     <p>bed size: ${room.bedSize}</p>
     <p>beds: ${room.numBeds}</p>
   </div>
-  <button class="book-btn ${checkCancelAbility(booking.date)}" id="${booking.id}">CANCEL</button>
+  <button class="cancel-btn ${checkCancelAbility(booking.date)}" id="${booking.id}">CANCEL</button>
 </section>
   `);
 }
 
 function checkCancelAbility(date) {
   let now = moment().format('YYYY/MM/DD');
-  return ($('.page').text() === 'Admin Page' && date > now) ? 'cancel' : 'hidden';
+  return ($('.admin-page').text().includes('Admin') && date > now) ? 'cancel' : 'hidden';
 }
 
 function checkStatus(date) {
@@ -232,14 +236,14 @@ function displayRevenue(today) {
 function displayRoomsAvailable(today) {
   let available = hotel.calcRoomsAvailable(today);
   $('.admin-info').append(`
-  <p>Today's</br>Rooms available:</br><span>${available}</span></p> 
+  <p>Today's</br>Rooms Available:</br><span>${available}</span></p> 
  `);
 }
 
 function displayRoomsBooked(today) {
   let booked = hotel.calcRoomsBooked(today);
   $('.admin-info').append(`
-  <p>Today's</br>Rooms booked:</br><span>${booked}</span></p>
+  <p>Today's</br>Rooms Occupied:</br><span>${booked}</span></p>
  `)
 }
 
@@ -325,17 +329,22 @@ $('.info').delegate('.user-choice', 'click', (e) => {
 })
 
 function displayUserInfo(user, userBookings) {
+  $('.page').html(`Welcome back, ${user.name} &#128153`)
   let amount = hotel.getBookingsAmount(userBookings).toFixed(2);
   $('.user').append(`
   <div class="user-data">
   <p>Customer: ${user.name}</p>
   <p>Total Spending: $${amount}</p>
-  <button class="user-history">user's booking history</button>
+  <button class="user-history ${checkAdmin()}">user's booking history</button>
   </div>
  `)
 }
 
-$('.user').delegate('.user-history', 'click', (e) => {
+function checkAdmin() {
+  return ($('.admin-page').text().includes('Admin')) ? '' : 'hidden';
+}
+
+$('.user').delegate('.user-history', 'click', () => {
   $('.user').empty();
   emptyContainers();
   let user = getLocalStorage('user');
@@ -425,6 +434,7 @@ function getRoomsType(date) {
   setLocalStorage(hotel.filterRoomsByType(date, 'suite'), 'suite');
   setLocalStorage(hotel.filterRoomsByType(date, 'single room'), 'single');
   setLocalStorage(hotel.filterRoomsByType(date, 'junior suite'), 'junior');
+  setLocalStorage(hotel.getRoomsAvailable(date), 'all-types');
   displayRoomType(date);
 }
 
@@ -435,14 +445,20 @@ function displayRoomType(date) {
     <button class="type" id="suite">suite</button>
     <button class="type" id="single">single room</button>
     <button class="type" id="junior">junior suite</button>
+    <button class="type" id="all-types">all room types</button>
   `)
 }
 
 $('.rooms-type').delegate('.type', 'click', (e) => {
   let date = $('.rooms-type').attr('id');
+  console.log(date)
   let key = $(e.target).attr('id');
   let rooms = getLocalStorage(key);
-  (rooms.length >= 1) ? getRoomTypeInfo(rooms, key, date): displayRoomsNotFound(date, key);
+  if (key === 'all-types') {
+    getRoomsForDate(date);
+  } else {
+    (rooms.length >= 1 && key !== 'all-types') ? getRoomTypeInfo(rooms, key, date): displayRoomsNotFound(date, key);
+  }
 })
 
 function getRoomTypeInfo(rooms, key, date) {
@@ -466,14 +482,16 @@ function displayRoomsNotFound(date, key) {
 function getBookingData(roomId) {
   let day = $('.rooms-type').attr('id');
   let user = getLocalStorage('user');
-  let bookingId = Date.now().toString();
-  user ? bookRoom(bookingId, user.id, day, roomId) : alert('selectUser')
+  user ? bookRoom(user.id, day, roomId) : alert('Select User First');
 }
 
-function bookRoom(bookingId, userId, day, roomId) {
-  console.log('booking id', bookingId);
-  console.log('booking day', day);
-  console.log('userId', userId);
-  console.log('roomId', roomId);
-  // bookingHandler.book(bookingId, userId, day, roomId);
+function bookRoom(userId, day, roomId) {
+  bookingHandler.book(userId, day, roomId);
+  // confirmBooking()
+  // location.reload()
+}
+
+function cancelBooking(bookingId) {
+  bookingHandler.cancel(bookingId);
+  // location.reload()
 }

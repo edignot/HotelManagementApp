@@ -15,23 +15,27 @@
     <button id="logout" class="admin-logout">Logout</button>
     <div class="admin-title-wrapper">
       <h1>Overlook</h1>
-      <p class="page">Admin Page</p>
+      <p class="admin-page">Welcome back, Admin &#128153</p>
     </div>
   </header>
   <main>
     <section class="admin-info"></section>
     <section class="nav">
       <div class="search-wrapper">
+        <label for="search-user-input" class="hidden-label">Search User by Name</label>
+        <input type="search" name="search" class="search-user-input" id="search-user-input"
+          placeholder="Search User by Name" />
         <button type="submit" name="button" class="search-user-btn">
           <ion-icon name="search-outline"></ion-icon>
         </button>
-        <input type="search" name="search" class="search-user-input" placeholder="Search User by Name" />
       </div>
       <div class="search-wrapper">
+        <label for="date-input" class="hidden-label">Search User by Name</label>
+        <input type="search" name="search" class="date-input" id="date-input"
+          placeholder="Rooms Available / Select Date" />
         <button type="submit" name="button" class="date-btn">
           <ion-icon name="search-outline"></ion-icon>
         </button>
-        <input type="search" name="search" class="date-input" placeholder="Rooms Available / Select Date" />
       </div>
     </section>
     <section class="user"></section>

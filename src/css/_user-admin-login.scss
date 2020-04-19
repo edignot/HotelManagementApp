@@ -31,11 +31,11 @@
     width: 80%;
 
     input {
-      @include input();
+      @include input(0 7px 7px 0);
     }
 
     label {
-      @include inputLabel();
+      @include inputLabel(7px 0 0 7px);
     }
   }
 

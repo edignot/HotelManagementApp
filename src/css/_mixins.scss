@@ -64,20 +64,20 @@
   padding: 30px;
 }
 
-@mixin input {
+@mixin input($px) {
   width: 100%;
   padding: 15px;
   margin: 0;
-  border-radius: 0 7px 7px 0;
+  border-radius: $px;
   border: 1px solid $accent-medium;
   font-size: 1.2rem;
 }
 
-@mixin inputLabel {
+@mixin inputLabel($px) {
   background-color: $accent-medium;
   color: $font-light;
   padding: 15px;
-  border-radius: 7px 0 0 7px;
+  border-radius: $px;
   border: 1px solid $accent-medium;
 }
 

@@ -30,13 +30,13 @@
     padding-top: 15px;
 
     input {
-      @include input();
+      @include input(7px 0 0 7px);
       box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
     }
 
     .search-user-btn,
     .date-btn {
-      @include inputLabel();
+      @include inputLabel(0 7px 7px 0);
     }
   }
 }
@@ -96,4 +96,17 @@
   &:hover {
     @include statusHover($accent-light, $font-light)
   }
+}
+
+.cancel-btn {
+  @extend .book-btn;
+
+  &:hover {
+    color: $alert-error;
+  }
+}
+
+.hidden-label {
+  position: absolute;
+  filter: opacity(0%);
 }
