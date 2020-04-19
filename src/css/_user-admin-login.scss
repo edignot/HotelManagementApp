@@ -52,3 +52,19 @@
     margin-top: 15px;
   }
 }
+
+.user-entry,
+.admin-entry {
+  @include header(100vh);
+
+  #user-enter,
+  #admin-enter {
+    @include button(3rem, 50%, 100px 10px);
+    margin: auto;
+    text-align: center;
+
+    &:hover {
+      @include buttonHover();
+    }
+  }
+}

@@ -47,6 +47,24 @@ $('#admin-login').click(() => {
   window.location = './admin-login.html';
 });
 
+$('#user-enter').click(() => {
+  $('.user-header').removeClass('hidden');
+  $('.user-main').removeClass('hidden');
+  $('.footer-user').removeClass('hidden');
+  $('.user-entry').addClass('hidden');
+  getUserData();
+  showTime();
+});
+
+$('#admin-enter').click(() => {
+  $('.admin-header').removeClass('hidden');
+  $('.admin-main').removeClass('hidden');
+  $('.footer-admin').removeClass('hidden');
+  $('.admin-entry').addClass('hidden');
+  getAdminData();
+  showTime();
+});
+
 $('.booking-history').click(() => {
   $('.user').empty();
   emptyContainers();
@@ -55,8 +73,8 @@ $('.booking-history').click(() => {
 });
 
 $('.admin-title-wrapper').click(() => {
-  emptyContainers();
   $('.admin-info').empty();
+  emptyContainers();
   getAdminData();
   showTime();
 });

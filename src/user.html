@@ -10,7 +10,10 @@
 </head>
 
 <body>
-  <header class="user-header">
+  <section class="user-entry">
+    <button id="user-enter">ENTER</button>
+  </section>
+  <header class="user-header hidden">
     <p class="date"></p>
     <button id="logout" class="user-logout">Logout</button>
     <div class="user-title-wrapper">
@@ -18,7 +21,7 @@
       <p class="page">User Page</p>
     </div>
   </header>
-  <main>
+  <main class="user-main hidden">
     <section class="nav">
       <div class="search-wrapper">
         <button type="submit" name="button" class="booking-history">Booking History</button>
@@ -37,7 +40,7 @@
     <section class="rooms"></section>
     <section class="user-bookings"></section>
   </main>
-  <footer class="footer-user">
+  <footer class="footer-user hidden">
     <div class="media-icons">
       <a href="https://mail.google.com/" target="_blank">
         <ion-icon class="media-icon" name="mail"></ion-icon>
