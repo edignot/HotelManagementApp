@@ -8,7 +8,6 @@ class BookingHandler {
   }
 
   book(userId, day, roomId) {
-    let status;
     let body = {
       'userID': userId,
       'date': day,
@@ -21,12 +20,9 @@ class BookingHandler {
         },
         body: JSON.stringify(body)
       })
-      .then(response => response.json())
-      .then(() => status = 'success')
       .catch(error => {
         alert('Booking was NOT successful', error);
       });
-    return status;
   }
 
   cancel(bookingId) {

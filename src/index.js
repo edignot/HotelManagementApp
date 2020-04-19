@@ -385,9 +385,9 @@ function checkDate(date) {
 function getRoomsForDate(date) {
   displayInfoMessage(`Rooms available: ${date}`)
   let rooms = hotel.getRoomsAvailable(date);
+  console.log(rooms);
   (date === '') && displayInfoMessage('All Rooms / No Date Selected');
-  !rooms && displayInfoMessage('No Rooms Available on Selected Date');
-  rooms && displayRooms(rooms, date);
+  rooms.length === 0 ? displayInfoMessage('No Rooms Available on Selected Date') : displayRooms(rooms, date);
 }
 
 function convertDate() {
@@ -469,7 +469,6 @@ function displayRoomType(date) {
 
 $('.rooms-type').delegate('.type', 'click', (e) => {
   let date = $('.rooms-type').attr('id');
-  console.log(date)
   let key = $(e.target).attr('id');
   let rooms = getLocalStorage(key);
   if (key === 'all-types') {
@@ -512,4 +511,8 @@ function bookRoom(userId, day, roomId) {
 function cancelBooking(bookingId) {
   bookingHandler.cancel(bookingId);
   // location.reload()
+}
+
+function confirmBooking() {
+
 }
