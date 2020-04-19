@@ -424,7 +424,7 @@ $('.rooms-type').delegate('.type', 'click', (e) => {
   let date = $('.rooms-type').attr('id');
   let key = $(e.target).attr('id');
   let rooms = getLocalStorage(key);
-  (rooms.length >= 1) ? getRoomTypeInfo(rooms, key, date): displayRoomsNotFound(rooms, date, key);
+  (rooms.length >= 1) ? getRoomTypeInfo(rooms, key, date): displayRoomsNotFound(date, key);
 })
 
 function getRoomTypeInfo(rooms, key, date) {
@@ -435,9 +435,14 @@ function getRoomTypeInfo(rooms, key, date) {
   displayRooms(rooms, date);
 }
 
-function displayRoomsNotFound(rooms, date, key) {
-  displayRooms(rooms, date);
-  displayInfoMessage('No Rooms Available / Select Other Category', key)
+function displayRoomsNotFound(date, key) {
+  $('.rooms').empty();
+  $('.info').empty()
+  $('.info').append(`
+  <div class="user-data">
+  <p class="message" id="${key}">Selected Room Type Not Available ${date}</p>
+  </div>
+  `)
 }
 
 function bookRoom(roomId) {
