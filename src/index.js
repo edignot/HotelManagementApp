@@ -430,6 +430,7 @@ function getRoomsType(date) {
   setLocalStorage(hotel.filterRoomsByType(date, 'suite'), 'suite');
   setLocalStorage(hotel.filterRoomsByType(date, 'single room'), 'single');
   setLocalStorage(hotel.filterRoomsByType(date, 'junior suite'), 'junior');
+  setLocalStorage(hotel.getRoomsAvailable(date), 'all-types');
   displayRoomType(date);
 }
 
@@ -446,9 +447,14 @@ function displayRoomType(date) {
 
 $('.rooms-type').delegate('.type', 'click', (e) => {
   let date = $('.rooms-type').attr('id');
+  console.log(date)
   let key = $(e.target).attr('id');
   let rooms = getLocalStorage(key);
-  (rooms.length >= 1) ? getRoomTypeInfo(rooms, key, date): displayRoomsNotFound(date, key);
+  if (key === 'all-types') {
+    getRoomsForDate(date);
+  } else {
+    (rooms.length >= 1 && key !== 'all-types') ? getRoomTypeInfo(rooms, key, date): displayRoomsNotFound(date, key);
+  }
 })
 
 function getRoomTypeInfo(rooms, key, date) {
