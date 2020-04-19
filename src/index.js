@@ -187,7 +187,7 @@ function displayBooking(booking, room) {
     <p>bed size: ${room.bedSize}</p>
     <p>beds: ${room.numBeds}</p>
   </div>
-  <button class="book-btn ${checkCancelAbility(booking.date)}" id="${booking.id}">CANCEL</button>
+  <button class="cancel-btn ${checkCancelAbility(booking.date)}" id="${booking.id}">CANCEL</button>
 </section>
   `);
 }
@@ -232,14 +232,14 @@ function displayRevenue(today) {
 function displayRoomsAvailable(today) {
   let available = hotel.calcRoomsAvailable(today);
   $('.admin-info').append(`
-  <p>Today's</br>Rooms available:</br><span>${available}</span></p> 
+  <p>Today's</br>Rooms Available:</br><span>${available}</span></p> 
  `);
 }
 
 function displayRoomsBooked(today) {
   let booked = hotel.calcRoomsBooked(today);
   $('.admin-info').append(`
-  <p>Today's</br>Rooms booked:</br><span>${booked}</span></p>
+  <p>Today's</br>Rooms Occupied:</br><span>${booked}</span></p>
  `)
 }
 
