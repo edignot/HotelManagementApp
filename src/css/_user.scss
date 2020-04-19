@@ -97,7 +97,7 @@
 
 .rooms-type {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 15px;
   justify-content: space-between;
   width: 80%;
@@ -129,6 +129,10 @@
 
   #junior {
     background-color: $alert-warning;
+  }
+
+  #all-types {
+    background-color: $background-medium;
   }
 }
 

@@ -435,6 +435,7 @@ function displayRoomType(date) {
     <button class="type" id="suite">suite</button>
     <button class="type" id="single">single room</button>
     <button class="type" id="junior">junior suite</button>
+    <button class="type" id="all-types">all room types</button>
   `)
 }
 
