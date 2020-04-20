@@ -96,16 +96,27 @@
 }
 
 .book-btn {
-  font-size: 1rem;
-  width: 70px;
-  font-weight: 600;
-  border-radius: 0 7px 7px 0;
-  border: none;
-  background-color: $background-light;
+  @include alertButton();
 
   &:hover {
-    filter: opacity(90%);
-    transition: filter .5s;
+    @include alertButtonHover($alert-success);
+  }
+}
+
+.user-data {
+  [id='residential suite'] {
+    color: $accent-medium;
+  }
+
+  [id='single room'] {
     color: $alert-success;
+  }
+
+  #suite {
+    color: $accent-light;
+  }
+
+  [id='junior suite'] {
+    color: $alert-warning;
   }
 }

@@ -45,6 +45,10 @@ $('#admin-login').click(() => {
   window.location = './admin-login.html';
 });
 
+$('.forgot-password').click(() => {
+  alert('Please Contact Overlook Hotel')
+});
+
 $('#user-enter').click(() => {
   removeHidden('user');
   getUserData();
