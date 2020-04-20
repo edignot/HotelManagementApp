@@ -3,20 +3,19 @@ import './css/base.scss';
 import './css/_media-queries.scss';
 import Hotel from '../src/Hotel';
 import BookingHandler from '../src/BookingHandler';
+import flatpickr from 'flatpickr';
+import moment from 'moment';
 import {
   usersPromise,
   roomsPromise,
   bookingsPromise
 } from "./utils.js";
-import './images/hotel1.jpg'
-const moment = require('moment');
-import flatpickr from "flatpickr";
 
 let data = {};
-let bookingHandler;
-let hotel;
+let bookingHandler, hotel;
 
-Promise.all([usersPromise, roomsPromise, bookingsPromise]).then(response => data = {
+Promise.all([usersPromise, roomsPromise, bookingsPromise])
+  .then(response => data = {
     users: response[0],
     rooms: response[1],
     bookings: response[2],
@@ -47,27 +46,14 @@ $('#admin-login').click(() => {
 });
 
 $('#user-enter').click(() => {
-  $('.user-header').removeClass('hidden');
-  $('.user-main').removeClass('hidden');
-  $('.footer-user').removeClass('hidden');
-  $('.user-entry').addClass('hidden');
+  removeHidden('user');
   getUserData();
   showTime();
 });
 
 $('#admin-enter').click(() => {
-  $('.admin-header').removeClass('hidden');
-  $('.admin-main').removeClass('hidden');
-  $('.footer-admin').removeClass('hidden');
-  $('.admin-entry').addClass('hidden');
+  removeHidden('admin');
   getAdminData();
-  showTime();
-});
-
-$('.booking-history').click(() => {
-  $('.user').empty();
-  emptyContainers();
-  getUserData();
   showTime();
 });
 
@@ -85,6 +71,13 @@ $('.user-title-wrapper').click(() => {
   showTime();
 });
 
+$('.booking-history').click(() => {
+  $('.user').empty();
+  emptyContainers();
+  getUserData();
+  showTime();
+});
+
 $('.rooms').delegate('.book-btn', 'click', (e) => {
   let roomId = Number($(e.target).attr('id'));
   getBookingData(roomId);
@@ -93,37 +86,38 @@ $('.rooms').delegate('.book-btn', 'click', (e) => {
 $('.user-bookings').delegate('.cancel-btn', 'click', (e) => {
   let bookingId = Number($(e.target).attr('id'));
   cancelBooking(bookingId);
-})
-
-function showTime() {
-  $('.date').text(moment().format('L'));
-}
+});
 
 $('#user-login-btn').click(() => {
   let username = $('#user-login-input');
   let password = $('#user-password-input');
-  let customer = username.val().split('').splice(0, 8).join('');
-  let customerId = Number(username.val().split('').splice(8).join(''));
+  let correctPassword = 'overlook2020';
+  let customer = verifyCustomer(username);
+  let customerId = verifyUserId(username);
   let user = findUser(customerId);
 
-  if (user && password.val() === 'overlook2020' && customer === 'customer') {
+  if (user && password.val() === correctPassword &&
+    customer === 'customer') {
     setLocalStorage(user, 'user');
     window.location = './user.html';
   }
 
-  if ((!user || customer !== 'customer') && password.val() === 'overlook2020') {
+  if ((!user || customer !== 'customer') &&
+    password.val() === correctPassword) {
     username.val('');
     displayLoginError(username);
     resetLoginError(password);
   }
 
-  if (user && customer === 'customer' && password.val() !== 'overlook2020') {
+  if (user && customer === 'customer' &&
+    password.val() !== correctPassword) {
     password.val('');
     resetLoginError(username);
     displayLoginError(password);
   }
 
-  if ((!user || customer !== 'customer') && password.val() !== 'overlook2020') {
+  if ((!user || customer !== 'customer') &&
+    password.val() !== correctPassword) {
     username.val('');
     password.val('');
     displayLoginError(username);
@@ -131,13 +125,48 @@ $('#user-login-btn').click(() => {
   }
 });
 
-function findUser(customerId) {
-  return data.users.find(user => user.id === customerId)
+$('#admin-login-btn').click(() => {
+  let username = $('#admin-login-input');
+  let password = $('#admin-password-input');
+  let correctPassword = 'overlook2020';
+  if (username.val() === 'manager' &&
+    password.val() === correctPassword) {
+    window.location = './admin.html';
+  }
+
+  if (username.val() !== 'manager' &&
+    password.val() === correctPassword) {
+    username.val('');
+    displayLoginError(username);
+    resetLoginError(password);
+  }
+
+  if (username.val() === 'manager' &&
+    password.val() !== correctPassword) {
+    password.val('');
+    displayLoginError(password);
+    resetLoginError(username);
+  }
+
+  if (username.val() !== 'manager' &&
+    password.val() !== correctPassword) {
+    username.val('');
+    password.val('');
+    displayLoginError(username);
+    displayLoginError(password);
+  }
+});
+
+function verifyCustomer(username) {
+  return username.val().split('').splice(0, 8).join('');
 }
 
-function setLocalStorage(item, key) {
-  let stringified = JSON.stringify(item);
-  localStorage.setItem(key, stringified);
+function verifyUserId(username) {
+  return Number(username.val().split('').splice(8).join(''));
+}
+
+function findUser(customerId) {
+  return data.users.find(user => user.id === customerId);
 }
 
 function displayLoginError(input) {
@@ -148,32 +177,25 @@ function resetLoginError(input) {
   input.css('border', '1px #132E88 solid');
 }
 
-$('#admin-login-btn').click(() => {
-  let username = $('#admin-login-input');
-  let password = $('#admin-password-input');
-  if (username.val() === 'manager' && password.val() === 'overlook2020') {
-    window.location = './admin.html';
-  }
+function setLocalStorage(item, key) {
+  let stringified = JSON.stringify(item);
+  localStorage.setItem(key, stringified);
+}
 
-  if (username.val() !== 'manager' && password.val() === 'overlook2020') {
-    username.val('');
-    displayLoginError(username);
-    resetLoginError(password);
-  }
+function getLocalStorage(key) {
+  return JSON.parse(localStorage.getItem(key));
+}
 
-  if (username.val() === 'manager' && password.val() !== 'overlook2020') {
-    password.val('');
-    displayLoginError(password);
-    resetLoginError(username);
-  }
+function removeHidden(type) {
+  $(`.${type}-header`).removeClass('hidden');
+  $(`.${type}-main`).removeClass('hidden');
+  $(`.${type}-footer`).removeClass('hidden');
+  $(`.${type}-entry`).addClass('hidden');
+}
 
-  if (username.val() !== 'manager' && password.val() !== 'overlook2020') {
-    username.val('');
-    password.val('');
-    displayLoginError(username);
-    displayLoginError(password);
-  }
-});
+function showTime() {
+  $('.date').text(moment().format('L'));
+}
 
 function getUserData() {
   let user = getLocalStorage('user');
@@ -183,14 +205,11 @@ function getUserData() {
   flatpickr('.date-input');
 }
 
-function getLocalStorage(key) {
-  return JSON.parse(localStorage.getItem(key));
-}
-
 function displayUserBookings(userBookings) {
   userBookings.forEach(booking => {
     hotel.rooms.forEach(room => {
-      (room.number === booking.roomNumber) && displayBooking(booking, room);
+      (room.number === booking.roomNumber) &&
+      displayBooking(booking, room);
     });
   });
 }
@@ -512,6 +531,7 @@ function bookRoom(userId, day, roomId) {
 
 function cancelBooking(bookingId) {
   let cancelResponse = bookingHandler.cancel(bookingId);
+  console.log(cancelResponse)
   Promise.all([cancelResponse]).then(() => {
     // fetch GET data again
     location.reload();
