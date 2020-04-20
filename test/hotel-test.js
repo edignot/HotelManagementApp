@@ -10,6 +10,10 @@ describe('HOTEL', () => {
     hotel = new Hotel(rooms, bookings);
   });
 
+  it('should be an instance of Hotel', () => {
+    expect(hotel).to.be.an.instanceof(Hotel);
+  });
+
   it('should store hotel room data', () => {
     expect(hotel.rooms.length).to.equal(4);
   });
