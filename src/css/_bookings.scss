@@ -74,11 +74,11 @@
     }
   }
 
-  #residential {
+  [id='residential suite'] {
     background-color: $accent-medium;
   }
 
-  #single {
+  [id='single room'] {
     background-color: $alert-success;
   }
 
@@ -86,7 +86,7 @@
     background-color: $accent-light;
   }
 
-  #junior {
+  [id='junior suite'] {
     background-color: $alert-warning;
   }
 

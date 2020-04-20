@@ -439,7 +439,7 @@ function convertDateNow() {
 }
 
 function displayRooms(rooms, date) {
-  getRoomsType(date);
+  getRoomsType(date, rooms);
   rooms.forEach(room => displayRoom(room, date));
 }
 
@@ -487,23 +487,24 @@ function emptyContainers() {
   $('.rooms-type').empty();
 }
 
-function getRoomsType(date) {
-  setLocalStorage(hotel.filterRoomsByType(date, 'residential suite'), 'residential');
-  setLocalStorage(hotel.filterRoomsByType(date, 'suite'), 'suite');
-  setLocalStorage(hotel.filterRoomsByType(date, 'single room'), 'single');
-  setLocalStorage(hotel.filterRoomsByType(date, 'junior suite'), 'junior');
-  setLocalStorage(hotel.getRoomsAvailable(date), 'all-types');
-  displayRoomType(date);
+function getRoomsType(date, rooms) {
+  let roomTypes = hotel.getRoomTypes(rooms);
+  roomTypes.forEach(type => {
+    setLocalStorage(hotel.filterRoomsByType(date, type), type);
+    displayRoomType(date, type);
+  });
+  getAllRooms(date);
 }
 
-function displayRoomType(date) {
+function getAllRooms(date) {
+  setLocalStorage(hotel.getRoomsAvailable(date), 'all-types');
+  displayRoomType(date, 'all-types');
+}
+
+function displayRoomType(date, type) {
   $('.rooms-type').attr('id', date);
   $('.rooms-type').append(`
-    <button class="type" id="residential">residential suite</button>
-    <button class="type" id="suite">suite</button>
-    <button class="type" id="single">single room</button>
-    <button class="type" id="junior">junior suite</button>
-    <button class="type" id="all-types">all room types</button>
+    <button class="type" id="${type}">${type}</button>
   `)
 }
 
@@ -514,7 +515,8 @@ $('.rooms-type').delegate('.type', 'click', (e) => {
   if (key === 'all-types') {
     getRoomsForDate(date);
   } else {
-    (rooms.length >= 1 && key !== 'all-types') ? getRoomTypeInfo(rooms, key, date): displayRoomsNotFound(date, key);
+    rooms.length >= 1 && key !== 'all-types' ? getRoomTypeInfo(rooms, key, date) :
+      displayRoomsNotFound(date, key);
   }
 })
 
