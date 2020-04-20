@@ -52,3 +52,29 @@
     margin-top: 15px;
   }
 }
+
+.user-entry,
+.admin-entry {
+  @include header(100vh);
+
+  #user-enter,
+  #admin-enter {
+    @include button(3rem, 50%, 100px 10px);
+    color: $font-light;
+    border: 2px solid $font-light;
+    margin: auto;
+    text-align: center;
+
+    &:hover {
+      @include buttonHover();
+    }
+  }
+}
+
+.user-entry {
+  background-image: linear-gradient(rgba(2, 44, 116, 0.425), rgba(2, 44, 116, 0.9)), url(../images/hotel4.jpg);
+}
+
+.admin-entry {
+  background-image: linear-gradient(rgba(2, 44, 116, 0.425), rgba(2, 44, 116, 0.9)), url(../images/hotel5.jpg);
+}

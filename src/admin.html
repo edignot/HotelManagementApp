@@ -10,7 +10,10 @@
 </head>
 
 <body>
-  <header class="admin-header">
+  <section class="admin-entry">
+    <button id="admin-enter">ENTER</button>
+  </section>
+  <header class="admin-header hidden">
     <p class="date"></p>
     <button id="logout" class="admin-logout">Logout</button>
     <div class="admin-title-wrapper">
@@ -18,7 +21,7 @@
       <p class="admin-page">Welcome back, Admin &#128153</p>
     </div>
   </header>
-  <main>
+  <main class="admin-main hidden">
     <section class="admin-info"></section>
     <section class="nav">
       <div class="search-wrapper">
@@ -44,7 +47,7 @@
     <section class="rooms"></section>
     <section class="user-bookings"></section>
   </main>
-  <footer class="footer-admin">
+  <footer class="footer-admin hidden">
     <div class="media-icons">
       <a href="https://mail.google.com/" target="_blank">
         <ion-icon class="media-icon" name="mail"></ion-icon>

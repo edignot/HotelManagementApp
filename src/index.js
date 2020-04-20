@@ -23,7 +23,7 @@ Promise.all([usersPromise, roomsPromise, bookingsPromise]).then(response => data
     bookings: response[2],
   })
   .then(() => {
-    bookingHandler = new BookingHandler(data.bookings);
+    bookingHandler = new BookingHandler();
     hotel = new Hotel(data.rooms, data.bookings);
   })
   .catch(error => {
@@ -47,6 +47,24 @@ $('#admin-login').click(() => {
   window.location = './admin-login.html';
 });
 
+$('#user-enter').click(() => {
+  $('.user-header').removeClass('hidden');
+  $('.user-main').removeClass('hidden');
+  $('.footer-user').removeClass('hidden');
+  $('.user-entry').addClass('hidden');
+  getUserData();
+  showTime();
+});
+
+$('#admin-enter').click(() => {
+  $('.admin-header').removeClass('hidden');
+  $('.admin-main').removeClass('hidden');
+  $('.footer-admin').removeClass('hidden');
+  $('.admin-entry').addClass('hidden');
+  getAdminData();
+  showTime();
+});
+
 $('.booking-history').click(() => {
   $('.user').empty();
   emptyContainers();
@@ -55,8 +73,8 @@ $('.booking-history').click(() => {
 });
 
 $('.admin-title-wrapper').click(() => {
-  emptyContainers();
   $('.admin-info').empty();
+  emptyContainers();
   getAdminData();
   showTime();
 });
@@ -160,7 +178,7 @@ $('#admin-login-btn').click(() => {
 
 function getUserData() {
   let user = getLocalStorage('user');
-  let userBookings = bookingHandler.findBookings(user.id);
+  let userBookings = hotel.findBookings(user.id);
   displayUserInfo(user, userBookings);
   displayUserBookings(userBookings);
   flatpickr('.date-input');
@@ -241,14 +259,14 @@ function displayRoomsAvailable(today) {
 }
 
 function displayRoomsBooked(today) {
-  let booked = hotel.calcRoomsBooked(today);
+  let booked = hotel.getBookingsByDate(today).length;
   $('.admin-info').append(`
   <p>Today's</br>Rooms Occupied:</br><span>${booked}</span></p>
  `)
 }
 
 function displayRoomsOccupied(today) {
-  let occupied = hotel.calcRoomsOccupied(today);
+  let occupied = hotel.calcRoomsBooked(today);
   $('.admin-info').append(`
   <p>Today's</br> Rooms Occupied:</br><span>${occupied}%</span></p>
  `)
@@ -293,7 +311,7 @@ function checkMatch(foundUsers) {
 
 function getUserInfo(user) {
   setLocalStorage(user, 'user');
-  let userBookings = bookingHandler.findBookings(user.id);
+  let userBookings = hotel.findBookings(user.id);
   displayUserBookings(userBookings);
   displayUserInfo(user, userBookings)
 }
@@ -367,9 +385,9 @@ function checkDate(date) {
 function getRoomsForDate(date) {
   displayInfoMessage(`Rooms available: ${date}`)
   let rooms = hotel.getRoomsAvailable(date);
+  console.log(rooms);
   (date === '') && displayInfoMessage('All Rooms / No Date Selected');
-  !rooms && displayInfoMessage('No Rooms Available on Selected Date');
-  rooms && displayRooms(rooms, date);
+  rooms.length === 0 ? displayInfoMessage('No Rooms Available on Selected Date') : displayRooms(rooms, date);
 }
 
 function convertDate() {
@@ -451,7 +469,6 @@ function displayRoomType(date) {
 
 $('.rooms-type').delegate('.type', 'click', (e) => {
   let date = $('.rooms-type').attr('id');
-  console.log(date)
   let key = $(e.target).attr('id');
   let rooms = getLocalStorage(key);
   if (key === 'all-types') {
@@ -494,4 +511,8 @@ function bookRoom(userId, day, roomId) {
 function cancelBooking(bookingId) {
   bookingHandler.cancel(bookingId);
   // location.reload()
+}
+
+function confirmBooking() {
+
 }

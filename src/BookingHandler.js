@@ -1,12 +1,4 @@
 class BookingHandler {
-  constructor(bookings) {
-    this.bookings = bookings;
-  }
-
-  findBookings(id) {
-    return this.bookings.filter(booking => booking.userID === id);
-  }
-
   book(userId, day, roomId) {
     let body = {
       'userID': userId,
@@ -20,8 +12,6 @@ class BookingHandler {
         },
         body: JSON.stringify(body)
       })
-      .then(response => response.json())
-      .then(data => console.log(data))
       .catch(error => {
         alert('Booking was NOT successful', error);
       });
