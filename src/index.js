@@ -209,32 +209,33 @@ function displayUserBookings(userBookings) {
   userBookings.forEach(booking => {
     hotel.rooms.forEach(room => {
       (room.number === booking.roomNumber) &&
-      displayBooking(booking, room);
+      getDisplayBooking(booking, room);
     });
   });
 }
 
-function displayBooking(booking, room) {
-  $('.user-bookings').prepend(`
-  <section class="user-booking ${checkStatus(booking.date).toLowerCase()}" id="${booking.id}">
-  <div class="left">
-    <p>${checkStatus(booking.date)}</p>
-    <p>${booking.date}</p>
-    <p>$${room.costPerNight}/night</p>
-  </div>
-  <div class="right">
-    <p>${room.roomType.toUpperCase()}</p>
-    <p>bed size: ${room.bedSize}</p>
-    <p>beds: ${room.numBeds}</p>
-  </div>
-  <button class="cancel-btn ${checkCancelAbility(booking.date)}" id="${booking.id}">CANCEL</button>
-</section>
-  `);
+function getDisplayBooking(booking, room) {
+  let status = checkStatus(booking.date);
+  let cancel = checkCancelAbility(booking.date);
+  displayBooking(booking, room, status, cancel);
 }
 
-function checkCancelAbility(date) {
-  let now = moment().format('YYYY/MM/DD');
-  return ($('.admin-page').text().includes('Admin') && date > now) ? 'cancel' : 'hidden';
+function displayBooking(booking, room, status, cancel) {
+  $('.user-bookings').prepend(`
+  <section class="user-booking ${status.toLowerCase()}" id="${booking.id}">
+    <div class="left">
+      <p>${status}</p>
+      <p>${booking.date}</p>
+      <p>$${room.costPerNight}/night</p>
+    </div>
+    <div class="right">
+      <p>${room.roomType.toUpperCase()}</p>
+      <p>bed size: ${room.bedSize}</p>
+      <p>beds: ${room.numBeds}</p>
+    </div>
+    <button class="cancel-btn ${cancel}" id="${booking.id}">CANCEL</button>
+  </section>
+  `);
 }
 
 function checkStatus(date) {
@@ -250,6 +251,12 @@ function checkStatus(date) {
   if (now > date) {
     return 'Past';
   }
+}
+
+function checkCancelAbility(date) {
+  let now = moment().format('YYYY/MM/DD');
+  return ($('.admin-page').text().includes('Admin') && date > now) ?
+    'cancel' : 'hidden';
 }
 
 function getAdminData() {
