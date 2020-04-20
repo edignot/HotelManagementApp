@@ -5,6 +5,7 @@
 @import './_user-admin-login';
 @import './_user';
 @import './_admin';
+@import './_bookings';
 @import './_footer';
 
 * {
@@ -15,11 +16,6 @@
   font-weight: 300;
 }
 
-body,
-html {
-  height: 100%
-}
-
 .admin-title-wrapper,
 .user-title-wrapper,
 .title-wrapper,
@@ -27,4 +23,8 @@ button,
 .room,
 .user-booking {
   cursor: pointer;
+}
+
+.hidden {
+  display: none;
 }

@@ -6,7 +6,7 @@
     padding: 20px 40px;
     border-radius: 7px;
     border: 1px solid $accent-light;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+    @include shadow();
     background-color: $background-white;
   }
 
@@ -31,7 +31,7 @@
 
     input {
       @include input(7px 0 0 7px);
-      box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+      @include shadow();
     }
 
     .search-user-btn,
@@ -54,7 +54,7 @@
     text-align: center;
     padding: 15px;
     margin: 30px;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+    @include shadow();
     border-radius: 7px;
     min-width: 280px;
 
@@ -76,12 +76,12 @@
 
 #logout {
   @include button(1.4rem, 100px, 5px);
+  @include shadow();
   position: absolute;
   right: 15px;
   top: 15px;
   background-color: $accent-medium;
   color: $font-light;
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
   margin-top: 0;
 
   &:hover {
