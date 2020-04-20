@@ -108,7 +108,14 @@ $('.info').delegate('.user-choice', 'click', (e) => {
   setLocalStorage(user, 'user');
   emptyContainers();
   getUserInfo(user);
-})
+});
+
+$('.rooms-type').delegate('.type', 'click', (e) => {
+  let date = $('.rooms-type').attr('id');
+  let key = $(e.target).attr('id');
+  let rooms = getLocalStorage(key);
+  searchRoomType(date, key, rooms);
+});
 
 $('#user-login-btn').click(() => {
   let username = $('#user-login-input');
@@ -321,7 +328,7 @@ function getRoomsBooked(today) {
 function displayRoomsBooked(booked) {
   $('.admin-info').append(`
   <p>Today's</br>Rooms Occupied:</br><span>${booked}</span></p>
- `)
+ `);
 }
 
 function getRoomsOccupied(today) {
@@ -332,7 +339,7 @@ function getRoomsOccupied(today) {
 function displayRoomsOccupied(occupied) {
   $('.admin-info').append(`
   <p>Today's</br> Rooms Occupied:</br><span>${occupied}%</span></p>
- `)
+ `);
 }
 
 $('.search-user-btn').click(() => {
@@ -383,7 +390,7 @@ function displayInfoMessage(message, color) {
   <div class="user-data">
     <p class="message" id="${color}">${message}</p>
   </div>
-  `)
+  `);
 }
 
 function chooseUser(users) {
@@ -396,7 +403,7 @@ function displayUserChoice(user) {
     <p id="${user.id}">Name: ${user.name}</p>
     <p id="${user.id}">Id: ${user.id}</p>
   </div>
-  `)
+  `);
 }
 
 function displayUserInfo(user, userBookings) {
@@ -408,7 +415,7 @@ function displayUserInfo(user, userBookings) {
     <p>Total Spending: $${amount}</p>
     <button class="user-history ${checkAdmin()}">user's booking history</button>
   </div>
- `)
+ `);
 }
 
 function checkAdmin() {
@@ -425,8 +432,11 @@ function getRoomsForDate(date) {
   displayInfoMessage(`Rooms available: ${date}`)
   let rooms = hotel.getRoomsAvailable(date);
   (date === '') && displayInfoMessage('All Rooms / No Date Selected');
-  rooms.length === 0 ? displayInfoMessage('No Rooms Available on Selected Date') :
+  if (rooms.length === 0) {
+    displayInfoMessage('No Rooms Available on Selected Date');
+  } else {
     displayRooms(rooms, date);
+  }
 }
 
 function convertDateNow() {
@@ -505,37 +515,37 @@ function displayRoomType(date, type) {
   $('.rooms-type').attr('id', date);
   $('.rooms-type').append(`
     <button class="type" id="${type}">${type}</button>
-  `)
+  `);
 }
 
-$('.rooms-type').delegate('.type', 'click', (e) => {
-  let date = $('.rooms-type').attr('id');
-  let key = $(e.target).attr('id');
-  let rooms = getLocalStorage(key);
+function searchRoomType(date, key, rooms) {
   if (key === 'all-types') {
     getRoomsForDate(date);
   } else {
-    rooms.length >= 1 && key !== 'all-types' ? getRoomTypeInfo(rooms, key, date) :
+    if (rooms.length >= 1 && key !== 'all-types') {
+      getRoomTypeInfo(rooms, key, date)
+    } else {
       displayRoomsNotFound(date, key);
+    }
   }
-})
+}
 
 function getRoomTypeInfo(rooms, key, date) {
   emptyContainers();
   let type = rooms[0].roomType.toUpperCase();
   let message = `${type} Available ${date}`;
-  displayInfoMessage(message, key)
+  displayInfoMessage(message, key);
   displayRooms(rooms, date);
 }
 
 function displayRoomsNotFound(date, key) {
   $('.rooms').empty();
-  $('.info').empty()
+  $('.info').empty();
   $('.info').append(`
   <div class="user-data">
   <p class="message" id="${key}">Selected Room Type Not Available ${date}</p>
   </div>
-  `)
+  `);
 }
 
 function getBookingData(roomId) {
@@ -560,11 +570,6 @@ function cancelBooking(bookingId) {
   Promise.all([cancelResponse]).then(() => {
     // fetch GET data again
     location.reload();
-    // $('.admin-header').removeClass('hidden');
-    // $('.admin-main').removeClass('hidden');
-    // $('.footer-admin').removeClass('hidden');
-    // $('.admin-entry').addClass('hidden');
-    // let user = getLocalStorage('user');
     // getUserInfo(user);
     alert('Cancelation successful')
   })
