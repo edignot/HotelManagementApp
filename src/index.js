@@ -261,37 +261,53 @@ function checkCancelAbility(date) {
 
 function getAdminData() {
   let today = moment().format('YYYY/MM/DD');
-  displayRevenue(today);
-  displayRoomsAvailable(today);
-  displayRoomsBooked(today);
-  displayRoomsOccupied(today);
+  getRevenue(today);
+  getRoomsAvailable(today);
+  getRoomsBooked(today);
+  getRoomsOccupied(today);
   displayInfoMessage('Nothing to Display');
   flatpickr(".date-input");
 }
 
-function displayRevenue(today) {
+function getRevenue(today) {
   let revenue = hotel.calcRevenue(today);
+  displayRevenue(revenue);
+}
+
+function displayRevenue(revenue) {
   $('.admin-info').append(`
   <p>Today's</br> Revenue:</br><span>$${revenue}</span></p>
  `);
 }
 
-function displayRoomsAvailable(today) {
+function getRoomsAvailable(today) {
   let available = hotel.calcRoomsAvailable(today);
+  displayRoomsAvailable(available);
+}
+
+function displayRoomsAvailable(available) {
   $('.admin-info').append(`
   <p>Today's</br>Rooms Available:</br><span>${available}</span></p> 
  `);
 }
 
-function displayRoomsBooked(today) {
+function getRoomsBooked(today) {
   let booked = hotel.getBookingsByDate(today).length;
+  displayRoomsBooked(booked);
+}
+
+function displayRoomsBooked(booked) {
   $('.admin-info').append(`
   <p>Today's</br>Rooms Occupied:</br><span>${booked}</span></p>
  `)
 }
 
-function displayRoomsOccupied(today) {
+function getRoomsOccupied(today) {
   let occupied = hotel.calcRoomsBooked(today);
+  displayRoomsOccupied(occupied);
+}
+
+function displayRoomsOccupied(occupied) {
   $('.admin-info').append(`
   <p>Today's</br> Rooms Occupied:</br><span>${occupied}%</span></p>
  `)
