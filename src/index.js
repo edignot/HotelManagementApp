@@ -23,7 +23,7 @@ Promise.all([usersPromise, roomsPromise, bookingsPromise]).then(response => data
     bookings: response[2],
   })
   .then(() => {
-    bookingHandler = new BookingHandler(data.bookings);
+    bookingHandler = new BookingHandler();
     hotel = new Hotel(data.rooms, data.bookings);
   })
   .catch(error => {
@@ -178,7 +178,7 @@ $('#admin-login-btn').click(() => {
 
 function getUserData() {
   let user = getLocalStorage('user');
-  let userBookings = bookingHandler.findBookings(user.id);
+  let userBookings = hotel.findBookings(user.id);
   displayUserInfo(user, userBookings);
   displayUserBookings(userBookings);
   flatpickr('.date-input');
@@ -259,14 +259,14 @@ function displayRoomsAvailable(today) {
 }
 
 function displayRoomsBooked(today) {
-  let booked = hotel.calcRoomsBooked(today);
+  let booked = hotel.getBookingsByDate(today).length;
   $('.admin-info').append(`
   <p>Today's</br>Rooms Occupied:</br><span>${booked}</span></p>
  `)
 }
 
 function displayRoomsOccupied(today) {
-  let occupied = hotel.calcRoomsOccupied(today);
+  let occupied = hotel.calcRoomsBooked(today);
   $('.admin-info').append(`
   <p>Today's</br> Rooms Occupied:</br><span>${occupied}%</span></p>
  `)
@@ -311,7 +311,7 @@ function checkMatch(foundUsers) {
 
 function getUserInfo(user) {
   setLocalStorage(user, 'user');
-  let userBookings = bookingHandler.findBookings(user.id);
+  let userBookings = hotel.findBookings(user.id);
   displayUserBookings(userBookings);
   displayUserInfo(user, userBookings)
 }

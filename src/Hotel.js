@@ -4,6 +4,10 @@ class Hotel {
     this.bookings = bookings;
   }
 
+  findBookings(id) {
+    return this.bookings.filter(booking => booking.userID === id);
+  }
+
   getBookingsByDate(date) {
     return this.bookings.filter(booking => booking.date === date);
   }
@@ -47,10 +51,6 @@ class Hotel {
   }
 
   calcRoomsBooked(date) {
-    return this.bookings.filter(booking => booking.date === date).length;
-  }
-
-  calcRoomsOccupied(date) {
     let bookings = this.getBookingsByDate(date);
     return (bookings.length * 100) / this.rooms.length;
   }

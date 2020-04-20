@@ -1,12 +1,4 @@
 class BookingHandler {
-  constructor(bookings) {
-    this.bookings = bookings;
-  }
-
-  findBookings(id) {
-    return this.bookings.filter(booking => booking.userID === id);
-  }
-
   book(userId, day, roomId) {
     let body = {
       'userID': userId,

@@ -18,6 +18,10 @@ describe('HOTEL', function () {
     expect(hotel.bookings.length).to.equal(4);
   });
 
+  it('should find all user bookings', function () {
+    expect(hotel.findBookings(2)).to.deep.equal([bookings[0], bookings[2]]);
+  });
+
   it('should calculate total bookings amount', function () {
     expect(hotel.getBookingsAmount(bookings)).to.equal(429.44);
   });
@@ -38,11 +42,7 @@ describe('HOTEL', function () {
     expect(hotel.calcRoomsAvailable('2020/02/16')).to.equal(3);
   });
 
-  it('should calculate rooms booked by date', function () {
-    expect(hotel.calcRoomsBooked('2020/02/16')).to.equal(1);
-  });
-
   it('should calculate rooms occupied % by date', function () {
-    expect(hotel.calcRoomsOccupied('2020/02/20')).to.equal(0);
+    expect(hotel.calcRoomsBooked('2020/02/20')).to.equal(0);
   });
 });
