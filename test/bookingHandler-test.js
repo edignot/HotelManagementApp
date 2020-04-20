@@ -7,7 +7,7 @@ import BookingHandler from '../src/BookingHandler';
 describe('BOOKING DATA', () => {
   let bookingHandler;
   beforeEach(() => {
-    bookingHandler = new BookingHandler();
+    bookingHandler = new BookingHandler('url');
     chai.spy.on(bookingHandler, ['book'], () => true);
     chai.spy.on(bookingHandler, ['cancel'], () => true);
   });
@@ -18,6 +18,10 @@ describe('BOOKING DATA', () => {
 
   it('should be an instance of BookingHandler', () => {
     expect(bookingHandler).to.be.an.instanceof(BookingHandler);
+  });
+
+  it('should store API address', () => {
+    expect(bookingHandler.url).to.equal('url');
   });
 
   it('should book a room', () => {

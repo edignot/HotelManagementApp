@@ -13,6 +13,7 @@ import {
 
 let data = {};
 let bookingHandler, hotel;
+let url = 'https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings';
 
 Promise.all([usersPromise, roomsPromise, bookingsPromise])
   .then(response => data = {
@@ -21,7 +22,7 @@ Promise.all([usersPromise, roomsPromise, bookingsPromise])
     bookings: response[2],
   })
   .then(() => {
-    bookingHandler = new BookingHandler();
+    bookingHandler = new BookingHandler(url);
     hotel = new Hotel(data.rooms, data.bookings);
   })
   .catch(error => {
@@ -564,7 +565,7 @@ function bookRoom(userId, day, roomId) {
     // fetch GET data again
     location.reload()
     alert('Booking successful');
-  })
+  });
 
 }
 
@@ -576,5 +577,5 @@ function cancelBooking(bookingId) {
     location.reload();
     // getUserInfo(user);
     alert('Cancelation successful')
-  })
+  });
 }
