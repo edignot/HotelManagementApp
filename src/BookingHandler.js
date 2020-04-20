@@ -18,7 +18,8 @@ class BookingHandler {
   }
 
   cancel(bookingId) {
-    fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
+
+    return fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
@@ -27,6 +28,7 @@ class BookingHandler {
           id: bookingId
         })
       })
+      .then(response => response.json())
       .catch(error => {
         console.log('Cancel was NOT successful', error);
       });

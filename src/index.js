@@ -503,16 +503,26 @@ function getBookingData(roomId) {
 }
 
 function bookRoom(userId, day, roomId) {
-  bookingHandler.book(userId, day, roomId);
-  // confirmBooking()
-  // location.reload()
+  let bookingResponse = bookingHandler.book(userId, day, roomId);
+  Promise.all([bookingResponse]).then(() => {
+    // fetch GET data again
+    // location.reload()
+    alert('Booking successful');
+  })
+
 }
 
 function cancelBooking(bookingId) {
-  bookingHandler.cancel(bookingId);
-  // location.reload()
-}
-
-function confirmBooking() {
-
+  let cancelResponse = bookingHandler.cancel(bookingId);
+  Promise.all([cancelResponse]).then(() => {
+    // fetch GET data again
+    // location.reload();
+    // $('.admin-header').removeClass('hidden');
+    // $('.admin-main').removeClass('hidden');
+    // $('.footer-admin').removeClass('hidden');
+    // $('.admin-entry').addClass('hidden');
+    // let user = getLocalStorage('user');
+    // getUserInfo(user);
+    alert('Cancelation successful')
+  })
 }
