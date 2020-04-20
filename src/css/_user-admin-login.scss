@@ -20,6 +20,15 @@
   }
 }
 
+.admin-title-wrapper,
+.user-title-wrapper,
+.title-wrapper,
+button,
+.room,
+.user-booking {
+  cursor: pointer;
+}
+
 .user-login,
 .admin-login {
   @include login();

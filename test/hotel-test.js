@@ -31,11 +31,18 @@ describe('HOTEL', () => {
   });
 
   it('should return rooms available', () => {
-    expect(hotel.getRoomsAvailable('2020/02/16')).to.deep.equal([rooms[0], rooms[1], rooms[2]]);
+    expect(hotel.getRoomsAvailable('2020/02/16')).to.deep.equal(
+      [rooms[0], rooms[1], rooms[2]]);
   });
 
   it('should filter rooms by type', () => {
-    expect(hotel.filterRoomsByType('2020/05/16', 'single room')).to.deep.equal([rooms[2], rooms[3]]);
+    expect(hotel.filterRoomsByType('2020/05/16', 'single room')).to.deep.equal(
+      [rooms[2], rooms[3]]);
+  });
+
+  it('should get all room types available for a date', () => {
+    expect(hotel.getRoomTypes('2020/05/16')).to.deep.equal(
+      ['residential suite', 'suite', 'single room']);
   });
 
   it('should calculate revenue by date', () => {

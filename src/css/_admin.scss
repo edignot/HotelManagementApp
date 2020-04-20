@@ -99,10 +99,10 @@
 }
 
 .cancel-btn {
-  @extend .book-btn;
+  @include alertButton();
 
   &:hover {
-    color: $alert-error;
+    @include alertButtonHover($alert-error);
   }
 }
 

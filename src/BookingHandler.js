@@ -1,11 +1,15 @@
 class BookingHandler {
+  constructor(url) {
+    this.url = url;
+  }
+
   book(userId, day, roomId) {
     let body = {
       'userID': userId,
       'date': day,
       'roomNumber': roomId,
     }
-    fetch(`https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings`, {
+    fetch(this.url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -18,8 +22,7 @@ class BookingHandler {
   }
 
   cancel(bookingId) {
-
-    return fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
+    return fetch(this.url, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
