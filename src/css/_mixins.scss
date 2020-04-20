@@ -25,6 +25,10 @@
   align-items: center;
 }
 
+@mixin shadow {
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+}
+
 @mixin button($font, $width, $padding) {
   color: $accent-medium;
   font-size: $font;
@@ -34,7 +38,7 @@
   margin-top: 30px;
   padding: $padding;
   border-radius: 7px;
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+  @include shadow();
 }
 
 @mixin buttonHover {
@@ -96,5 +100,5 @@
   justify-content: space-between;
   border-radius: 7px;
   margin: 15px;
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+  @include shadow();
 }

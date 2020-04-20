@@ -13,7 +13,6 @@ const moment = require('moment');
 import flatpickr from "flatpickr";
 
 let data = {};
-console.log(data, Date.now());
 let bookingHandler;
 let hotel;
 
@@ -385,7 +384,6 @@ function checkDate(date) {
 function getRoomsForDate(date) {
   displayInfoMessage(`Rooms available: ${date}`)
   let rooms = hotel.getRoomsAvailable(date);
-  console.log(rooms);
   (date === '') && displayInfoMessage('All Rooms / No Date Selected');
   rooms.length === 0 ? displayInfoMessage('No Rooms Available on Selected Date') : displayRooms(rooms, date);
 }
@@ -479,8 +477,8 @@ $('.rooms-type').delegate('.type', 'click', (e) => {
 })
 
 function getRoomTypeInfo(rooms, key, date) {
-  let type = rooms[0].roomType.toUpperCase();
   emptyContainers();
+  let type = rooms[0].roomType.toUpperCase();
   let message = `${type} Available ${date}`;
   displayInfoMessage(message, key)
   displayRooms(rooms, date);
@@ -506,7 +504,7 @@ function bookRoom(userId, day, roomId) {
   let bookingResponse = bookingHandler.book(userId, day, roomId);
   Promise.all([bookingResponse]).then(() => {
     // fetch GET data again
-    // location.reload()
+    location.reload()
     alert('Booking successful');
   })
 
@@ -516,7 +514,7 @@ function cancelBooking(bookingId) {
   let cancelResponse = bookingHandler.cancel(bookingId);
   Promise.all([cancelResponse]).then(() => {
     // fetch GET data again
-    // location.reload();
+    location.reload();
     // $('.admin-header').removeClass('hidden');
     // $('.admin-main').removeClass('hidden');
     // $('.footer-admin').removeClass('hidden');
