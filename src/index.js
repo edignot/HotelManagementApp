@@ -78,15 +78,37 @@ $('.booking-history').click(() => {
   showTime();
 });
 
+$('.date-btn').click(() => {
+  emptyContainers();
+  let date = convertDateNow();
+  checkDate(date);
+  flatpickr('.date-input');
+});
+
 $('.rooms').delegate('.book-btn', 'click', (e) => {
   let roomId = Number($(e.target).attr('id'));
   getBookingData(roomId);
-})
+});
 
 $('.user-bookings').delegate('.cancel-btn', 'click', (e) => {
   let bookingId = Number($(e.target).attr('id'));
   cancelBooking(bookingId);
 });
+
+$('.user').delegate('.user-history', 'click', () => {
+  $('.user').empty();
+  emptyContainers();
+  let user = getLocalStorage('user');
+  getUserInfo(user);
+});
+
+$('.info').delegate('.user-choice', 'click', (e) => {
+  let id = Number($(e.target).attr('id'));
+  let user = findUser(id);
+  setLocalStorage(user, 'user');
+  emptyContainers();
+  getUserInfo(user);
+})
 
 $('#user-login-btn').click(() => {
   let username = $('#user-login-input');
@@ -326,11 +348,9 @@ function searchUsers(input) {
   data.users.forEach(user => {
     let name = user.name.toLowerCase();
     let splitName = name.split(' ');
-    if (name === input) {
-      foundUsers.push(user);
-    } else if (input.includes(splitName[0]) || input.includes(splitName[1])) {
-      foundUsers.push(user);
-    }
+    (name === input) && foundUsers.push(user);
+    (input.includes(splitName[0]) || input.includes(splitName[1])) &&
+    foundUsers.push(user)
   })
   checkExactMatch(foundUsers, input);
 }
@@ -354,20 +374,20 @@ function getUserInfo(user) {
   setLocalStorage(user, 'user');
   let userBookings = hotel.findBookings(user.id);
   displayUserBookings(userBookings);
-  displayUserInfo(user, userBookings)
+  displayUserInfo(user, userBookings);
 }
 
 function displayInfoMessage(message, color) {
   emptyContainers();
   $('.info').append(`
   <div class="user-data">
-  <p class="message" id="${color}">${message}</p>
+    <p class="message" id="${color}">${message}</p>
   </div>
   `)
 }
 
 function chooseUser(users) {
-  users.forEach(user => displayUserChoice(user))
+  users.forEach(user => displayUserChoice(user));
 }
 
 function displayUserChoice(user) {
@@ -379,22 +399,14 @@ function displayUserChoice(user) {
   `)
 }
 
-$('.info').delegate('.user-choice', 'click', (e) => {
-  let id = Number($(e.target).attr('id'));
-  let user = findUser(id);
-  setLocalStorage(user, 'user');
-  emptyContainers();
-  getUserInfo(user);
-})
-
 function displayUserInfo(user, userBookings) {
-  $('.page').html(`Welcome back, ${user.name} &#128153`)
+  $('.page').html(`Welcome back, ${user.name} &#128153`);
   let amount = hotel.getBookingsAmount(userBookings).toFixed(2);
   $('.user').append(`
   <div class="user-data">
-  <p>Customer: ${user.name}</p>
-  <p>Total Spending: $${amount}</p>
-  <button class="user-history ${checkAdmin()}">user's booking history</button>
+    <p>Customer: ${user.name}</p>
+    <p>Total Spending: $${amount}</p>
+    <button class="user-history ${checkAdmin()}">user's booking history</button>
   </div>
  `)
 }
@@ -403,39 +415,26 @@ function checkAdmin() {
   return ($('.admin-page').text().includes('Admin')) ? '' : 'hidden';
 }
 
-$('.user').delegate('.user-history', 'click', () => {
-  $('.user').empty();
-  emptyContainers();
-  let user = getLocalStorage('user');
-  getUserInfo(user);
-})
-
-
-$('.date-btn').click(() => {
-  emptyContainers();
-  let date = convertDate();
-  checkDate(date);
-  flatpickr('.date-input');
-});
-
 function checkDate(date) {
   let now = moment().format('YYYY/MM/DD');
-  return (date >= now) ? getRoomsForDate(date) : displayInfoMessage('Select Upcoming Date');
+  return (date >= now) ? getRoomsForDate(date) :
+    displayInfoMessage('Select Upcoming Date');
 }
 
 function getRoomsForDate(date) {
   displayInfoMessage(`Rooms available: ${date}`)
   let rooms = hotel.getRoomsAvailable(date);
   (date === '') && displayInfoMessage('All Rooms / No Date Selected');
-  rooms.length === 0 ? displayInfoMessage('No Rooms Available on Selected Date') : displayRooms(rooms, date);
+  rooms.length === 0 ? displayInfoMessage('No Rooms Available on Selected Date') :
+    displayRooms(rooms, date);
 }
 
-function convertDate() {
+function convertDateNow() {
   let date = $(".date-input").val().split('');
   let converted = [];
   date.forEach(num => {
-    (num === '-') ? converted.push('/'): converted.push(num);
-  })
+    num === '-' ? converted.push('/') : converted.push(num);
+  });
   return converted.join('');
 }
 
@@ -445,20 +444,21 @@ function displayRooms(rooms, date) {
 }
 
 function displayRoom(room, date) {
+  let type = checkRoomType(room);
   $('.rooms').append(`
-  <section class="room ${checkRoomType(room)} ${room.number}" id="${date}">
-  <div class="left">
-    <p>${room.roomType.toUpperCase()}</p>
-    <p>${room.number}</p>
-    <p>${room.costPerNight}$/night</p>
-  </div>
-  <div class="right">
-    <p>bed size: ${room.bedSize}</p>
-    <p>beds: ${room.numBeds}</p>
-    <p>bidet: ${room.bidet}</p>
-  </div>
-  <button class="book-btn" id="${room.number}">BOOK</button>
-</section>
+  <section class="room ${type} ${room.number}" id="${date}">
+    <div class="left">
+      <p>${room.roomType.toUpperCase()}</p>
+      <p>${room.number}</p>
+      <p>${room.costPerNight}$/night</p>
+    </div>
+    <div class="right">
+      <p>bed size: ${room.bedSize}</p>
+      <p>beds: ${room.numBeds}</p>
+      <p>bidet: ${room.bidet}</p>
+    </div>
+    <button class="book-btn" id="${room.number}">BOOK</button>
+  </section>
   `);
 }
 
