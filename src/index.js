@@ -562,8 +562,6 @@ function getBookingData(roomId) {
 }
 
 function bookRoom(userId, day, roomId) {
-  $('.user').empty();
-  emptyContainers();
   let bookingResponse = bookingHandler.book(userId, day, roomId);
   Promise.resolve(bookingResponse)
     .then(() => {
@@ -571,6 +569,8 @@ function bookRoom(userId, day, roomId) {
       Promise.resolve(bookingsPromise)
         .then(response => data.bookings = response)
         .then(() => hotel = new Hotel(data.rooms, data.bookings))
+        .then(() => emptyContainers())
+        .then(() => $('.user').empty())
         .then(() => getUserData());
     });
 
