@@ -32,15 +32,15 @@ class Hotel {
     return this.rooms.filter(room => !booked.includes(room.number));
   }
 
-  filterRoomsByType(date, type) {
+  filterRoomsByType(date, type, category) {
     let available = this.getRoomsAvailable(date);
-    return available.filter(room => room.roomType === type);
+    return available.filter(room => room[category] === type);
   }
 
-  getRoomTypes(date) {
+  getTypes(date, category) {
     let available = this.getRoomsAvailable(date);
     return available.reduce((types, room) => {
-      !types.includes(room.roomType) && types.push(room.roomType);
+      !types.includes(room[category]) && types.push(room[category]);
       return types;
     }, []);
   }

@@ -90,7 +90,14 @@
     background-color: $alert-warning;
   }
 
-  #all-types {
+  [id='ALL ROOMS'] {
+    background-color: $background-medium;
+  }
+
+  #queen,
+  #full,
+  #king,
+  #twin {
     background-color: $background-medium;
   }
 }

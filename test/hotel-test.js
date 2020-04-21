@@ -26,6 +26,10 @@ describe('HOTEL', () => {
     expect(hotel.findBookings(2)).to.deep.equal([bookings[0], bookings[2]]);
   });
 
+  it('should find all bookings by date', () => {
+    expect(hotel.getBookingsByDate('2020/02/16')).to.deep.equal([bookings[3]]);
+  });
+
   it('should calculate total bookings amount', () => {
     expect(hotel.getBookingsAmount(bookings)).to.equal(429.44);
   });
@@ -36,12 +40,12 @@ describe('HOTEL', () => {
   });
 
   it('should filter rooms by type', () => {
-    expect(hotel.filterRoomsByType('2020/05/16', 'single room')).to.deep.equal(
+    expect(hotel.filterRoomsByType('2020/05/16', 'single room', 'roomType')).to.deep.equal(
       [rooms[2], rooms[3]]);
   });
 
   it('should get all room types available for a date', () => {
-    expect(hotel.getRoomTypes('2020/05/16')).to.deep.equal(
+    expect(hotel.getTypes('2020/05/16', 'roomType')).to.deep.equal(
       ['residential suite', 'suite', 'single room']);
   });
 

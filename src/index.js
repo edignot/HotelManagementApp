@@ -95,7 +95,7 @@ $('.date-btn').click(() => {
 $('.rooms').delegate('.book-btn', 'click', (e) => {
   let roomId = Number($(e.target).attr('id'));
   let user = getLocalStorage('user');
-  confirmBooking(roomId, user);
+  user ? confirmBooking(roomId, user) : swal('Select User!');
 });
 
 $('.user-bookings').delegate('.cancel-btn', 'click', (e) => {
@@ -118,14 +118,14 @@ $('.info').delegate('.user-choice', 'click', (e) => {
   emptyContainers();
   getUserInfo(user);
 });
-
+/////////////
 $('.rooms-type').delegate('.type', 'click', (e) => {
   let date = $('.rooms-type').attr('id');
   let key = $(e.target).attr('id');
   let rooms = getLocalStorage(key);
   searchRoomType(date, key, rooms);
 });
-
+/////////////
 $('#user-login-btn').click(() => {
   let username = $('#user-login-input');
   let password = $('#user-password-input');
@@ -458,7 +458,9 @@ function convertDateNow() {
 }
 
 function displayRooms(rooms, date) {
-  getRoomsType(date, rooms);
+  getType(date, rooms, 'roomType', '');
+  getType(date, rooms, 'bedSize', 'bed');
+  getAllRooms(date);
   rooms.forEach(room => displayRoom(room, date));
 }
 
@@ -506,43 +508,50 @@ function emptyContainers() {
   $('.rooms-type').empty();
 }
 
-function getRoomsType(date, rooms) {
-  let roomTypes = hotel.getRoomTypes(rooms);
+function getType(date, rooms, category, extra) {
+  let roomTypes = hotel.getTypes(rooms, category);
   roomTypes.forEach(type => {
-    setLocalStorage(hotel.filterRoomsByType(date, type), type);
-    displayRoomType(date, type);
+    setLocalStorage(hotel.filterRoomsByType(date, type, category), type);
+    displayRoomType(date, type, extra);
   });
-  getAllRooms(date);
 }
 
 function getAllRooms(date) {
-  setLocalStorage(hotel.getRoomsAvailable(date), 'all-types');
-  displayRoomType(date, 'all-types');
+  setLocalStorage(hotel.getRoomsAvailable(date), 'ALL ROOMS');
+  displayRoomType(date, 'ALL ROOMS', '');
 }
 
-function displayRoomType(date, type) {
+function displayRoomType(date, type, extra) {
   $('.rooms-type').attr('id', date);
   $('.rooms-type').append(`
-    <button class="type" id="${type}">${type}</button>
+    <button class="type" id="${type}">${type} ${extra}</button>
   `);
 }
 
 function searchRoomType(date, key, rooms) {
-  if (key === 'all-types') {
+  if (key === 'ALL ROOMS') {
     getRoomsForDate(date);
   } else {
-    if (rooms.length >= 1 && key !== 'all-types') {
-      getRoomTypeInfo(rooms, key, date)
+    if (rooms.length >= 1 && key !== 'ALL ROOMS') {
+      checkFilterCategory(rooms, key, date)
     } else {
       displayRoomsNotFound(date, key);
     }
   }
 }
 
-function getRoomTypeInfo(rooms, key, date) {
-  emptyContainers();
-  let type = rooms[0].roomType.toUpperCase();
+function checkFilterCategory(rooms, key, date) {
+  let typeSize = data.rooms.find(room => room.roomType === key);
+  let typeBed = data.rooms.find(room => room.bedSize === key);
+  let type;
+  typeSize && (type = rooms[0].roomType.toUpperCase());
+  typeBed && (type = rooms[0].bedSize.toUpperCase());
   let message = `${type} Available ${date}`;
+  getRoomTypeInfo(rooms, key, date, message)
+}
+
+function getRoomTypeInfo(rooms, key, date, message) {
+  emptyContainers();
   displayInfoMessage(message, key);
   displayRooms(rooms, date);
 }
