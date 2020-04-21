@@ -95,7 +95,7 @@ $('.date-btn').click(() => {
 $('.rooms').delegate('.book-btn', 'click', (e) => {
   let roomId = Number($(e.target).attr('id'));
   let user = getLocalStorage('user');
-  confirmBooking(roomId, user);
+  user ? confirmBooking(roomId, user) : swal('Select User!');
 });
 
 $('.user-bookings').delegate('.cancel-btn', 'click', (e) => {
@@ -458,8 +458,8 @@ function convertDateNow() {
 }
 
 function displayRooms(rooms, date) {
-  getRoomsType(date, rooms);
-  getBedType(date, rooms);
+  getType(date, rooms, 'roomType', '');
+  getType(date, rooms, 'bedSize', 'bed');
   getAllRooms(date);
   rooms.forEach(room => displayRoom(room, date));
 }
@@ -507,23 +507,15 @@ function emptyContainers() {
   $('.info').empty();
   $('.rooms-type').empty();
 }
-//////////////
-function getRoomsType(date, rooms) {
-  let roomTypes = hotel.getRoomTypes(rooms);
+
+function getType(date, rooms, category, extra) {
+  let roomTypes = hotel.getTypes(rooms, category);
   roomTypes.forEach(type => {
-    setLocalStorage(hotel.filterRoomsByType(date, type), type);
-    displayRoomType(date, type, '');
+    setLocalStorage(hotel.filterRoomsByType(date, type, category), type);
+    displayRoomType(date, type, extra);
   });
 }
 
-function getBedType(date, rooms) {
-  let bedTypes = hotel.getBedTypes(rooms);
-  bedTypes.forEach(type => {
-    setLocalStorage(hotel.filterRoomsByBed(date, type), type);
-    displayRoomType(date, type, 'bed');
-  });
-}
-//////////////
 function getAllRooms(date) {
   setLocalStorage(hotel.getRoomsAvailable(date), 'ALL ROOMS');
   displayRoomType(date, 'ALL ROOMS', '');
