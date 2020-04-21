@@ -2,10 +2,10 @@
 ### Hotel Management App
 
 ### Customer Interaction
-![](user.gif)
+![](user-interaction.gif)
 
 ### Admin Interaction
-![](admin.gif)
+![](admin-interaction.gif)
 
 ### Abstract
 This is responsive Hotel management app for customers and staff. Users are able to sign-in, view, book and delete upcoming bookings using fetch API. The purpose of this project is to get deeper understanding of Object Oriented Programming, Test Driven Development, practice fetch get/ post and delete requests, get experience using jQuery, SASS, Webpack.
