@@ -9,11 +9,13 @@ import {
   usersPromise,
   roomsPromise,
   bookingsPromise,
-  bookingsUrl
+  bookingsUrl,
+  fetchData
 } from "./utils.js";
 
 let data = {};
-let bookingHandler, hotel;
+let bookingHandler;
+let hotel;
 
 Promise.all([usersPromise, roomsPromise, bookingsPromise])
   .then(response => data = {
@@ -560,30 +562,28 @@ function getBookingData(roomId) {
 }
 
 function bookRoom(userId, day, roomId) {
+  $('.user').empty();
+  emptyContainers();
   let bookingResponse = bookingHandler.book(userId, day, roomId);
-  Promise.all([bookingResponse])
-    .then(response => console.log(response))
+  Promise.resolve(bookingResponse)
     .then(() => {
-      // fetch GET data again
-      // location.reload()
-      alert('Booking successful');
+      let bookingsPromise = fetchData(bookingsUrl, 'bookings');
+      Promise.resolve(bookingsPromise)
+        .then(response => data.bookings = response)
+        .then(() => hotel = new Hotel(data.rooms, data.bookings))
+        .then(() => getUserData());
     });
 
 }
 
 function cancelBooking(bookingId) {
   let cancelResponse = bookingHandler.cancel(bookingId);
-  console.log(cancelResponse)
-  Promise.all([cancelResponse]).then(() => {
-    // fetch GET data again
-    location.reload();
-    // getUserInfo(user);
-    alert('Cancelation successful')
-  });
-}
+  Promise.resolve(cancelResponse)
+    .then(() => {
+      let bookingsPromise = fetchData(bookingsUrl, 'bookings');
+      Promise.resolve(bookingsPromise)
+        .then(response => data.bookings = response)
+        .then(() => console.log(Date.now(), data))
 
-// $(window).on('load', function () {
-//   if (window.location === './user-login.html') {
-//     console.log('sdvjsjdvndjvjnd')
-//   }
-// });
+    });
+}

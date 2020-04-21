@@ -8,7 +8,7 @@ class BookingHandler {
       'date': day,
       'roomNumber': roomId,
     }
-    fetch(this.url, {
+    return fetch(this.url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
