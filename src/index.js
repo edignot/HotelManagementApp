@@ -37,8 +37,7 @@ $('.title-wrapper').click(() => {
 });
 
 $('#logout').click(() => {
-  localStorage.clear();
-  window.location = './index.html';
+  confirmLogout();
 });
 
 $('#user-login').click(() => {
@@ -649,4 +648,19 @@ function confirmBooking(roomId, user) {
         swal(`Booking wasn't made`);
       }
     });
+}
+
+function confirmLogout() {
+  swal({
+      title: `Are you sure to LOGOUT`,
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        localStorage.clear();
+        window.location = './index.html';
+      }
+    })
 }
