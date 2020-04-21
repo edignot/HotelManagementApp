@@ -93,7 +93,7 @@
   }
 
   [id='ALL ROOMS'] {
-    background-color: $background-medium;
+    background-color: $accent-dark;
   }
 
   #queen,
@@ -101,6 +101,11 @@
   #king,
   #twin {
     background-color: $background-medium;
+  }
+
+  [id='1'],
+  [id='2'] {
+    background-color: $background-medium-dark;
   }
 }
 

@@ -460,6 +460,9 @@ function convertDateNow() {
 function displayRooms(rooms, date) {
   getType(date, rooms, 'roomType', '');
   getType(date, rooms, 'bedSize', 'bed');
+  /////////
+  getType(date, rooms, 'numBeds', 'bed');
+  ////////////
   getAllRooms(date);
   rooms.forEach(room => displayRoom(room, date));
 }
