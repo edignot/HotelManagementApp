@@ -118,14 +118,14 @@ $('.info').delegate('.user-choice', 'click', (e) => {
   emptyContainers();
   getUserInfo(user);
 });
-
+/////////////
 $('.rooms-type').delegate('.type', 'click', (e) => {
   let date = $('.rooms-type').attr('id');
   let key = $(e.target).attr('id');
   let rooms = getLocalStorage(key);
   searchRoomType(date, key, rooms);
 });
-
+/////////////
 $('#user-login-btn').click(() => {
   let username = $('#user-login-input');
   let password = $('#user-password-input');
@@ -459,6 +459,8 @@ function convertDateNow() {
 
 function displayRooms(rooms, date) {
   getRoomsType(date, rooms);
+  getBedType(date, rooms);
+  getAllRooms(date);
   rooms.forEach(room => displayRoom(room, date));
 }
 
@@ -505,33 +507,40 @@ function emptyContainers() {
   $('.info').empty();
   $('.rooms-type').empty();
 }
-
+//////////////
 function getRoomsType(date, rooms) {
   let roomTypes = hotel.getRoomTypes(rooms);
   roomTypes.forEach(type => {
     setLocalStorage(hotel.filterRoomsByType(date, type), type);
-    displayRoomType(date, type);
+    displayRoomType(date, type, '');
   });
-  getAllRooms(date);
 }
 
+function getBedType(date, rooms) {
+  let bedTypes = hotel.getBedTypes(rooms);
+  bedTypes.forEach(type => {
+    setLocalStorage(hotel.filterRoomsByBed(date, type), type);
+    displayRoomType(date, type, 'bed');
+  });
+}
+////////////////
 function getAllRooms(date) {
-  setLocalStorage(hotel.getRoomsAvailable(date), 'all-types');
-  displayRoomType(date, 'all-types');
+  setLocalStorage(hotel.getRoomsAvailable(date), 'ALL ROOMS');
+  displayRoomType(date, 'ALL ROOMS', '');
 }
 
-function displayRoomType(date, type) {
+function displayRoomType(date, type, extra) {
   $('.rooms-type').attr('id', date);
   $('.rooms-type').append(`
-    <button class="type" id="${type}">${type}</button>
+    <button class="type" id="${type}">${type} ${extra}</button>
   `);
 }
 
 function searchRoomType(date, key, rooms) {
-  if (key === 'all-types') {
+  if (key === 'ALL ROOMS') {
     getRoomsForDate(date);
   } else {
-    if (rooms.length >= 1 && key !== 'all-types') {
+    if (rooms.length >= 1 && key !== 'ALL ROOMS') {
       getRoomTypeInfo(rooms, key, date)
     } else {
       displayRoomsNotFound(date, key);

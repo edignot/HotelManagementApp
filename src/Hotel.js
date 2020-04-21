@@ -37,6 +37,11 @@ class Hotel {
     return available.filter(room => room.roomType === type);
   }
 
+  filterRoomsByBed(date, type) {
+    let available = this.getRoomsAvailable(date);
+    return available.filter(room => room.bedSize === type);
+  }
+
   getRoomTypes(date) {
     let available = this.getRoomsAvailable(date);
     return available.reduce((types, room) => {
@@ -44,7 +49,15 @@ class Hotel {
       return types;
     }, []);
   }
-
+  //////////////////////
+  getBedTypes(date) {
+    let available = this.getRoomsAvailable(date);
+    return available.reduce((types, room) => {
+      !types.includes(room.bedSize) && types.push(room.bedSize);
+      return types;
+    }, []);
+  }
+  //////////////////////
   calcRevenue(date) {
     let bookings = this.getBookingsByDate(date);
     let revenue = bookings.reduce((sum, booking) => {
