@@ -561,7 +561,7 @@ function displayRoomsNotFound(date, key) {
 function getBookingData(roomId) {
   let day = $('.rooms-type').attr('id');
   let user = getLocalStorage('user');
-  user ? bookRoom(user.id, day, roomId) : alert('Select User First');
+  user ? bookRoom(user.id, day, roomId) : swal('Select User!');
 }
 
 function bookRoom(userId, day, roomId) {
