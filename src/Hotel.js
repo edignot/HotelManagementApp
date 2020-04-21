@@ -5,7 +5,10 @@ class Hotel {
   }
 
   findBookings(id) {
-    return this.bookings.filter(booking => booking.userID === id);
+    let sorted = this.bookings.sort((a, b) => {
+      return a.date.match(/\d+/g).join('') - b.date.match(/\d+/g).join('');
+    });
+    return sorted.filter(booking => booking.userID === id);
   }
 
   getBookingsByDate(date) {
