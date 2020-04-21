@@ -568,12 +568,8 @@ function bookRoom(userId, day, roomId) {
       let bookingsPromise = fetchData(bookingsUrl, 'bookings');
       Promise.resolve(bookingsPromise)
         .then(response => data.bookings = response)
-        .then(() => hotel = new Hotel(data.rooms, data.bookings))
-        .then(() => $('.user').empty())
-        .then(() => emptyContainers())
-        .then(() => getUserData());
+        .then(() => updateBookData())
     });
-
 }
 
 function cancelBooking(bookingId) {
@@ -587,10 +583,27 @@ function cancelBooking(bookingId) {
     });
 }
 
-function updateCancelData() {
-  let user = getLocalStorage('user');
+function updateBookData() {
   hotel = new Hotel(data.rooms, data.bookings);
-  emptyContainers();
+  if ($('.admin-page').text().includes('Admin')) {
+    updateAdminBook();
+  } else {
+    $('.user').empty();
+    emptyContainers();
+    getUserData();
+  }
+}
+
+function updateCancelData() {
+  hotel = new Hotel(data.rooms, data.bookings);
+  updateAdminBook();
+}
+
+function updateAdminBook() {
+  let user = getLocalStorage('user');
+  $('.admin-info').empty();
   $('.user').empty();
+  getAdminData();
+  emptyContainers();
   getUserInfo(user);
 }
