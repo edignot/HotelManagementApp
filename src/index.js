@@ -569,8 +569,8 @@ function bookRoom(userId, day, roomId) {
       Promise.resolve(bookingsPromise)
         .then(response => data.bookings = response)
         .then(() => hotel = new Hotel(data.rooms, data.bookings))
-        .then(() => emptyContainers())
         .then(() => $('.user').empty())
+        .then(() => emptyContainers())
         .then(() => getUserData());
     });
 
@@ -583,7 +583,14 @@ function cancelBooking(bookingId) {
       let bookingsPromise = fetchData(bookingsUrl, 'bookings');
       Promise.resolve(bookingsPromise)
         .then(response => data.bookings = response)
-        .then(() => console.log(Date.now(), data))
-
+        .then(() => updateCancelData())
     });
+}
+
+function updateCancelData() {
+  let user = getLocalStorage('user');
+  hotel = new Hotel(data.rooms, data.bookings);
+  emptyContainers();
+  $('.user').empty();
+  getUserInfo(user);
 }
