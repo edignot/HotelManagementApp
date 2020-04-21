@@ -5,6 +5,7 @@ import Hotel from '../src/Hotel';
 import BookingHandler from '../src/BookingHandler';
 import flatpickr from 'flatpickr';
 import moment from 'moment';
+import swal from 'sweetalert';
 import {
   usersPromise,
   roomsPromise,
@@ -49,7 +50,7 @@ $('#admin-login').click(() => {
 });
 
 $('.forgot-password').click(() => {
-  alert('Please Contact Overlook Hotel')
+  swal('Please Contact Overlook Hotel');
 });
 
 $('#user-enter').click(() => {
@@ -94,12 +95,14 @@ $('.date-btn').click(() => {
 
 $('.rooms').delegate('.book-btn', 'click', (e) => {
   let roomId = Number($(e.target).attr('id'));
-  getBookingData(roomId);
+  let user = getLocalStorage('user');
+  confirmBooking(roomId, user);
 });
 
 $('.user-bookings').delegate('.cancel-btn', 'click', (e) => {
   let bookingId = Number($(e.target).attr('id'));
-  cancelBooking(bookingId);
+  let user = getLocalStorage('user');
+  confirmCancel(bookingId, user);
 });
 
 $('.user').delegate('.user-history', 'click', () => {
@@ -606,4 +609,44 @@ function updateAdminBook() {
   getAdminData();
   emptyContainers();
   getUserInfo(user);
+}
+
+function confirmCancel(bookingId, user) {
+  swal({
+      title: `Are you sure to CANCEL this booking for ${user.name} ?`,
+      text: `Booking ID: ${bookingId}`,
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        cancelBooking(bookingId);
+        swal(`Booking ${bookingId} was canceled`, {
+          icon: 'success',
+        });
+      } else {
+        swal(`Booking ID: ${bookingId} is still active`);
+      }
+    });
+}
+
+function confirmBooking(roomId, user) {
+  swal({
+      title: `Are you sure to BOOK this room ?`,
+      text: `User: ${user.name}`,
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        getBookingData(roomId);
+        swal(`Congrats! Booking confirmed!`, {
+          icon: 'success',
+        });
+      } else {
+        swal(`Booking wasn't made`);
+      }
+    });
 }
