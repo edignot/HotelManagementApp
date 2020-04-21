@@ -8,12 +8,12 @@ import moment from 'moment';
 import {
   usersPromise,
   roomsPromise,
-  bookingsPromise
+  bookingsPromise,
+  bookingsUrl
 } from "./utils.js";
 
 let data = {};
 let bookingHandler, hotel;
-let url = 'https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings';
 
 Promise.all([usersPromise, roomsPromise, bookingsPromise])
   .then(response => data = {
@@ -22,7 +22,7 @@ Promise.all([usersPromise, roomsPromise, bookingsPromise])
     bookings: response[2],
   })
   .then(() => {
-    bookingHandler = new BookingHandler(url);
+    bookingHandler = new BookingHandler(bookingsUrl);
     hotel = new Hotel(data.rooms, data.bookings);
   })
   .catch(error => {
@@ -561,11 +561,13 @@ function getBookingData(roomId) {
 
 function bookRoom(userId, day, roomId) {
   let bookingResponse = bookingHandler.book(userId, day, roomId);
-  Promise.all([bookingResponse]).then(() => {
-    // fetch GET data again
-    location.reload()
-    alert('Booking successful');
-  });
+  Promise.all([bookingResponse])
+    .then(response => console.log(response))
+    .then(() => {
+      // fetch GET data again
+      // location.reload()
+      alert('Booking successful');
+    });
 
 }
 
@@ -579,3 +581,9 @@ function cancelBooking(bookingId) {
     alert('Cancelation successful')
   });
 }
+
+// $(window).on('load', function () {
+//   if (window.location === './user-login.html') {
+//     console.log('sdvjsjdvndjvjnd')
+//   }
+// });

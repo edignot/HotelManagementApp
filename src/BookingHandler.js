@@ -2,7 +2,6 @@ class BookingHandler {
   constructor(url) {
     this.url = url;
   }
-
   book(userId, day, roomId) {
     let body = {
       'userID': userId,
