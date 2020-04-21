@@ -8,12 +8,14 @@ import moment from 'moment';
 import {
   usersPromise,
   roomsPromise,
-  bookingsPromise
+  bookingsPromise,
+  bookingsUrl,
+  fetchData
 } from "./utils.js";
 
 let data = {};
-let bookingHandler, hotel;
-let url = 'https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings';
+let bookingHandler;
+let hotel;
 
 Promise.all([usersPromise, roomsPromise, bookingsPromise])
   .then(response => data = {
@@ -22,7 +24,7 @@ Promise.all([usersPromise, roomsPromise, bookingsPromise])
     bookings: response[2],
   })
   .then(() => {
-    bookingHandler = new BookingHandler(url);
+    bookingHandler = new BookingHandler(bookingsUrl);
     hotel = new Hotel(data.rooms, data.bookings);
   })
   .catch(error => {
@@ -561,21 +563,47 @@ function getBookingData(roomId) {
 
 function bookRoom(userId, day, roomId) {
   let bookingResponse = bookingHandler.book(userId, day, roomId);
-  Promise.all([bookingResponse]).then(() => {
-    // fetch GET data again
-    location.reload()
-    alert('Booking successful');
-  });
-
+  Promise.resolve(bookingResponse)
+    .then(() => {
+      let bookingsPromise = fetchData(bookingsUrl, 'bookings');
+      Promise.resolve(bookingsPromise)
+        .then(response => data.bookings = response)
+        .then(() => updateBookData())
+    });
 }
 
 function cancelBooking(bookingId) {
   let cancelResponse = bookingHandler.cancel(bookingId);
-  console.log(cancelResponse)
-  Promise.all([cancelResponse]).then(() => {
-    // fetch GET data again
-    location.reload();
-    // getUserInfo(user);
-    alert('Cancelation successful')
-  });
+  Promise.resolve(cancelResponse)
+    .then(() => {
+      let bookingsPromise = fetchData(bookingsUrl, 'bookings');
+      Promise.resolve(bookingsPromise)
+        .then(response => data.bookings = response)
+        .then(() => updateCancelData())
+    });
+}
+
+function updateBookData() {
+  hotel = new Hotel(data.rooms, data.bookings);
+  if ($('.admin-page').text().includes('Admin')) {
+    updateAdminBook();
+  } else {
+    $('.user').empty();
+    emptyContainers();
+    getUserData();
+  }
+}
+
+function updateCancelData() {
+  hotel = new Hotel(data.rooms, data.bookings);
+  updateAdminBook();
+}
+
+function updateAdminBook() {
+  let user = getLocalStorage('user');
+  $('.admin-info').empty();
+  $('.user').empty();
+  getAdminData();
+  emptyContainers();
+  getUserInfo(user);
 }
