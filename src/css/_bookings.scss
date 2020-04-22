@@ -107,6 +107,14 @@
   [id='2'] {
     background-color: $background-medium-dark;
   }
+
+  [id='MIN price'] {
+    background-color: $alert-success;
+  }
+
+  [id='MAX price'] {
+    background-color: $alert-error;
+  }
 }
 
 .book-btn {
