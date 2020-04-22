@@ -118,14 +118,14 @@ $('.info').delegate('.user-choice', 'click', (e) => {
   emptyContainers();
   getUserInfo(user);
 });
-/////////////
+
 $('.rooms-type').delegate('.type', 'click', (e) => {
   let date = $('.rooms-type').attr('id');
   let key = $(e.target).attr('id');
   let rooms = getLocalStorage(key);
   searchRoomType(date, key, rooms);
 });
-/////////////
+
 $('#user-login-btn').click(() => {
   let username = $('#user-login-input');
   let password = $('#user-password-input');
@@ -440,7 +440,6 @@ function checkDate(date) {
 function getRoomsForDate(date) {
   displayInfoMessage(`Rooms available: ${date}`)
   let rooms = hotel.getRoomsAvailable(date);
-  (date === '') && displayInfoMessage('All Rooms / No Date Selected');
   if (rooms.length === 0) {
     displayInfoMessage('No Rooms Available on Selected Date');
   } else {
@@ -460,6 +459,8 @@ function convertDateNow() {
 function displayRooms(rooms, date) {
   getType(date, rooms, 'roomType', '');
   getType(date, rooms, 'bedSize', 'bed');
+  getType(date, rooms, 'numBeds', 'bed');
+  getByPrice(date);
   getAllRooms(date);
   rooms.forEach(room => displayRoom(room, date));
 }
@@ -516,6 +517,13 @@ function getType(date, rooms, category, extra) {
   });
 }
 
+function getByPrice(date) {
+  setLocalStorage(hotel.sortRoomsByPrice(date), 'MIN price');
+  setLocalStorage(hotel.sortRoomsByPrice(date).reverse(), 'MAX price');
+  displayRoomType(date, 'MIN price', '');
+  displayRoomType(date, 'MAX price', '');
+}
+
 function getAllRooms(date) {
   setLocalStorage(hotel.getRoomsAvailable(date), 'ALL ROOMS');
   displayRoomType(date, 'ALL ROOMS', '');
@@ -531,6 +539,8 @@ function displayRoomType(date, type, extra) {
 function searchRoomType(date, key, rooms) {
   if (key === 'ALL ROOMS') {
     getRoomsForDate(date);
+  } else if (key === 'MAX price' || key === 'MIN price') {
+    displayByPrice(key, date);
   } else {
     if (rooms.length >= 1 && key !== 'ALL ROOMS') {
       checkFilterCategory(rooms, key, date)
@@ -540,12 +550,20 @@ function searchRoomType(date, key, rooms) {
   }
 }
 
+function displayByPrice(key, date) {
+  let rooms = getLocalStorage(key)
+  let message = `${key} Available ${date}`;
+  getRoomTypeInfo(rooms, key, date, message);
+}
+
 function checkFilterCategory(rooms, key, date) {
   let typeSize = data.rooms.find(room => room.roomType === key);
   let typeBed = data.rooms.find(room => room.bedSize === key);
+  let typeNumBed = data.rooms.find(room => room.numBeds === Number(key));
   let type;
   typeSize && (type = rooms[0].roomType.toUpperCase());
   typeBed && (type = rooms[0].bedSize.toUpperCase());
+  typeNumBed && (type = `${rooms[0].numBeds} Bed Rooms`);
   let message = `${type} Available ${date}`;
   getRoomTypeInfo(rooms, key, date, message)
 }

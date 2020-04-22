@@ -60,4 +60,9 @@ describe('HOTEL', () => {
   it('should calculate rooms occupied % by date', () => {
     expect(hotel.calcRoomsBooked('2020/02/20')).to.equal(0);
   });
+
+  it('should sort rooms by price', () => {
+    expect(hotel.sortRoomsByPrice('2020/12/20')).to.deep.equal(
+      [rooms[0], rooms[3], rooms[1], rooms[2]]);
+  });
 });

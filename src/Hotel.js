@@ -65,6 +65,11 @@ class Hotel {
     let bookings = this.getBookingsByDate(date);
     return (bookings.length * 100) / this.rooms.length;
   }
+
+  sortRoomsByPrice(date) {
+    let available = this.getRoomsAvailable(date);
+    return available.sort((a, b) => a.costPerNight - b.costPerNight);
+  }
 }
 
 export default Hotel;
