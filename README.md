@@ -7,15 +7,32 @@ This is responsive Hotel management app for customers and staff. Users are able 
 This was a solo project during Module 2 at [Turing School of Software & Design](https://turing.io/).
 
 
-### Customer Interaction
-![](user-interaction.gif)
-![1](./readme-img/user1.png)
+### User Story / Interaction
+![](readme-img/user-interaction.gif)
+![1](/readme-img/user1.png)
+![2](/readme-img/user2.png)
+![3](/readme-img/user3.png)
+![4](/readme-img/user4.png)
+![5](/readme-img/user5.png)
+![6](/readme-img/user6.png)
+![7](/readme-img/user7.png)
 #### 
 
 
-### Admin Interaction
+### Manager Story / Interaction
 ![](readme-img/admin-interaction.gif)
-
+![1](/readme-img/admin1.png)
+![2](/readme-img/admin2.png)
+![3](/readme-img/admin3.png)
+![4](/readme-img/admin4.png)
+![5](/readme-img/admin5.png)
+![6](/readme-img/admin6.png)
+![7](/readme-img/admin7.png)
+![8](/readme-img/admin8.png)
+![9](/readme-img/admin9.png)
+![10](/readme-img/admin10.png)
+![11](/readme-img/admin11.png)
+![12](/readme-img/admin12.png)
 
 ### Technologies Used
 - Sass
