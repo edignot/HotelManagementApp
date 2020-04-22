@@ -9,12 +9,12 @@ This was a solo project during Module 2 at [Turing School of Software & Design](
 
 ### Customer Interaction
 ![](user-interaction.gif)
-![1](../readme-img/user1.png)
+![1](./readme-img/user1.png)
 #### 
 
 
 ### Admin Interaction
-![](admin-interaction.gif)
+![](readme-img/admin-interaction.gif)
 
 
 ### Technologies Used
