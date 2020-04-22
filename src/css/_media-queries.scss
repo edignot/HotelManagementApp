@@ -28,6 +28,7 @@ $break4: 1280px;
   .user-bookings,
   .rooms {
     width: 80%;
+    font-size: 1.2rem;
   }
 
   .rooms-type {
@@ -36,6 +37,16 @@ $break4: 1280px;
 }
 
 @media (min-width: 768px) {
+
+  .user-header,
+  .admin-header,
+  .login-header,
+  .header {
+    h1 {
+      @include h1(6rem);
+    }
+  }
+
 
   .login {
     button {
@@ -57,6 +68,7 @@ $break4: 1280px;
   .user-bookings,
   .rooms {
     width: 70%;
+    font-size: 1.3rem;
   }
 
   .admin-info {
@@ -78,6 +90,16 @@ $break4: 1280px;
 
 @media (min-width: 1024px) {
 
+  .user-header,
+  .admin-header,
+  .login-header,
+  .header {
+    h1 {
+      @include h1(7rem);
+    }
+  }
+
+
   .login {
     button {
       @include button(2rem, 50%, 15px);
@@ -98,6 +120,7 @@ $break4: 1280px;
   .user-bookings,
   .rooms {
     width: 60%;
+    font-size: 1.4rem;
   }
 }
 

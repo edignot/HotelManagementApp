@@ -2,36 +2,52 @@
 <html lang="en-US">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Webpack Starter Kit</title>
-  <link href="https://fonts.googleapis.com/css?family=Lato:100,200,300,400,700,900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Overlook Hotel</title>
+  <link href="https://fonts.googleapis.com/css?family=Lato:100,200,300,400,700,900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
 </head>
 
 <body>
-  <header class="admin-header">
-    <div class="title-wrapper">
+  <section class="admin-entry">
+    <button id="admin-enter">ENTER</button>
+  </section>
+  <header class="admin-header hidden">
+    <p class="date"></p>
+    <button id="logout" class="admin-logout">Logout</button>
+    <div class="admin-title-wrapper">
       <h1>Overlook</h1>
-      <p>Hotel Management Tool</p>
+      <p class="admin-page">Welcome back, Admin &#128153</p>
     </div>
   </header>
-  <main>
-    <section class="admin">
-      <nav>
-        <ul class="nav">
-          <li>
-            <div class="search-wrapper">
-              <button type="submit" name="button" class="search-user-btn">
-                <ion-icon name="search-outline"></ion-icon>
-              </button>
-              <input type="search" name="search" class="search-user-input" placeholder="Search User by Name">
-            </div>
-          </li>
-        </ul>
-      </nav>
+  <main class="admin-main hidden">
+    <section class="admin-info"></section>
+    <section class="nav">
+      <div class="search-wrapper">
+        <label for="search-user-input" class="hidden-label">Search User by Name</label>
+        <input type="search" name="search" class="search-user-input" id="search-user-input"
+          placeholder="Search User by Name" />
+        <button type="submit" name="button" class="search-user-btn">
+          <ion-icon name="search-outline"></ion-icon>
+        </button>
+      </div>
+      <div class="search-wrapper">
+        <label for="date-input" class="hidden-label">Search User by Name</label>
+        <input type="search" name="search" class="date-input" id="date-input"
+          placeholder="Rooms Available / Select Date" />
+        <button type="submit" name="button" class="date-btn">
+          <ion-icon name="search-outline"></ion-icon>
+        </button>
+      </div>
     </section>
+    <section class="user"></section>
+    <section class="info"></section>
+    <section class="rooms-type"></section>
+    <section class="rooms"></section>
+    <section class="user-bookings"></section>
   </main>
-  <footer>
+  <footer class="admin-footer hidden">
     <div class="media-icons">
       <a href="https://mail.google.com/" target="_blank">
         <ion-icon class="media-icon" name="mail"></ion-icon>
@@ -48,7 +64,7 @@
     </div>
     <p class="footer">Copyright &copy 2020 Overlook. All rights reserved.</p>
   </footer>
-  <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.0.0/dist/ionicons/ionicons.esm.js"></script>
 <script type="text/javascript" src="main.bundle.js"></script></body>
 
 </html>
