@@ -9,6 +9,7 @@ This was a solo project during Module 2 at [Turing School of Software & Design](
 
 ### Customer Interaction
 ![](user-interaction.gif)
+![1](user1.png)
 #### 
 
 
