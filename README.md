@@ -3,26 +3,32 @@
 ### Abstract
 This is responsive Hotel management app for customers and staff. Users are able to sign-in, view, book and delete upcoming bookings using fetch API. The purpose of this project is to get deeper understanding of Object Oriented Programming, Test Driven Development, practice fetch get/ post and delete requests, get experience using jQuery, SASS, Webpack.
 This was a solo project during Module 2 at [Turing School of Software & Design](https://turing.io/).
----
+
 ### User Interaction:
 ![](readme-img/user-interaction.gif)
 ---
 ### User Story : 
 #### 1. Choose to Login as a User
 ![1](/readme-img/user1.png)
+---
 #### 2. Enter username and password and Login
 ![2](/readme-img/user2.png)
+---
 #### 3. See Welcome / Enter page
 ![3](/readme-img/user3.png)
+---
 #### 4. See personalized Welcome message, total ammount spent, booking history
 ![4](/readme-img/user4.png)
+---
 #### 5. Select a date and see all rooms available for that date. Filter available rooms by price(min/max), bed size, number of beds, room type
 ![5](/readme-img/user5.png)
+---
 #### 6. Book a room and instantly see updated booking history, total amount spent ( Customer cannot cancel a booking )
 ![6](/readme-img/user6.png)
+---
 #### 7. Logout
 ![7](/readme-img/user7.png)
-
+---
 ### Manager Interaction:
 ![](readme-img/admin-interaction.gif)
 ---
