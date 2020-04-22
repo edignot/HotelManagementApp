@@ -9,7 +9,7 @@ This was a solo project during Module 2 at [Turing School of Software & Design](
 
 ### User Story / Interaction
 ![](readme-img/user-interaction.gif)
-![1](/readme-img/user1.png)
+![1](/readme-img/user1.png = 250x)
 ![2](/readme-img/user2.png)
 ![3](/readme-img/user3.png)
 ![4](/readme-img/user4.png)
