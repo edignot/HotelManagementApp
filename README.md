@@ -2,6 +2,7 @@
 
 ## https://edignot.github.io/HotelManagementApp/
 Log in as a User: username: customer[1 - 50] (e.g. customer17) , password: overlook2020
+Log in as a Manager: username: manager, password: overlook2020
 
 ### Abstract
 This is responsive Hotel management app for customers and staff. Users are able to sign-in, view, book and delete upcoming bookings using fetch API. The purpose of this project is to get deeper understanding of Object Oriented Programming, Test Driven Development, practice fetch get/ post and delete requests, get experience using jQuery, SASS, Webpack.
