@@ -14,7 +14,7 @@ This was a solo project during Module 2 at [Turing School of Software & Design](
 * [Technologies Used](#Technologies-Used)
 * [Install](#Install)
 
-![mockup](/readme-img/overlookmockup.jpg)
+![mockup](/readme-img/overlookmockup1.jpg)
 
 ---
 ### User Interaction:
