@@ -84,12 +84,13 @@ This was a solo project during Module 2 at [Turing School of Software & Design](
 ---
 
 ### Technologies Used
-- Sass
+- JavaScript
 - jQuery
+- Sass
 - Fetch
 - ARIA
 - Webpack
-- Chai Spies
+- Mocha | Chai | Chai Spies
 
 ### Install
 1. Clone this repo
