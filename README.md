@@ -92,6 +92,14 @@ This was a solo project during Module 2 at [Turing School of Software & Design](
 - Webpack
 - Mocha | Chai | Chai Spies
 
+### Main Files
+#### [index.js](https://github.com/edignot/HotelManagementApp/blob/master/src/index.js)
+#### Classes
+- [Hotel Class](https://github.com/edignot/HotelManagementApp/blob/master/src/Hotel.js)
+  - [Hotel Testing](https://github.com/edignot/HotelManagementApp/blob/master/test/hotel-test.js)
+- [Bookings Handler Class](https://github.com/edignot/HotelManagementApp/blob/master/src/BookingHandler.js)
+  - [Bookings Testing](https://github.com/edignot/HotelManagementApp/blob/master/test/bookingHandler-test.js)
+
 ### Install
 1. Clone this repo
 1. Run `npm install` to get dependencies
@@ -101,4 +109,4 @@ This was a solo project during Module 2 at [Turing School of Software & Design](
 1. Log in as a Manager:  username: manager, password: overlook2020
 
 ### Contributors
-- [Edita Ignot](https://github.com/edignot)
+#### [Edita Ignot](https://github.com/edignot) | [MY COMMITS](https://github.com/edignot/HotelManagementApp/commits/master?after=d6631bea6f06ea223dda6774e3ceccfeef15cf22+34&author=edignot&branch=master)
